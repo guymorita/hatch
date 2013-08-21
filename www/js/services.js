@@ -23,8 +23,8 @@ myApp.factory('userService', function(){
             this.allMessages = messagesArray;
         },
         currentRead: null,
-        setCurrentRead: function(id){
-            this.currentRead = id;
+        setCurrentRead: function(message){
+            this.currentRead = message;
         }
     };
 });

@@ -10,7 +10,7 @@ function LoginCtrl($scope, navSvc, $resource, userService){
   $scope.password = '';
   $scope.fetch = function(){
     var Users = $resource('http://oaktree.nodejitsu.com/user/');
-    var User = $resource('http://oaktree.nodejitsu.com/user/login/:username/:password');
+    var User = $resource('http://oaktree.nodejitsu.com/user/login/:username/:password', {isArray: true });
     User.get({username:$scope.username, password:$scope.password}, function success(u, getResHeaders){
       console.log('u', u);
       userService.setUser(u);
@@ -80,26 +80,26 @@ function FriendsListCtrl($scope, $filter, navSvc, $resource, userService, hatchS
   };
 }
 
-function InboxCtrl($scope, $filter, navSvc, $resource, userService){
+function InboxCtrl($scope, $filter, navSvc, $resource, userService, $http){
   $scope.slidePage = function (path,type) {
     navSvc.slidePage(path,type);
   };
   $scope.messages = userService.allMessages;
   $scope.getMessages = function(){
-    var Messages = $resource('http://oaktree.nodejitsu.com/message/retrieve/:user_id/', {}, { 'rec': {method: 'GET', isArray: true } });
-    Messages.get({user_id:userService.currentUser._id}, function success(u, getResHeaders){
-      console.log('retrieving messages for user_id', userService.currentUser._id, u);
-      userService.setMessages(u);
-      $scope.messages = u;
-    }, function error(err, getRes){
-      console.log('err', err);
-      console.log('getRes', getRes);
+    var url = 'http://oaktree.nodejitsu.com/message/retrieve/' + userService.currentUser._id.toString();
+    $http.get(url).success(function(res, status, headers){
+      $scope.messages = res;
+    }).error(function(){
     });
-  }
+  };
+  $scope.setCurrent = function(message){
+    userService.setCurrentRead(message);
+  };
 }
 
-function messageRead($scope, navSvc, userService){
-  $scope.message = userService.allMessages[userService.currentRead];
+function MessageReadCtrl($scope, navSvc, userService){
+  console.log(userService.currentRead);
+  $scope.message = userService.currentRead;
 
 }
 
