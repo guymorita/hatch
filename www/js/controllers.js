@@ -77,6 +77,15 @@ function FriendsListCtrl($scope, $filter, navSvc, $resource, userService, hatchS
         console.log('err data', data);
         console.log('err status', status);
       });
+
+    imageService.set('receiver_ids', receiverIds);
+    $http.post('http://oaktree.nodejitsu.com/image/', imageService.image)
+      .success(function(data, status, headers, config){
+        console.log('data', data);
+      }).error(function(data, status){
+        console.log('err data', data);
+        console.log('err status', status);
+      });
   };
 }
 
@@ -100,7 +109,6 @@ function InboxCtrl($scope, $filter, navSvc, $resource, userService){
 
 function messageRead($scope, navSvc, userService){
   $scope.message = userService.allMessages[userService.currentRead];
-
 }
 
 function HomeCtrl($scope,navSvc,$rootScope, userService) {
@@ -121,7 +129,7 @@ function HomeCtrl($scope,navSvc,$rootScope, userService) {
     };
 }
 
-function NewMessage($scope, navSvc, userService, hatchService){
+function NewMessage($scope, navSvc, userService, hatchService, imageService){
   $scope.title = '';
   $scope.content = '';
   $scope.hidden = false;
@@ -140,14 +148,13 @@ function NewMessage($scope, navSvc, userService, hatchService){
       }
       // Take picture using device camera and retrieve image as base64-encoded string
       navigator.camera.getPicture(onSuccess,onFail,options);
-  }
+  };
   var onSuccess = function(imageData) {
       console.log("On Success! ");
       $scope.picData = "data:image/jpeg;base64," +imageData;
       $scope.$apply();
-      hatchService.set('picData', $scope.picData);
+      imageService.set('picData', $scope.picData);
       $('.userPic').show();
-      console.log($scope.picData)
   };
   var onFail = function(e) {
       console.log("On fail " + e);

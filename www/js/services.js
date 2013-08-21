@@ -38,6 +38,15 @@ myApp.factory('hatchService', function(){
   };
 });
 
+myApp.factory('imageService', function(){
+    return {
+     image: {},
+     set: function(field, value){
+      this.image[field] = value;
+    }
+  };
+});
+
 myApp.factory('phonegapReady', function() {
     return function (fn) {
         var queue = [];
