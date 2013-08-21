@@ -1,0 +1,17 @@
+<div class="topcoat-navigation-bar" ng-controller="HomeCtrl">
+    <div class="topcoat-navigation-bar__item left quarter">
+        <button class="topcoat-button--large--quiet" ng-click="slidePage('/home')">Back</button>
+    </div>
+    <div class="topcoat-navigation-bar__item center half">
+        <h1 class="topcoat-navigation-bar__title">My Friends</h1>
+    </div>
+</div>
+<div class="topcoat-list__container list" ng-controller="FriendsListCtrl" ng-init="updateFriendList()">
+    <h3 class="topcoat-list__header">My Friends</h3>
+    <ul class="topcoat-list">
+      <li class="topcoat-list__item" ng-repeat="friend in friends">
+          {{friend.username}}
+      </li>
+    </ul>
+</div>
+<ng-include src="'partials/settingsOverlay.html'"></ng-include>

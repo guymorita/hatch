@@ -1,0 +1,28 @@
+<div class="topcoat-navigation-bar">
+    <div class="topcoat-navigation-bar__item center three-quarters">
+        <h1 class="topcoat-navigation-bar__title">Hatch</h1>
+    </div>
+    <div class="topcoat-navigation-bar__item right quarter">
+        <a class="topcoat-icon-button--quiet" ng-click="changeSettings()">
+            <span class="topcoat-icon settings-icon"></span>
+        </a>
+    </div>
+</div>
+<div class="topcoat-list__container list">
+    <h3 class="topcoat-list__header">Egg Options</h3>
+    <ul class="topcoat-list">
+        <li class="topcoat-list__item--first" ng-click="slidePage('/map')">
+            My Map
+        </li>
+        <li class="topcoat-list__item" ng-click="slidePage('/inbox')">
+            Inbox
+        </li>
+        <li class="topcoat-list__item" ng-click="slidePage('/newmessage')">
+            New Message
+        </li>
+        <li class="topcoat-list__item" ng-click="slidePage('/friends')">
+            Contacts
+        </li>
+    </ul>
+</div>
+<ng-include src="'partials/settingsOverlay.html'"></ng-include>

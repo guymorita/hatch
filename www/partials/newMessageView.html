@@ -1,0 +1,30 @@
+<div class="topcoat-navigation-bar" ng-controller="HomeCtrl">
+    <div class="topcoat-navigation-bar__item left quarter">
+        <a class="topcoat-icon-button--quiet" ng-click="slidePage('/home','modal')">
+            <span class="topcoat-icon home-icon"></span>
+        </a>
+    </div>
+    <div class="topcoat-navigation-bar__item center half">
+        <h1 class="topcoat-navigation-bar__title">New Message</h1>
+    </div>
+    <div class="topcoat-navigation-bar__item right quarter">
+        <a class="topcoat-icon-button--quiet" ng-click="changeSettings()">
+            <span class="topcoat-icon settings-icon"></span>
+        </a>
+    </div>
+</div>
+<div class="topcoat-list__container list" ng-controller="NewMessage">
+    <h3 class="topcoat-list__header">Write a new message</h3>
+    <ul class="topcoat-list">
+    </ul>
+    <p>Title</p>
+    <input type="text" class="topcoat-text-input" value="" placeholder="enter title" ng-model="title">
+    <br>
+    <p>Content</p>
+    <!-- <input type="text" class="topcoat-text-input" value="" placeholder="content" ng-model="content"> -->
+    <textarea class="topcoat-text-input" rows="4" placeholder="content" ng-model="content"></textarea>
+    <br>
+    <h4>Hidden?</h4><input type="checkbox" class="topcoat-checkbox" ng-model="hidden"></input>
+    <br><button class="topcoat-button--cta" ng-click="next('/pinmap')">Choose Location</button>
+</div>
+<ng-include src="'partials/settingsOverlay.html'"></ng-include>
