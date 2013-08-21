@@ -28,7 +28,7 @@ var myApp = angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.d
         $routeProvider.when('/home', {templateUrl: 'partials/homeView.html', controller: 'HomeCtrl'});
         $routeProvider.when('/inbox', {templateUrl: 'partials/inboxView.html', controller: 'HomeCtrl'});
         $routeProvider.when('/view2', {templateUrl: 'partials/geolocationView.html', controller: 'GeolocationCtrl'});
-        $routeProvider.when('/view5', {templateUrl: 'partials/cameraView.html', controller: 'CameraCtrl'});
+        $routeProvider.when('/camera', {templateUrl: 'partials/cameraView.html', controller: 'CameraCtrl'});
         $routeProvider.when('/friends', {templateUrl: 'partials/friendsView.html', controller: 'FriendsListCtrl'});
         $routeProvider.when('/friendSend', {templateUrl: 'partials/friendSendView.html', controller: 'FriendsListCtrl'});
         $routeProvider.when('/allUsers', {templateUrl: 'partials/allUsersView.html', controller: 'ContactsCtrl'});

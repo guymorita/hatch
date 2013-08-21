@@ -131,6 +131,32 @@ function NewMessage($scope, navSvc, userService, hatchService){
     hatchService.set('hidden', $scope.hidden);
     navSvc.slidePage(path);
   };
+  $scope.takePic = function() {
+      var options =   {
+          quality: 50,
+          destinationType: Camera.DestinationType.DATA_URL,
+          sourceType: 1,      // 0:Photo Library, 1=Camera, 2=Saved Photo Album
+          encodingType: 0     // 0=JPG 1=PNG
+      }
+      // Take picture using device camera and retrieve image as base64-encoded string
+      navigator.camera.getPicture(onSuccess,onFail,options);
+  }
+  var onSuccess = function(imageData) {
+      console.log("On Success! ");
+      $scope.picData = "data:image/jpeg;base64," +imageData;
+      $scope.$apply();
+      hatchService.set('picData', $scope.picData);
+      $('.userPic').show();
+      console.log($scope.picData)
+  };
+  var onFail = function(e) {
+      console.log("On fail " + e);
+  };
+
+  $scope.removeImage = function(){
+    $('.userPic').hide();
+    hatchService.set('picData', null);
+  }
 }
 
 var newPinCtrl = function($scope, navSvc, $rootScope, hatchService) {
@@ -282,24 +308,22 @@ function ContactsCtrl($scope, userService, $resource) {
 };
 
 function CameraCtrl($scope) {
-    $scope.takePic = function() {
-        var options =   {
-            quality: 50,
-            destinationType: Camera.DestinationType.DATA_URL,
-            sourceType: 1,      // 0:Photo Library, 1=Camera, 2=Saved Photo Album
-            encodingType: 0     // 0=JPG 1=PNG
-        }
         // Take picture using device camera and retrieve image as base64-encoded string
-        navigator.camera.getPicture(onSuccess,onFail,options);
-    }
     var onSuccess = function(imageData) {
         console.log("On Success! ");
         $scope.picData = "data:image/jpeg;base64," +imageData;
+        hatchService.set('picData', $scope.picData);
         $scope.$apply();
     };
     var onFail = function(e) {
         console.log("On fail " + e);
     };
+    navigator.camera.getPicture(onSuccess,onFail,{
+        quality: 50,
+        destinationType: Camera.DestinationType.DATA_URL,
+        sourceType: 1,      // 0:Photo Library, 1=Camera, 2=Saved Photo Album
+        encodingType: 0     // 0=JPG 1=PNG
+    });
 }
 
 

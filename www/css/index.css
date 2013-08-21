@@ -93,6 +93,13 @@ body {
     background-size: cover;
 }
 
+.camera-icon {
+    background: url("../img/camera.png") no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover; 
+}
+
 .settings-icon {
     background: url("../img/settings_light.svg") no-repeat;
     -webkit-background-size: cover;
