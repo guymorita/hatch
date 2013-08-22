@@ -1,11 +1,11 @@
 <div class="topcoat-navigation-bar" ng-controller="HomeCtrl">
     <div class="topcoat-navigation-bar__item left quarter">
-        <a class="topcoat-icon-button--quiet" ng-click="slidePage('/friends')">
+        <a class="topcoat-icon-button--quiet" ng-click="slidePage('/home','modal')">
             <span class="topcoat-icon home-icon"></span>
         </a>
     </div>
     <div class="topcoat-navigation-bar__item center half">
-        <h1 class="topcoat-navigation-bar__title">Add Friends</h1>
+        <h1 class="topcoat-navigation-bar__title">Test</h1>
     </div>
     <div class="topcoat-navigation-bar__item right quarter">
         <a class="topcoat-icon-button--quiet" ng-click="changeSettings()">
@@ -13,13 +13,9 @@
         </a>
     </div>
 </div>
-<div class="topcoat-list__container" ng-controller="UsersCtrl" ng-init="updateUserList()">
-    <h3 class="topcoat-list__header"></h3>
-    <ul class="topcoat-list">
-      <li class="topcoat-list__item" ng-repeat="user in users">
-          {{user.username}} <button class="topcoat-button--cta" ng-click="add(user)"
-      </li>
-    </ul>
+<div class="topcoat-list__container" ng-controller="TestCtrl">
+    <h3 class="topcoat-list__header">play with the box</h3>
+    <div style="height:200px; width:200px; background-color:black" hm-doubletap="alert()"></div>
+    <div ng-model="text">{{text}}</div>
 </div>
-
 <ng-include src="'partials/settingsOverlay.html'"></ng-include>
