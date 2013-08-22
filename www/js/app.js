@@ -2,7 +2,7 @@
 
 
 // Declare app level module which depends on filters, and services
-var myApp = angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives','ajoslin.mobile-navigate','ngMobile', 'hmTouchEvents'])
+var myApp = angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives','ajoslin.mobile-navigate','ngMobile', 'hmTouchEvents', 'shoppinpal.mobile-menu'])
     .config(function ($compileProvider){
         $compileProvider.urlSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel):/);
     })
@@ -33,6 +33,6 @@ var myApp = angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.d
         $routeProvider.when('/friendSend', {templateUrl: 'partials/friendSendView.html', controller: 'FriendsListCtrl'});
         $routeProvider.when('/allUsers', {templateUrl: 'partials/allUsersView.html', controller: 'ContactsCtrl'});
         $routeProvider.when('/test', {templateUrl: 'partials/testView.html', controller: 'TestCtrl'});
-
+        $routeProvider.when('/newnav', {templateUrl: 'partials/newNavView.html', controller: 'HomeCtrl'});
         $routeProvider.otherwise({redirectTo: '/login'});
   }]);
