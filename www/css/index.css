@@ -49,6 +49,12 @@ body {
     top: 150px;
 }
 
+#map-canvas {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
 #leftButtons {
   /*position: relative;*/
   float: left;

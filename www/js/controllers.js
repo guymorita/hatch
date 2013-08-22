@@ -226,6 +226,31 @@ function NewMessage($scope, navSvc, userService, hatchService, imageService){
   }
 }
 
+var testMapCtrl = function($scope, navSvc, $rootScope, hatchService) {
+  var map;
+  navigator.geolocation.getCurrentPosition(function(position) {
+    $scope.position=position;
+    $scope.$apply();
+    map.setCenter(new google.maps.LatLng($scope.position.coords.latitude, $scope.position.coords.longitude));
+  console.log($scope.position.coords.latitude)
+  console.log($scope.position.coords.longitude)
+  },function(e) { console.log("Error retrieving position " + e.code + " " + e.message) });
+
+  $scope.initialize = function() {    
+    setTimeout(function(){
+      var mapOptions = {
+        zoom: 8,
+        center: new google.maps.LatLng(-34.397, 150.644),
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      };
+      map = new google.maps.Map(document.getElementById('map-canvas'),
+          mapOptions);
+
+    console.log(map)
+    }, 10);
+  }
+}
+
 var newPinCtrl = function($scope, navSvc, $rootScope, hatchService) {
   navigator.geolocation.getCurrentPosition(function(position) {
       $scope.position=position;
