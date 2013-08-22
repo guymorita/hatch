@@ -46,7 +46,30 @@ body {
     position: relative;
     height: 300px;
     width: 100%;
-    top: 190px;
+    top: 150px;
+}
+
+#leftButtons {
+  /*position: relative;*/
+  float: left;
+}
+
+#rightButtons {
+  float: left;
+  margin: 0 0 0 80px;
+}
+
+#messageContent{
+  clear: both;
+}
+
+#messageButton{
+  position:relative;
+  clear: both;
+  float: left;
+}
+#map-canvas {
+  height: 100%
 }
 
 /*.scroll {
@@ -97,7 +120,7 @@ body {
     background: url("../img/camera.png") no-repeat;
     -webkit-background-size: cover;
     -moz-background-size: cover;
-    background-size: cover; 
+    background-size: cover;
 }
 
 .settings-icon {

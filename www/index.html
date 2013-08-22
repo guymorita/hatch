@@ -4,14 +4,11 @@
         <meta charset="utf-8" />
         <meta name="format-detection" content="telephone=no" />
 
-        <!-- Use the .min version of bootstrap files in production -->
-        <!-- Use the following if you want to use responsive design -->
-
-        <link rel="stylesheet" type="text/css" href="css/index.css" />
         <link rel="stylesheet" type="text/css" href="css/mobile-nav.css" />
         <link rel="stylesheet" type="text/css" href="css/topcoat-mobile-light.css">
-        <link rel="stylesheet" href="lib/leaflet.css" />
-
+        <link rel="stylesheet" type="text/css" href="css/leaflet.css" />
+        <link rel="stylesheet" type="text/css" href="css/ng-mobile-menu.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <title>Hatch</title>
     </head>
@@ -20,16 +17,21 @@
         <!-- The following tag is in place of ng-view to use the angular mobile view navigation framework
             https://github.com/ajoslin/angular-mobile-nav
         -->
+        <!--  <script type="text/javascript"
+          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDsVLS_LI7gPzlLeOAlbTsRvUrVbSVM-N0&sensor=true">
+        </script> -->
         <mobile-view/>
+
 
         <!-- Comment out the following 2 lines to test on the browser-->
         <script type="text/javascript" src="cordova-2.7.0.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
 
         <!-- In production use min versions -->
+        <script src="lib/angular.js"></script>
         <script src="lib/jquery-1.10.2.min.js"></script>
         <script src="lib/leaflet.js"></script>
-        <script src="lib/angular.js"></script>
+        <script src="lib/bouncemaker.js"></script>
         <script src="lib/hammer.min.js"></script>
         <script src="lib/jquery.hammer.min.js"></script>
         <script src="lib/angular-hammer.js"></script>
@@ -37,6 +39,7 @@
         <script src="lib/angular-mobile.js"></script>
         <script src="lib/mobile-nav.js"></script>
         <script src="lib/underscore-min.js"></script>
+        <script src="lib/ng-mobile-menu.min.js"></script>
         <script src="lib/PushNotification.js"></script>
 
         <script src="js/app.js"></script>
