@@ -1,22 +1,14 @@
 <div class="topcoat-navigation-bar" ng-controller="HomeCtrl">
     <div class="topcoat-navigation-bar__item left quarter">
-        <a class="topcoat-icon-button--quiet" ng-click="slidePage('/home','modal')">
-            <span class="topcoat-icon home-icon"></span>
-        </a>
+        <button class="topcoat-button--large--quiet" ng-click="slidePage('/login')">Back</button>
     </div>
     <div class="topcoat-navigation-bar__item center half">
         <h1 class="topcoat-navigation-bar__title">Sign Up</h1>
     </div>
-    <div class="topcoat-navigation-bar__item right quarter">
-        <a class="topcoat-icon-button--quiet" ng-click="changeSettings()">
-            <span class="topcoat-icon settings-icon"></span>
-        </a>
-    </div>
 </div>
-<div class="topcoat-list__container list" ng-controller="SignUpCtrl">
+<div class="topcoat-list__container" ng-controller="SignUpCtrl">
     <h3 class="topcoat-list__header">Sign Up</h3>
     <input type="text" class="topcoat-text-input" value="" placeholder="username" ng-model="username">
     <input type="text" class="topcoat-text-input" value="" placeholder="password" ng-model="password">
     <button class="topcoat-button--cta" ng-click="fetch()">Enter</button>
 </div>
-<ng-include src="'partials/settingsOverlay.html'"></ng-include>

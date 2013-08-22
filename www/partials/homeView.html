@@ -8,21 +8,20 @@
         </a>
     </div>
 </div>
-<div class="topcoat-list__container list">
-    <h3 class="topcoat-list__header">Egg Options</h3>
+<div class="topcoat-list__container">
+    <h3 class="topcoat-list__header">Home</h3>
     <ul class="topcoat-list">
-        <li class="topcoat-list__item--first" ng-click="slidePage('/map')">
+        <li class="topcoat-list__item--first" ng-click="slidePage('/newmessage')">
+            New Message
+        </li>
+        <li class="topcoat-list__item" ng-click="slidePage('/map')">
             My Map
         </li>
         <li class="topcoat-list__item" ng-click="slidePage('/inbox')">
             Inbox
         </li>
-        <li class="topcoat-list__item" ng-click="slidePage('/newmessage')">
-            New Message
-        </li>
         <li class="topcoat-list__item" ng-click="slidePage('/friends')">
-            Contacts
+            My Friends
         </li>
     </ul>
 </div>
-<ng-include src="'partials/settingsOverlay.html'"></ng-include>

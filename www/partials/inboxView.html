@@ -1,24 +1,39 @@
-<div class="topcoat-navigation-bar" ng-controller="HomeCtrl">
-    <div class="topcoat-navigation-bar__item left quarter">
-        <a class="topcoat-icon-button--quiet" ng-click="slidePage('/home','modal')">
-            <span class="topcoat-icon home-icon"></span>
-        </a>
-    </div>
-    <div class="topcoat-navigation-bar__item center half">
-        <h1 class="topcoat-navigation-bar__title">Inbox</h1>
-    </div>
-    <div class="topcoat-navigation-bar__item right quarter">
-        <a class="topcoat-icon-button--quiet" ng-click="changeSettings()">
-            <span class="topcoat-icon settings-icon"></span>
-        </a>
-    </div>
-</div>
-<div class="topcoat-list__container list" ng-controller="InboxCtrl" ng-init="getMessages()">
-    <h3 class="topcoat-list__header">messages</h3>
+<div id="sp-nav" ng-controller="HomeCtrl">
+  <div class="topcoat-list__container">
+    <h3 class="topcoat-list__header">Home</h3>
     <ul class="topcoat-list">
-        <li class="topcoat-list__item" ng-repeat="message in messages" ng-click="setCurrent(message); slidePage('/messageRead')">
-            {{message.title}} from {{message.sender_id}}
-        </li>
+      <li class="topcoat-list__item--first" ng-click="slidePage('/newmessage')">
+          New Message
+      </li>
+      <li class="topcoat-list__item" ng-click="slidePage('/map')">
+          My Map
+      </li>
+      <li class="topcoat-list__item" ng-click="slidePage('/inbox')">
+          Inbox
+      </li>
+      <li class="topcoat-list__item" ng-click="slidePage('/friends')">
+          My Friends
+      </li>
     </ul>
+  </div>
 </div>
-<ng-include src="'partials/settingsOverlay.html'"></ng-include>
+<div id="sp-page">
+    <div class="topcoat-navigation-bar" ng-controller="HomeCtrl">
+        <div class="topcoat-navigation-bar__item left quarter">
+            <a class="topcoat-icon-button--quiet" ng-click="$spMenu.toggle()">
+                <span class="topcoat-icon home-icon"></span>
+            </a>
+        </div>
+        <div class="topcoat-navigation-bar__item center half">
+            <h1 class="topcoat-navigation-bar__title">Inbox</h1>
+        </div>
+    </div>
+    <div class="topcoat-list__container" ng-controller="InboxCtrl" ng-init="getMessages()">
+        <h3 class="topcoat-list__header">messages</h3>
+        <ul class="topcoat-list">
+            <li class="topcoat-list__item" ng-repeat="message in messages" ng-click="setCurrent(message); slidePage('/messageRead')">
+                {{message.title}} from {{message.sender_id}}
+            </li>
+        </ul>
+    </div>
+</div>

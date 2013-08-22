@@ -1,35 +1,54 @@
-<div class="topcoat-navigation-bar" ng-controller="HomeCtrl">
-    <div class="topcoat-navigation-bar__item left quarter">
-        <a class="topcoat-icon-button--quiet" ng-click="slidePage('/home','modal')">
-            <span class="topcoat-icon home-icon"></span>
-        </a>
-    </div>
-    <div class="topcoat-navigation-bar__item center half">
-        <h1 class="topcoat-navigation-bar__title">New Message</h1>
-    </div>
-    <div class="topcoat-navigation-bar__item right quarter">
-        <a class="topcoat-icon-button--quiet" ng-click="changeSettings()">
-            <span class="topcoat-icon settings-icon"></span>
-        </a>
-    </div>
-</div>
-<div class="topcoat-list__container" ng-controller="NewMessage">
-    <h3 class="topcoat-list__header">Write a new message</h3>
+<div id="sp-nav" ng-controller="HomeCtrl">
+  <div class="topcoat-list__container">
+    <h3 class="topcoat-list__header">Home</h3>
     <ul class="topcoat-list">
+      <li class="topcoat-list__item--first" ng-click="slidePage('/newmessage')">
+          New Message
+      </li>
+      <li class="topcoat-list__item" ng-click="slidePage('/map')">
+          My Map
+      </li>
+      <li class="topcoat-list__item" ng-click="slidePage('/inbox')">
+          Inbox
+      </li>
+      <li class="topcoat-list__item" ng-click="slidePage('/friends')">
+          My Friends
+      </li>
     </ul>
-    <p>Title</p>
-    <input type="text" class="topcoat-text-input" value="" placeholder="enter title" ng-model="title">
-    <br>
-    <p>Content</p>
-    <!-- <input type="text" class="topcoat-text-input" value="" placeholder="content" ng-model="content"> -->
-    <textarea class="topcoat-text-input" rows="4" placeholder="content" ng-model="content"></textarea>
-    <h4>Hidden?</h4><input type="checkbox" class="topcoat-checkbox" ng-model="hidden"></input>
-    <br><a class="topcoat-icon-button--quiet" ng-click="takePic()">    
-        <span class="topcoat-icon camera-icon"></span>
-    </a>
-    <span ng-show="picData" ng-click="removeImage()">
-        <img class="userPic" style="display: ; margin:0px; border:0px; padding:0px; width:40px; height:40px;" ng-src="{{picData}}" />
-    </span>
-    <br><button class="topcoat-button--cta" ng-click="next('/pinmap')">Choose Location</button>
+  </div>
 </div>
-<ng-include src="'partials/settingsOverlay.html'"></ng-include>
+
+<div id="sp-page">
+    <div class="topcoat-navigation-bar" ng-controller="HomeCtrl">
+        <div class="topcoat-navigation-bar__item left quarter">
+            <a class="topcoat-icon-button--quiet" ng-click="$spMenu.toggle()">
+                <span class="topcoat-icon home-icon"></span>
+            </a>
+        </div>
+        <div class="topcoat-navigation-bar__item center half">
+            <h1 class="topcoat-navigation-bar__title">New Message</h1>
+        </div>
+    </div>
+    <div class="topcoat-list__container" ng-controller="NewMessage">
+        <h3 class="topcoat-list__header">Write a new message</h3>
+        <div id="messageContent">
+          <ul class="topcoat-list">
+          </ul>
+          <input type="text" class="topcoat-text-input" value="" placeholder="Title" ng-model="title">
+          <br>
+          <textarea class="topcoat-text-input" style="height: 150px" placeholder="Content" ng-model="content"></textarea>
+        </div>
+        <div id="leftButtons">
+          <h4>Hidden?</h4><input type="checkbox" class="topcoat-checkbox" ng-model="hidden"></input>
+          <span ng-show="picData" ng-click="removeImage()">
+              <img class="userPic" style="display: ; margin:0px; border:0px; padding:0px; width:40px; height:40px;" ng-src="{{picData}}" />
+          </span>
+        </div>
+        <div id="rightButtons">
+        <a class="topcoat-icon-button--quiet" ng-click="takePic()">
+            <span class="topcoat-icon camera-icon"></span>
+        </a>
+        </div>
+        <br><button id="messageButton" class="topcoat-button--cta" ng-click="next('/pinmap')">Choose Location</button>
+    </div>
+</div>
