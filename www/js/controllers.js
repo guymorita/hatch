@@ -317,7 +317,7 @@ function showPinsCtrl ($scope, navSvc, $rootScope) {
     }
   }
   $scope.slidePage = function (path,type) {
-    console.log('in slidepage')
+    console.log('sliding', path, type);
     navSvc.slidePage(path,type);
   };
 
@@ -327,7 +327,7 @@ function showPinsCtrl ($scope, navSvc, $rootScope) {
   var circle;
   var bounds;
   var usemarker = true;
-  $scope.title = 'My Pins'
+  $scope.title = 'My Pins';
 
   navigator.geolocation.getCurrentPosition(function(position) {
 
@@ -352,8 +352,9 @@ function showPinsCtrl ($scope, navSvc, $rootScope) {
     geoLocate();
   },function(e) { console.log("Error retrieving position " + e.code + " " + e.message) });
 
+  var handle;
   var geoLocate = function(){
-    setInterval(function(){
+    handle = setInterval(function(){
       navigator.geolocation.getCurrentPosition(function(position) {
         var newLatlng = new google.maps.LatLng($scope.position.coords.latitude, $scope.position.coords.longitude);
         circle.setCenter(newLatlng);
@@ -375,7 +376,6 @@ function showPinsCtrl ($scope, navSvc, $rootScope) {
       }
     }
   }
-
   $scope.initialize = function() {    
     setTimeout(function(){
       var mapOptions = {
@@ -392,6 +392,8 @@ function showPinsCtrl ($scope, navSvc, $rootScope) {
     url: './img/message.png',
     size: new google.maps.Size(50, 50),
   }
+
+
   var addPin = function(lat, lng, newPin, usemarker) {
     var myLatlng = new google.maps.LatLng(lat, lng);
     if (usemarker){
@@ -401,11 +403,15 @@ function showPinsCtrl ($scope, navSvc, $rootScope) {
         animation: google.maps.Animation.DROP,
         icon: image
       });
-      var change = navSvc.slidePage;
       google.maps.event.addListener(newPin, 'click', function() {
+        clearInterval(handle);
         newPin.setMap(null);
-        change('/pinmap');
-        console.log('should have changed page', change)
+        window.location = '/www/#/home';
+        map = null;
+        // $('.gm-style').remove()
+        // window.location = 'http://oaktree.nodejitsu.com/';
+        // $scope.slidePage('/home', 'modal');
+        console.log('should have changed page');;
       });
     
     } else {
@@ -418,6 +424,118 @@ function showPinsCtrl ($scope, navSvc, $rootScope) {
     var marker = newPin;
   }
 };
+
+// function sentPinsCtrl ($scope, navSvc, $rootScope) {
+//   var test = {
+//     0: {
+//       _id: 0,
+//       latlng: {
+//         lat: 37.7838055,
+//         lng: -122.40897059999998
+//       },
+//       read: false
+//     },
+//     1: {
+//       _id: 1,
+//       latlng: {
+//         lat: 37.75398870275125,
+//         lng: -122.40359544754028
+//       },
+//       read: false
+//     },
+//     2: {
+//       _id: 2,
+//       latlng: {
+//         lat: 37.75656740515542,
+//         lng: -122.40295171737671
+//       },
+//       read: true
+//     },
+//     3: {
+//       _id: 3,
+//       latlng: {
+//         lat: 37.7838055,
+//         lng: -122.406
+//       },
+//       read: true
+//     }
+//   }
+//   $scope.slidePage = function (path,type) {
+//     console.log('in slidepage')
+//     navSvc.slidePage(path,type);
+//   };
+
+//   var map;
+//   var pinAdded = false;
+//   var marker;
+//   var circle;
+//   var bounds;
+//   var usemarker = true;
+//   $scope.title = 'My Pins'
+
+//   navigator.geolocation.getCurrentPosition(function(position) {
+
+//     $scope.position = position;
+//     map.setCenter(new google.maps.LatLng($scope.position.coords.latitude, $scope.position.coords.longitude));
+
+//     dropPins();
+//   },function(e) { console.log("Error retrieving position " + e.code + " " + e.message) });
+
+//   var dropPins = function(){
+//     for (var pin in test) {
+//       var pinLocation = new google.maps.LatLng(test[pin].latlng.lat, test[pin].latlng.lng)
+//       var pinName = test[pin]._id;
+//       if ( test[pin].read ) {
+//         addPin(test[pin].latlng.lat, test[pin].latlng.lng, pinName, usemarker)
+//         console.log('read')
+//       } else {
+//         console.log('not read')
+//         addPin(test[pin].latlng.lat, test[pin].latlng.lng, pinName)
+//       }
+//     }
+//   }
+
+//   $scope.initialize = function() {    
+//     setTimeout(function(){
+//       var mapOptions = {
+//         zoom: 10,
+//         center: new google.maps.LatLng(-34.397, 150.644),
+//         mapTypeId: google.maps.MapTypeId.ROADMAP
+//       };
+//       map = new google.maps.Map(document.getElementById('map-canvas'),
+//           mapOptions);
+//     }, 10);
+//   }
+
+//   var image = {
+//     url: './img/yoshiegg.png',
+//     size: new google.maps.Size(50, 50),
+//   }
+//   var addPin = function(lat, lng, newPin, usemarker) {
+//     var myLatlng = new google.maps.LatLng(lat, lng);
+//     if (usemarker){
+//       newPin = new google.maps.Marker({
+//         position: myLatlng,
+//         map: map,
+//         animation: google.maps.Animation.DROP,
+//         icon: image
+//       });
+    
+//     } else {
+//       newPin = new google.maps.Marker({
+//         position: myLatlng,
+//         map: map,
+//         animation: google.maps.Animation.DROP
+//       });
+//     }
+//     var change = navSvc.slidePage;
+//     google.maps.event.addListener(newPin, 'click', function() {
+//       change('/pinmap');
+//       console.log('should have changed page', change)
+//     });
+//     var marker = newPin;
+//   }
+// };
 
 
 function NotificationCtrl($scope) {

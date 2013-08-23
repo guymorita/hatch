@@ -22,6 +22,7 @@ var myApp = angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.d
 
         $routeProvider.when('/newmessage', {templateUrl: 'partials/newMessageView.html', controller: 'HomeCtrl'});
         $routeProvider.when('/map', {templateUrl: 'partials/pinMapView.html', controller: 'showPinsCtrl'});
+        // $routeProvider.when('/sentpins', {templateUrl: 'partials/pinMapView.html', controller: 'sentPinsCtrl'});
         $routeProvider.when('/pinmap', {templateUrl: 'partials/pinMapView.html', controller: 'newPinCtrl'});
         $routeProvider.when('/messageRead', {templateUrl: 'partials/messageReadView.html', controller: 'HomeCtrl'});
 
@@ -34,5 +35,5 @@ var myApp = angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.d
         $routeProvider.when('/allUsers', {templateUrl: 'partials/allUsersView.html', controller: 'ContactsCtrl'});
         $routeProvider.when('/test', {templateUrl: 'partials/testView.html', controller: 'TestCtrl'});
         $routeProvider.when('/newnav', {templateUrl: 'partials/newNavView.html', controller: 'HomeCtrl'});
-        $routeProvider.otherwise({redirectTo: '/map'});
+        $routeProvider.otherwise({redirectTo: '/sentpins'});
   }]);

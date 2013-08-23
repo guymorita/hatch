@@ -29,6 +29,10 @@ myApp.factory('userService', function(){
     };
 });
 
+myApp.factory('changePageService', function(){
+    console.log('service')
+});  
+
 myApp.factory('hatchService', function(){
     return {
      hatchObject: {},
@@ -154,7 +158,7 @@ myApp.factory('notification', function ($rootScope, phonegapReady) {
 myApp.factory('navSvc', function($navigate) {
     return {
         slidePage: function (path,type) {
-            $navigate.go(path,type);
+            $navigate.go(path);
         },
         back: function () {
             $navigate.back();
