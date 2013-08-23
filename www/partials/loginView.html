@@ -3,7 +3,7 @@
         <h1 class="topcoat-navigation-bar__title">Sign In</h1>
     </div>
 </div>
-<div class="topcoat-list__container" ng-controller="LoginCtrl">
+<div class="topcoat-list__container" ng-controller="LoginCtrl" ng-init="bootUp()">
     <h3 class="topcoat-list__header">Login</h3>
     <input type="text" class="topcoat-text-input" value="" placeholder="username" ng-model="username">
     <input type="text" class="topcoat-text-input" value="" placeholder="password" ng-model="password">
