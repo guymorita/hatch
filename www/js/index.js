@@ -84,17 +84,5 @@ var app = {
     },
     storeToken: function(token) {
         app.userToken = token;
-        // console.log("Token is " + token);
-        // var xmlhttp=new XMLHttpRequest();
-        // xmlhttp.open("POST","http://10.1.1.42:5858",true);
-        // xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-        // xmlhttp.send("token="+token+"&message=pushnotificationtester");
-        // xmlhttp.onreadystatechange=function() {
-        //     if (xmlhttp.readyState==4) {
-        //         //a response now exists in the responseTest property.
-        //         console.log("Registration response: " + xmlhttp.responseText);
-        //         app.myLog.value+="Registration server returned: " + xmlhttp.responseText;
-        //     }
-        // }
     }
 };
