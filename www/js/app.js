@@ -2,7 +2,7 @@
 
 
 // Declare app level module which depends on filters, and services
-var myApp = angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives','ajoslin.mobile-navigate','ngMobile', 'hmTouchEvents', 'shoppinpal.mobile-menu'])
+var myApp = angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives','ajoslin.mobile-navigate','ngMobile', 'hmTouchEvents', 'shoppinpal.mobile-menu', 'google-maps'])
     .config(function ($compileProvider){
         $compileProvider.urlSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel):/);
     })
@@ -21,10 +21,10 @@ var myApp = angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.d
         $routeProvider.when('/auth', {templateUrl: 'partials/authView.html', controller: 'HomeCtrl'});
 
         $routeProvider.when('/newmessage', {templateUrl: 'partials/newMessageView.html', controller: 'HomeCtrl'});
-        $routeProvider.when('/map', {templateUrl: 'partials/pinMapView.html', controller: 'showPinsCtrl'});
-        // $routeProvider.when('/sentpins', {templateUrl: 'partials/pinMapView.html', controller: 'sentPinsCtrl'});
-        $routeProvider.when('/pinmap', {templateUrl: 'partials/pinMapView.html', controller: 'newPinCtrl'});
         $routeProvider.when('/messageRead', {templateUrl: 'partials/messageReadView.html', controller: 'HomeCtrl'});
+
+        $routeProvider.when('/map', {templateUrl: 'partials/mapView.html', controller: 'showPinsCtrl'});
+        $routeProvider.when('/pinmap', {templateUrl: 'partials/pinMapView.html', controller: 'newPinCtrl'});
 
         $routeProvider.when('/home', {templateUrl: 'partials/homeView.html', controller: 'HomeCtrl'});
         $routeProvider.when('/inbox', {templateUrl: 'partials/inboxView.html', controller: 'HomeCtrl'});
@@ -35,5 +35,5 @@ var myApp = angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.d
         $routeProvider.when('/allUsers', {templateUrl: 'partials/allUsersView.html', controller: 'ContactsCtrl'});
         $routeProvider.when('/test', {templateUrl: 'partials/testView.html', controller: 'TestCtrl'});
         $routeProvider.when('/newnav', {templateUrl: 'partials/newNavView.html', controller: 'HomeCtrl'});
-        $routeProvider.otherwise({redirectTo: '/sentpins'});
+        $routeProvider.otherwise({redirectTo: '/map'});
   }]);
