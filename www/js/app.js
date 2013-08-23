@@ -21,12 +21,9 @@ var myApp = angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.d
         $routeProvider.when('/auth', {templateUrl: 'partials/authView.html', controller: 'HomeCtrl'});
 
         $routeProvider.when('/newmessage', {templateUrl: 'partials/newMessageView.html', controller: 'HomeCtrl'});
-        // $routeProvider.when('/map', {templateUrl: 'partials/mapView.html', controller: 'showPinsCtrl'});
+        $routeProvider.when('/map', {templateUrl: 'partials/pinMapView.html', controller: 'showPinsCtrl'});
         $routeProvider.when('/pinmap', {templateUrl: 'partials/pinMapView.html', controller: 'newPinCtrl'});
         $routeProvider.when('/messageRead', {templateUrl: 'partials/messageReadView.html', controller: 'HomeCtrl'});
-
-        $routeProvider.when('/map', {templateUrl: 'partials/testmap.html', controller: 'testMapCtrl'});
-
 
         $routeProvider.when('/home', {templateUrl: 'partials/homeView.html', controller: 'HomeCtrl'});
         $routeProvider.when('/inbox', {templateUrl: 'partials/inboxView.html', controller: 'HomeCtrl'});
