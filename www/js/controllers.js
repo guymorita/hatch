@@ -230,6 +230,7 @@ function NewMessage($scope, navSvc, userService, hatchService, imageService){
   }
 }
 
+
 function newPinCtrl($scope, navSvc, $rootScope, hatchService) {
   var map;
   var pinAdded = false;
@@ -262,7 +263,6 @@ function newPinCtrl($scope, navSvc, $rootScope, hatchService) {
       var myLatlng = new google.maps.LatLng(lat, lng);
       marker = new google.maps.Marker({
         position: myLatlng,
-        title:"Hello World!",
         draggable: true,
         map: map,
         animation: google.maps.Animation.DROP
@@ -306,24 +306,34 @@ function showPinsCtrl ($scope, navSvc, $rootScope) {
         lng: -122.40295171737671
       },
       message: 'wazzza'
+    },
+    3: {
+      _id: 3,
+      latlng: {
+        lat: 37.7838055,
+        lng: -122.406
+      },
+      message: 'wazzza'
     }
   }
   $scope.slidePage = function (path,type) {
-    console.log('slidepage')
-    console.log(navSvc)
+    console.log('in slidepage')
     navSvc.slidePage(path,type);
   };
 
   var map;
   var pinAdded = false;
   var marker;
+  var circle;
+  var bounds;
   var usemarker = true;
   $scope.title = 'My Pins'
 
   navigator.geolocation.getCurrentPosition(function(position) {
-    $scope.position=position;
+
+    $scope.position = position;
     map.setCenter(new google.maps.LatLng($scope.position.coords.latitude, $scope.position.coords.longitude));
-    console.log($scope.position.coords.latitude, $scope.position.coords.longitude)
+
     var circleLatlng = new google.maps.LatLng($scope.position.coords.latitude, $scope.position.coords.longitude);
     var circleOptions = {
       strokeColor: '#FF0000',
@@ -335,20 +345,36 @@ function showPinsCtrl ($scope, navSvc, $rootScope) {
       center: circleLatlng,
       radius: 300
     };
-    var circle = new google.maps.Circle(circleOptions);
-    var bounds = circle.getBounds();
+    circle = new google.maps.Circle(circleOptions);
+    bounds = circle.getBounds();
 
+    dropPins();
+    geoLocate();
+  },function(e) { console.log("Error retrieving position " + e.code + " " + e.message) });
+
+  var geoLocate = function(){
+    setInterval(function(){
+      navigator.geolocation.getCurrentPosition(function(position) {
+        var newLatlng = new google.maps.LatLng($scope.position.coords.latitude, $scope.position.coords.longitude);
+        circle.setCenter(newLatlng);
+        console.log('circle moving')
+      });
+    }, 3000);
+  }
+
+  var dropPins = function(){
     for (var pin in test) {
       var pinLocation = new google.maps.LatLng(test[pin].latlng.lat, test[pin].latlng.lng)
+      var pinName = test[pin]._id;
       if ( bounds.contains( pinLocation ) ) {
-        addPin(test[pin].latlng.lat, test[pin].latlng.lng, usemarker)
+        addPin(test[pin].latlng.lat, test[pin].latlng.lng, pinName, usemarker)
         console.log('contains')
       } else {
         console.log('contains not')
-        addPin(test[pin].latlng.lat, test[pin].latlng.lng)
+        addPin(test[pin].latlng.lat, test[pin].latlng.lng, pinName)
       }
     }
-  },function(e) { console.log("Error retrieving position " + e.code + " " + e.message) });
+  }
 
   $scope.initialize = function() {    
     setTimeout(function(){
@@ -361,33 +387,35 @@ function showPinsCtrl ($scope, navSvc, $rootScope) {
           mapOptions);
     }, 10);
   }
+
   var image = {
     url: './img/message.png',
     size: new google.maps.Size(50, 50),
   }
-  var addPin = function(lat, lng, usemarker) {
+  var addPin = function(lat, lng, newPin, usemarker) {
     var myLatlng = new google.maps.LatLng(lat, lng);
-
     if (usemarker){
-      marker = new google.maps.Marker({
+      newPin = new google.maps.Marker({
         position: myLatlng,
-        title:"Hello World!",
         map: map,
         animation: google.maps.Animation.DROP,
         icon: image
       });
-      google.maps.event.addListener(marker, 'click', function() {
-        $scope.slidePage('/home', 'modal');
-        console.log('clicked on marker');
+      var change = navSvc.slidePage;
+      google.maps.event.addListener(newPin, 'click', function() {
+        newPin.setMap(null);
+        change('/pinmap');
+        console.log('should have changed page', change)
       });
+    
     } else {
-      marker = new google.maps.Marker({
+      newPin = new google.maps.Marker({
         position: myLatlng,
-        title:"Hello World!",
         map: map,
         animation: google.maps.Animation.DROP
       });
     }
+    var marker = newPin;
   }
 };
 
@@ -478,15 +506,3 @@ function TestCtrl($scope){
   }
 }
 
-// function GoogCtrl($scope){
-//   var initialize = function() {
-//     var mapOptions = {
-//       center: new google.maps.LatLng(-34.397, 150.644),
-//       zoom: 10,
-//       mapTypeId: google.maps.MapTypeId.ROADMAP
-//     };
-//     var map = new google.maps.Map(document.getElementById("map-canvas"),
-//         mapOptions);
-//   }
-//   google.maps.event.addDomListener(window, 'load', initialize);
-// };
