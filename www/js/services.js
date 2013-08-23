@@ -22,6 +22,12 @@ myApp.factory('userService', function(){
         setMessages: function(messagesArray){
             this.allMessages = messagesArray;
         },
+        setSentMessages: function(messagesArray){
+            this.sentMessages = messagesArray;
+        },
+        setReceivedMessages: function(messagesArray){
+            this.receivedMessages = messagesArray;
+        },
         currentRead: null,
         setCurrentRead: function(message){
             this.currentRead = message;

@@ -6,9 +6,9 @@
         <h1 class="topcoat-navigation-bar__title">{{ title }}</h1>
     </div>
   <div class="topcoat-navigation-bar__item right quarter">
-      <button class="topcoat-button--large--quiet" ng-click="slidePage('/inbox', 'modal')">Inbox</button>
+      <button class="topcoat-button--large--quiet" ng-click="slidePage('/messageRead')">Inbox</button>
   </div>
 </div>
-<div id="map-canvas" ng-init="initialize()">
+<div id="map-canvas" ng-init="initialize(); getMessages()">
   <div class="gm-style"></div>
 </div>
