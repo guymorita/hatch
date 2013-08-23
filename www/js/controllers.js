@@ -10,11 +10,23 @@ function LoginCtrl($scope, navSvc, $http, userService){
   };
   $scope.username = '';
   $scope.password = '';
+  $scope.bootUp = function(){
+    try {
+        var userPass = window.localStorage.getItem("powuseee");
+        $scope.username = userPass.split(':')[0];
+        $scope.password = userPass.split(':')[1];
+        $scope.fetch('login/');
+    } catch (e){
+      console.log('Error getting userpass', e);
+    }
+  };
   $scope.fetch = function(fetchRoute){
     var userUrl = oaktreeUrl +'user/'+ fetchRoute + $scope.username+'/'+$scope.password;
     $http.get(userUrl)
       .success(function(u, getRes){
         userService.setUser(u);
+        var usePass = $scope.username+":"+$scope.password;
+        window.localStorage.setItem("powuseee", usePass);
         $http.get(oaktreeUrl +'user/')
           .success(function(users, getRes2){
             userService.setAllUsers(users);
@@ -69,6 +81,7 @@ function FriendsListCtrl($scope, $filter, navSvc, userService, hatchService, ima
   $scope.send = function(){
     // build the object
     hatchService.set('sender_id', userService.currentUser._id);
+    hatchService.set('sender_name', userService.currentUser.username);
     _.each($filter('filter')($scope.currentFriends, {checked:true}), function(value){
       receiverIds.push(value._id);
     });
