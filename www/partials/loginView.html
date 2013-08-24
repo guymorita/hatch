@@ -7,6 +7,9 @@
     <h3 class="topcoat-list__header">Login</h3>
     <input type="text" class="topcoat-text-input" value="" placeholder="username" ng-model="username">
     <input type="text" class="topcoat-text-input" value="" placeholder="password" ng-model="password">
-    <button class="topcoat-button--cta" ng-click="fetch('login/')">Login</button>
-    <button class="topcoat-button--cta" ng-click="slidePage('/signup')">Sign Up</button>
+    <div id="message-buttons">
+    <button class="topcoat-button--cta" ng-click="fetch('login/')"><i class="icon-compass"></i> Login</button>
+    <button class="topcoat-button--cta" ng-click="slidePage('/signup')"><i class="icon-sun"></i> Sign Up</button>
+  </div>
+
 </div>
