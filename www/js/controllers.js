@@ -301,6 +301,7 @@ function showPinsCtrl ($scope, navSvc, userService, $http, locationService, mapS
   var map, circle, bounds;
   var pinAdded = false;
   var usemarker = true;
+  var infoWindows = [];
 
   $scope.title = 'My Pins';
 
@@ -407,11 +408,26 @@ function showPinsCtrl ($scope, navSvc, userService, $http, locationService, mapS
       position: myLatlng,
       map: map,
       animation: google.maps.Animation.DROP,
-      icon: image
+      icon: image,
+      title: instance.title
     });
+
+    var infoWindow = new google.maps.InfoWindow({
+      content: instance.title
+    });
+
+    infoWindows.push(infoWindow);
+
+    google.maps.event.addListener(newPin, 'click', function() {
+      for (var i = 0; i < infoWindows.length; i ++){
+        infoWindows[i].close();
+      }
+      infoWindow.open(map, newPin);
+    });
+    
     if (eventType !== 'undefined'){
       if (eventType === 0){
-        google.maps.event.addListener(newPin, 'click', function() {
+        google.maps.event.addListener(newPin, 'dblclick', function() {
           userService.setCurrentRead(instance);
           $scope.$apply();
           clearInterval(handle);
@@ -420,7 +436,7 @@ function showPinsCtrl ($scope, navSvc, userService, $http, locationService, mapS
         });
       }
       if (eventType === 1){
-        google.maps.event.addListener(newPin, 'click', function() {
+        google.maps.event.addListener(newPin, 'dblclick', function() {
           //need to tell server this message has been read
           newPin.setMap(null);
           userService.setCurrentRead(instance);
@@ -430,6 +446,8 @@ function showPinsCtrl ($scope, navSvc, userService, $http, locationService, mapS
           $scope.$apply();
         });
       }
+    } else {
+
     }
   };
 
