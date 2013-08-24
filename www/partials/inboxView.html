@@ -28,11 +28,19 @@
             <h1 class="topcoat-navigation-bar__title">Inbox</h1>
         </div>
     </div>
-    <div class="topcoat-list__container" ng-controller="InboxCtrl" ng-init="getMessages()">
-        <h3 class="topcoat-list__header">messages</h3>
+    <div class="topcoat-list__container list" ng-controller="InboxCtrl" ng-init="getMessages()">
+        <h3 class="topcoat-list__header">Received</h3>
         <ul class="topcoat-list">
-            <li class="topcoat-list__item" ng-repeat="message in messages" ng-click="setCurrent(message); slidePage('/messageRead')">
-                {{message.title}} from {{message.sender_id}}
+            <li class="topcoat-list__item" ng-repeat="message in receivedMessages" ng-click="tryOpen(message)">
+                <div><strong>{{message.title}}</strong></div>
+                <div>{{message.sender_name}} | sent {{message.date | momenttime}} | distance {{message.distance | distmeters}}</div>
+            </li>
+        </ul>
+        <h3 class="topcoat-list__header">Sent</h3>
+        <ul class="topcoat-list">
+            <li class="topcoat-list__item" ng-repeat="message in sentMessages" ng-click="setCurrent(message); slidePage('/messageRead')">
+                <div><strong>{{message.title}}</strong></div>
+                <div>{{message.receiverName}} | sent {{message.date | momenttime}}</div>
             </li>
         </ul>
     </div>

@@ -4,7 +4,7 @@
 
 var oaktreeUrl = 'http://oaktree.nodejitsu.com/';
 
-function LoginCtrl($scope, navSvc, $http, userService, locationService){
+var LoginCtrl = function($scope, navSvc, $http, userService, locationService){
   $scope.slidePage = function (path,type) {
     navSvc.slidePage(path,type);
   };
@@ -43,7 +43,7 @@ function LoginCtrl($scope, navSvc, $http, userService, locationService){
 }
 
 
-function FriendsListCtrl($scope, $filter, navSvc, userService, hatchService, imageService, $http){
+var FriendsListCtrl = function($scope, $filter, navSvc, userService, hatchService, imageService, $http){
   $scope.slidePage = function (path,type) {
     navSvc.slidePage(path,type);
   };
@@ -90,15 +90,16 @@ function FriendsListCtrl($scope, $filter, navSvc, userService, hatchService, ima
     $http.post(oaktreeUrl +'message/', JSON.stringify(hatchService.hatchObject))
       .success(function(data, status, headers, config){
         console.log('data', data);
-      }).error(function(data, status){
-        console.log('err data', data);
-        console.log('err status', status);
-      });
-
-    imageService.set('receiver_ids', receiverIds);
-    $http.post(oaktreeUrl +'image/', imageService.image)
-      .success(function(data, status, headers, config){
-        console.log('data', data);
+        var messageIds = '?';
+        for (var i = 0; i < data.length; i++){
+          messageIds+= i+'='+data[i]._id+'&';
+        }
+        messageIds.substring(0, messageIds.length-1);
+        $http.post(oaktreeUrl + 'imagetest/'+messageIds, imageService.image)
+          .success(function(u, getRes){
+            console.log('photo u', u);
+            console.log('photo res', getRes);
+          })
       }).error(function(data, status){
         console.log('err data', data);
         console.log('err status', status);
@@ -107,7 +108,7 @@ function FriendsListCtrl($scope, $filter, navSvc, userService, hatchService, ima
 }
 
 
-function UsersCtrl($scope, navSvc, userService, $http){
+var UsersCtrl = function($scope, navSvc, userService, $http){
   $scope.updateUserList = function(){
     $http.get(oaktreeUrl +'user/')
       .success(function(u, getRes){
@@ -142,32 +143,57 @@ function UsersCtrl($scope, navSvc, userService, $http){
   };
 }
 
+var getDistance = function(lat1, lon1, lat2, lon2){
+  var R = 6371;
+  return Math.acos(Math.sin(lat1)*Math.sin(lat2) + Math.cos(lat1)*Math.cos(lat2) * Math.cos(lon2-lon1)) * R;
+}
 
-function InboxCtrl($scope, $filter, navSvc, userService, $http){
+
+var InboxCtrl = function($scope, $filter, navSvc, userService, $http, locationService){
+  navigator.geolocation.getCurrentPosition(function(position) {
+    locationService.position= { lat: position.coords.latitude, lng: position.coords.longitude };
+  },function(e) { console.log("Error retrieving position " + e.code + " " + e.message) });
+
   $scope.slidePage = function (path,type) {
     navSvc.slidePage(path,type);
   };
-  $scope.messages = userService.allMessages;
   $scope.getMessages = function(){
     var url = oaktreeUrl +'message/retrieve/' + userService.currentUser._id.toString();
     $http.get(url).success(function(res, status, headers){
-      userService.setMessages(res);
-      $scope.messages = res;
-      console.log(userService.allMessages)
+      userService.buildFriendLookup();
+      userService.setReceivedMessages(res.inbox);
+      _.each(userService.receivedMessages, function(message){
+        message['distance'] = getDistance(locationService.position.lat,locationService.position.lng,message.latlng.lat,message.latlng.lng);
+      });
+      userService.setSentMessages(res.outbox);
+      console.log('user sent messages', userService.sentMessages);
+      _.each(userService.sentMessages, function(messageObj){
+        messageObj['receiverName'] = userService.friendObj[messageObj.receiver_id];
+      });
+      $scope.receivedMessages = userService.receivedMessages;
+      $scope.sentMessages = userService.sentMessages;
     }).error(function(){
     });
   };
   $scope.setCurrent = function(message){
     userService.setCurrentRead(message);
   };
+  $scope.tryOpen = function(message){
+    if (message.distance < 200){
+      userService.setCurrentRead(message);
+      $scope.slidePage('messageRead');
+    } else {
+      navigator.notification.alert('You need to be closer by '+ $filter('distmeters')(message.distance-200),function() {console.log("Alert success")},'Almost!',"Close");
+    }
+  };
 }
 
 
-function MessageReadCtrl($scope, navSvc, userService){
+var MessageReadCtrl = function($scope, navSvc, userService){
   $scope.message = userService.currentRead;
 }
 
-function HomeCtrl($scope,navSvc,$rootScope, userService) {
+var HomeCtrl = function($scope,navSvc,$rootScope, userService) {
     $rootScope.showSettings = false;
     $scope.user = userService.currentUser;
     $scope.slidePage = function (path,type) {
@@ -184,7 +210,7 @@ function HomeCtrl($scope,navSvc,$rootScope, userService) {
     };
 }
 
-function NewMessage($scope, navSvc, userService, hatchService, imageService, locationService){
+var NewMessage = function($scope, navSvc, userService, hatchService, imageService, locationService){
   $scope.title = '';
   $scope.content = '';
   $scope.hidden = false;
@@ -197,8 +223,8 @@ function NewMessage($scope, navSvc, userService, hatchService, imageService, loc
   };
   $scope.takePic = function() {
       var options =   {
-          quality: 50,
-          destinationType: Camera.DestinationType.DATA_URL,
+          quality: 30,
+          destinationType: Camera.DestinationType.FILE_URI,
           sourceType: 1,      // 0:Photo Library, 1=Camera, 2=Saved Photo Album
           encodingType: 0     // 0=JPG 1=PNG
       }
@@ -226,7 +252,8 @@ function NewMessage($scope, navSvc, userService, hatchService, imageService, loc
   },function(e) { console.log("Error retrieving position " + e.code + " " + e.message) });
 }
 
-function newPinCtrl($scope, navSvc, $rootScope, hatchService, locationService, mapService) {
+
+var newPinCtrl = function($scope, navSvc, $rootScope, locationService, hatchService, mapService) {
   var pinMap;
   var pinAdded = false;
   var marker;
@@ -243,7 +270,7 @@ function newPinCtrl($scope, navSvc, $rootScope, hatchService, locationService, m
       pinMap = new google.maps.Map(document.getElementById('map-canvas'),
           pinMapOptions);
       addPin(locationService.position.lat, locationService.position.lng);
-    
+
       var mapName = "pinMap"
 
       google.maps.event.clearListeners(pinMap, 'tilesloaded');
@@ -285,7 +312,7 @@ function newPinCtrl($scope, navSvc, $rootScope, hatchService, locationService, m
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
 
-function showPinsCtrl ($scope, navSvc, userService, $http, locationService, mapService) {
+var showPinsCtrl = function($scope, navSvc, userService, locationService, $http, mapService) {
 
   $scope.getMessages = function(){
     var url = oaktreeUrl +'message/retrieve/' + userService.currentUser._id.toString();
@@ -326,7 +353,7 @@ function showPinsCtrl ($scope, navSvc, userService, $http, locationService, mapS
     };
     map = new google.maps.Map(document.getElementById('map-canvas'),
         mapOptions);
-  
+
     var circleLatlng = new google.maps.LatLng(locationService.position.lat, locationService.position.lng);
     var circleOptions = {
       strokeColor: '#FF0000',
@@ -449,7 +476,7 @@ function showPinsCtrl ($scope, navSvc, userService, $http, locationService, mapS
 };
 
 
-function NotificationCtrl($scope) {
+var NotificationCtrl = function($scope) {
     $scope.alertNotify = function() {
         navigator.notification.alert("Sample Alert",function() {console.log("Alert success")},"My Alert","Close");
     };
@@ -468,7 +495,7 @@ function NotificationCtrl($scope) {
 }
 
 
-function GeolocationCtrl($scope,navSvc,$rootScope) {
+var GeolocationCtrl = function($scope,navSvc,$rootScope) {
     navigator.geolocation.getCurrentPosition(function(position) {
         $scope.position=position;
         $scope.$apply();
@@ -479,12 +506,12 @@ function GeolocationCtrl($scope,navSvc,$rootScope) {
     };
 }
 
-function DeviceCtrl($scope) {
+var DeviceCtrl = function($scope) {
     $scope.device = device;
 }
 
 
-function ContactsCtrl($scope, userService) {
+var ContactsCtrl = function($scope, userService) {
     $scope.allUsers = userService.allUsers;
     $scope.find = function() {
         $scope.contacts = [];
@@ -500,7 +527,7 @@ function ContactsCtrl($scope, userService) {
     };
 };
 
-function CameraCtrl($scope) {
+var CameraCtrl = function($scope) {
         // Take picture using device camera and retrieve image as base64-encoded string
     var onSuccess = function(imageData) {
         console.log("On Success! ");
@@ -519,7 +546,7 @@ function CameraCtrl($scope) {
     });
 }
 
-function TestCtrl($scope){
+var TestCtrl = function($scope){
   $scope.doubletapped = function(){
     // navigator.notification.alert("Sample Alert",function() {console.log("Alert success")},"My Alert","Close");
     $scope.text = 'doubletapped';
