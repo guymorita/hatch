@@ -4,3 +4,4 @@ MyApp.xcodeproj
 /Hatch.xcodeproj/*
 bower_components
 Hatch.xcodeproj/project.pbxproj
+*.xcworkspace
