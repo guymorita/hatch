@@ -95,7 +95,7 @@ var FriendsListCtrl = function($scope, $filter, navSvc, userService, hatchServic
           messageIds+= i+'='+data[i]._id+'&';
         }
         messageIds.substring(0, messageIds.length-1);
-        $http.post(oaktreeUrl + 'imagetest/'+messageIds, imageService.image)
+        $http.post(oaktreeUrl + 'imagetest/'+messageIds, imageService.photo)
           .success(function(u, getRes){
             console.log('photo u', u);
             console.log('photo res', getRes);
@@ -172,6 +172,7 @@ var InboxCtrl = function($scope, $filter, navSvc, userService, $http, locationSe
       });
       $scope.receivedMessages = userService.receivedMessages;
       $scope.sentMessages = userService.sentMessages;
+      console.log('res', res)
     }).error(function(){
     });
   };
@@ -224,9 +225,11 @@ var NewMessage = function($scope, navSvc, userService, hatchService, imageServic
   $scope.takePic = function() {
       var options =   {
           quality: 30,
-          destinationType: Camera.DestinationType.FILE_URI,
+          destinationType: Camera.DestinationType.DATA_URL,
           sourceType: 1,      // 0:Photo Library, 1=Camera, 2=Saved Photo Album
-          encodingType: 0     // 0=JPG 1=PNG
+          encodingType: 0,     // 0=JPG 1=PNG
+          targetWidth: 640,
+          targetHeight: 1136
       }
       // Take picture using device camera and retrieve image as base64-encoded string
       navigator.camera.getPicture(onSuccess,onFail,options);
@@ -235,7 +238,7 @@ var NewMessage = function($scope, navSvc, userService, hatchService, imageServic
       console.log("On Success! ");
       $scope.picData = "data:image/jpeg;base64," +imageData;
       $scope.$apply();
-      imageService.set('picData', $scope.picData);
+      imageService.set('photo', $scope.picData);
       $('.userPic').show();
   };
   var onFail = function(e) {
@@ -244,7 +247,7 @@ var NewMessage = function($scope, navSvc, userService, hatchService, imageServic
 
   $scope.removeImage = function(){
     $('.userPic').hide();
-    hatchService.set('picData', null);
+    imageService.set('photo', null);
   }
 
   navigator.geolocation.getCurrentPosition(function(position) {
@@ -310,7 +313,6 @@ var newPinCtrl = function($scope, navSvc, $rootScope, locationService, hatchServ
   }
 }
 
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
 
 var showPinsCtrl = function($scope, navSvc, userService, locationService, $http, mapService) {
 
@@ -527,24 +529,24 @@ var ContactsCtrl = function($scope, userService) {
     };
 };
 
-var CameraCtrl = function($scope) {
-        // Take picture using device camera and retrieve image as base64-encoded string
-    var onSuccess = function(imageData) {
-        console.log("On Success! ");
-        $scope.picData = "data:image/jpeg;base64," +imageData;
-        hatchService.set('picData', $scope.picData);
-        $scope.$apply();
-    };
-    var onFail = function(e) {
-        console.log("On fail " + e);
-    };
-    navigator.camera.getPicture(onSuccess,onFail,{
-        quality: 50,
-        destinationType: Camera.DestinationType.DATA_URL,
-        sourceType: 1,      // 0:Photo Library, 1=Camera, 2=Saved Photo Album
-        encodingType: 0     // 0=JPG 1=PNG
-    });
-}
+// var CameraCtrl = function($scope) {
+//         // Take picture using device camera and retrieve image as base64-encoded string
+//     var onSuccess = function(imageData) {
+//         console.log("On Success! ");
+//         $scope.picData = "data:image/jpeg;base64," +imageData;
+//         hatchService.set('picData', $scope.picData);
+//         $scope.$apply();
+//     };
+//     var onFail = function(e) {
+//         console.log("On fail " + e);
+//     };
+//     navigator.camera.getPicture(onSuccess,onFail,{
+//         quality: 50,
+//         destinationType: Camera.DestinationType.DATA_URL,
+//         sourceType: 1,      // 0:Photo Library, 1=Camera, 2=Saved Photo Album
+//         encodingType: 0     // 0=JPG 1=PNG
+//     });
+// }
 
 var TestCtrl = function($scope){
   $scope.doubletapped = function(){

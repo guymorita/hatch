@@ -59,9 +59,9 @@ myApp.factory('hatchService', function(){
 
 myApp.factory('imageService', function(){
     return {
-     image: {},
+     photo: {},
      set: function(field, value){
-      this.image[field] = value;
+      this.photo[field] = value;
     }
   };
 });
