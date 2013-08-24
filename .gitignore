@@ -1,5 +1,6 @@
 .DS_Store
 xcuserdata
 MyApp.xcodeproj
-Hatch.xcodeproj/
+/Hatch.xcodeproj/*
 bower_components
+Hatch.xcodeproj/project.pbxproj
