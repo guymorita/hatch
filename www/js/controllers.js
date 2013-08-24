@@ -280,9 +280,10 @@ function showPinsCtrl ($scope, navSvc, userService, $http, locationService) {
     $http.get(url).success(function(res, status, headers){
       userService.setReceivedMessages(res.inbox);
       userService.setSentMessages(res.outbox);
-      console.log(userService.currentUser)
+      $scope.initialize();
     }).error(function(){
     });
+
   };
 
   var map, circle, bounds;
@@ -295,8 +296,8 @@ function showPinsCtrl ($scope, navSvc, userService, $http, locationService) {
   var geoLocate = function(){
     handle = setInterval(function(){
       navigator.geolocation.getCurrentPosition(function(position) {
-        $scope.position = position;
-        var newLatlng = new google.maps.LatLng($scope.position.coords.latitude, $scope.position.coords.longitude);
+        locationService.position= { lat: position.coords.latitude, lng: position.coords.longitude };
+        var newLatlng = new google.maps.LatLng(locationService.position.lat, locationService.position.lng);
         circle.setCenter(newLatlng);
         // map.setCenter(newLatlng)
       });
@@ -305,7 +306,6 @@ function showPinsCtrl ($scope, navSvc, userService, $http, locationService) {
 
 
   $scope.initialize = function() {
-    setTimeout(function(){
       var mapOptions = {
         zoom: 10,
         center: new google.maps.LatLng(locationService.position.lat, locationService.position.lng),
@@ -314,7 +314,7 @@ function showPinsCtrl ($scope, navSvc, userService, $http, locationService) {
       map = new google.maps.Map(document.getElementById('map-canvas'),
           mapOptions);
     
-      var circleLatlng = new google.maps.LatLng($scope.position.coords.latitude, $scope.position.coords.longitude);
+      var circleLatlng = new google.maps.LatLng(locationService.position.lat, locationService.position.lng);
       var circleOptions = {
         strokeColor: '#FF0000',
         strokeOpacity: 0.8,
@@ -331,8 +331,6 @@ function showPinsCtrl ($scope, navSvc, userService, $http, locationService) {
       dropPins(userService.sentMessages);
       dropPins(userService.receivedMessages);
       geoLocate();
-
-    }, 10);
   };
 
   var images = {
@@ -378,7 +376,6 @@ function showPinsCtrl ($scope, navSvc, userService, $http, locationService) {
 
   var addPin = function(instance, image, eventType) {
     var myLatlng = new google.maps.LatLng(instance.latlng.lat, instance.latlng.lng);
-    console.log(eventType)
     var newPin = new google.maps.Marker({
       _id: instance._id,
       position: myLatlng,
@@ -388,24 +385,20 @@ function showPinsCtrl ($scope, navSvc, userService, $http, locationService) {
     });
     if (eventType !== 'undefined'){
       if (eventType === 0){
-          console.log('zero')
         google.maps.event.addListener(newPin, 'click', function() {
           userService.setCurrentRead(instance);
           $scope.$apply();
-          console.log(userService.currentRead)
           clearInterval(handle);
           navSvc.slidePage('/messageRead');
           $scope.$apply();
         });
       }
       if (eventType === 1){
-        console.log('1')
         google.maps.event.addListener(newPin, 'click', function() {
           //need to tell server this message has been read
           newPin.setMap(null);
           userService.setCurrentRead(instance);
           $scope.$apply();
-          console.log(userService.currentRead)
           clearInterval(handle);
           navSvc.slidePage('/messageRead');
           $scope.$apply();
