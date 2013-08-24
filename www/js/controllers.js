@@ -273,7 +273,7 @@ function newPinCtrl($scope, navSvc, $rootScope, hatchService, locationService) {
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
 
-function showPinsCtrl ($scope, navSvc, userService, $http) {
+function showPinsCtrl ($scope, navSvc, userService, $http, locationService) {
 
   $scope.getMessages = function(){
     var url = oaktreeUrl +'message/retrieve/' + userService.currentUser._id.toString();
@@ -291,33 +291,11 @@ function showPinsCtrl ($scope, navSvc, userService, $http) {
 
   $scope.title = 'My Pins';
 
-  navigator.geolocation.getCurrentPosition(function(position) {
-    $scope.position = position;
-    map.setCenter(new google.maps.LatLng($scope.position.coords.latitude, $scope.position.coords.longitude));
-
-    var circleLatlng = new google.maps.LatLng($scope.position.coords.latitude, $scope.position.coords.longitude);
-    var circleOptions = {
-      strokeColor: '#FF0000',
-      strokeOpacity: 0.8,
-      strokeWeight: 2,
-      fillColor: '#FF0000',
-      fillOpacity: 0.35,
-      map: map,
-      center: circleLatlng,
-      radius: 1000
-    };
-    circle = new google.maps.Circle(circleOptions);
-    bounds = circle.getBounds();
-
-    dropPins(userService.sentMessages);
-    dropPins(userService.receivedMessages);
-    geoLocate();
-  },function(e) { console.log("Error retrieving position " + e.code + " " + e.message) });
-
   var handle;
   var geoLocate = function(){
     handle = setInterval(function(){
       navigator.geolocation.getCurrentPosition(function(position) {
+        $scope.position = position;
         var newLatlng = new google.maps.LatLng($scope.position.coords.latitude, $scope.position.coords.longitude);
         circle.setCenter(newLatlng);
         // map.setCenter(newLatlng)
@@ -330,11 +308,30 @@ function showPinsCtrl ($scope, navSvc, userService, $http) {
     setTimeout(function(){
       var mapOptions = {
         zoom: 10,
-        center: new google.maps.LatLng(-34.397, 150.644),
+        center: new google.maps.LatLng(locationService.position.lat, locationService.position.lng),
         mapTypeId: google.maps.MapTypeId.ROADMAP
       };
       map = new google.maps.Map(document.getElementById('map-canvas'),
           mapOptions);
+    
+      var circleLatlng = new google.maps.LatLng($scope.position.coords.latitude, $scope.position.coords.longitude);
+      var circleOptions = {
+        strokeColor: '#FF0000',
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: '#FF0000',
+        fillOpacity: 0.35,
+        map: map,
+        center: circleLatlng,
+        radius: 1000
+      };
+      circle = new google.maps.Circle(circleOptions);
+      bounds = circle.getBounds();
+
+      dropPins(userService.sentMessages);
+      dropPins(userService.receivedMessages);
+      geoLocate();
+
     }, 10);
   };
 
