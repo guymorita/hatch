@@ -31,7 +31,7 @@
     <div class="topcoat-list__container list" ng-controller="InboxCtrl" ng-init="getMessages()">
         <h3 class="topcoat-list__header">Received</h3>
         <ul class="topcoat-list">
-            <li class="topcoat-list__item" ng-repeat="message in receivedMessages" ng-click="setCurrent(message); slidePage('/messageRead')">
+            <li class="topcoat-list__item" ng-repeat="message in receivedMessages" ng-click="tryOpen(message)">
                 <div><strong>{{message.title}}</strong></div>
                 <div>{{message.sender_name}} | sent {{message.date | momenttime}} | distance {{message.distance | distmeters}}</div>
             </li>

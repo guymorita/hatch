@@ -179,7 +179,12 @@ var InboxCtrl = function($scope, $filter, navSvc, userService, $http, locationSe
     userService.setCurrentRead(message);
   };
   $scope.tryOpen = function(message){
-
+    if (message.distance < 200){
+      userService.setCurrentRead(message);
+      $scope.slidePage('messageRead');
+    } else {
+      navigator.notification.alert('You need to be closer by '+ $filter('distmeters')(message.distance-200),function() {console.log("Alert success")},'Almost!',"Close");
+    }
   };
 }
 
@@ -218,8 +223,8 @@ var NewMessage = function($scope, navSvc, userService, hatchService, imageServic
   };
   $scope.takePic = function() {
       var options =   {
-          quality: 50,
-          destinationType: Camera.DestinationType.DATA_URL,
+          quality: 30,
+          destinationType: Camera.DestinationType.FILE_URI,
           sourceType: 1,      // 0:Photo Library, 1=Camera, 2=Saved Photo Album
           encodingType: 0     // 0=JPG 1=PNG
       }
