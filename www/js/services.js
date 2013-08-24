@@ -65,6 +65,53 @@ myApp.factory('locationService', function(){
   };
 });
 
+myApp.factory('mapService', function(){
+  return {
+    saveMapState: function(map, mapName) { 
+        var mapZoom = map.getZoom(); 
+        var mapCenter = map.getCenter(); 
+        var mapLat = mapCenter.lat(); 
+        var mapLng = mapCenter.lng(); 
+        var cookiestring = mapLat + "_" + mapLng + "_" + mapZoom; 
+        this.setCookie(mapName,cookiestring, 30); 
+    },
+
+    loadMapState: function(map, mapName) { 
+        var gotCookieString = this.getCookie(mapName); 
+        var splitStr = gotCookieString.split("_");
+        var savedMapLat = parseFloat(splitStr[0]);
+        var savedMapLng = parseFloat(splitStr[1]);
+        var savedMapZoom = parseFloat(splitStr[2]);
+        if ((!isNaN(savedMapLat)) && (!isNaN(savedMapLng)) && (!isNaN(savedMapZoom))) {
+            map.setCenter(new google.maps.LatLng(savedMapLat,savedMapLng));
+            map.setZoom(savedMapZoom);
+        }
+    },
+
+    setCookie: function(c_name,value,exdays) {
+        var exdate = new Date();
+        exdate.setDate(exdate.getDate() + exdays);
+        var c_value = escape(value) + ((exdays === null) ? "" : "; expires=" + exdate.toUTCString());
+        document.cookie = c_name + "=" + c_value;
+    },
+
+    getCookie: function(c_name) {
+        var i,x,y,ARRcookies=document.cookie.split(";");
+        for (i = 0; i < ARRcookies.length; i++)
+        {
+          x = ARRcookies[i].substr(0,ARRcookies[i].indexOf("="));
+          y = ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
+          x = x.replace(/^\s+|\s+$/g,"");
+          if (x === c_name)
+            {
+            return unescape(y);
+            }
+          }
+        return "";
+    }
+  }
+});
+
 myApp.factory('phonegapReady', function() {
     return function (fn) {
         var queue = [];

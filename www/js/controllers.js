@@ -223,12 +223,11 @@ function NewMessage($scope, navSvc, userService, hatchService, imageService, loc
 
   navigator.geolocation.getCurrentPosition(function(position) {
     locationService.position= { lat: position.coords.latitude, lng: position.coords.longitude };
-    console.log(locationService.position)
   },function(e) { console.log("Error retrieving position " + e.code + " " + e.message) });
 }
 
-function newPinCtrl($scope, navSvc, $rootScope, hatchService, locationService) {
-  var map;
+function newPinCtrl($scope, navSvc, $rootScope, hatchService, locationService, mapService) {
+  var pinMap;
   var pinAdded = false;
   var marker;
 
@@ -236,14 +235,27 @@ function newPinCtrl($scope, navSvc, $rootScope, hatchService, locationService) {
 
   $scope.initialize = function() {
     setTimeout(function(){
-      var mapOptions = {
+      var pinMapOptions = {
         zoom: 10,
         center: new google.maps.LatLng(locationService.position.lat, locationService.position.lng),
         mapTypeId: google.maps.MapTypeId.ROADMAP
       };
-      map = new google.maps.Map(document.getElementById('map-canvas'),
-          mapOptions);
+      pinMap = new google.maps.Map(document.getElementById('map-canvas'),
+          pinMapOptions);
       addPin(locationService.position.lat, locationService.position.lng);
+    
+      var mapName = "pinMap"
+
+      google.maps.event.clearListeners(pinMap, 'tilesloaded');
+      google.maps.event.addListener(pinMap, 'zoom_changed', function(){
+        mapService.saveMapState(pinMap, mapName)
+      });
+      google.maps.event.addListener(pinMap, 'dragend', function(){
+        mapService.saveMapState(pinMap, mapName)
+      });
+
+      mapService.loadMapState(pinMap, mapName);
+
     }, 10);
   }
 
@@ -254,7 +266,7 @@ function newPinCtrl($scope, navSvc, $rootScope, hatchService, locationService) {
       marker = new google.maps.Marker({
         position: myLatlng,
         draggable: true,
-        map: map,
+        map: pinMap,
         animation: google.maps.Animation.DROP
       });
       hatchService.set('latlng', {
@@ -273,7 +285,7 @@ function newPinCtrl($scope, navSvc, $rootScope, hatchService, locationService) {
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
 
-function showPinsCtrl ($scope, navSvc, userService, $http, locationService) {
+function showPinsCtrl ($scope, navSvc, userService, $http, locationService, mapService) {
 
   $scope.getMessages = function(){
     var url = oaktreeUrl +'message/retrieve/' + userService.currentUser._id.toString();
@@ -306,31 +318,45 @@ function showPinsCtrl ($scope, navSvc, userService, $http, locationService) {
 
 
   $scope.initialize = function() {
-      var mapOptions = {
-        zoom: 10,
-        center: new google.maps.LatLng(locationService.position.lat, locationService.position.lng),
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-      };
-      map = new google.maps.Map(document.getElementById('map-canvas'),
-          mapOptions);
-    
-      var circleLatlng = new google.maps.LatLng(locationService.position.lat, locationService.position.lng);
-      var circleOptions = {
-        strokeColor: '#FF0000',
-        strokeOpacity: 0.8,
-        strokeWeight: 2,
-        fillColor: '#FF0000',
-        fillOpacity: 0.35,
-        map: map,
-        center: circleLatlng,
-        radius: 1000
-      };
-      circle = new google.maps.Circle(circleOptions);
-      bounds = circle.getBounds();
+    var mapOptions = {
+      zoom: 10,
+      center: new google.maps.LatLng(locationService.position.lat, locationService.position.lng),
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    map = new google.maps.Map(document.getElementById('map-canvas'),
+        mapOptions);
+  
+    var circleLatlng = new google.maps.LatLng(locationService.position.lat, locationService.position.lng);
+    var circleOptions = {
+      strokeColor: '#FF0000',
+      strokeOpacity: 0.8,
+      strokeWeight: 2,
+      fillColor: '#FF0000',
+      fillOpacity: 0.35,
+      map: map,
+      center: circleLatlng,
+      radius: 1000
+    };
+    circle = new google.maps.Circle(circleOptions);
+    bounds = circle.getBounds();
 
-      dropPins(userService.sentMessages);
-      dropPins(userService.receivedMessages);
-      geoLocate();
+
+
+    var mapName = "myMap"
+
+    google.maps.event.clearListeners(map, 'tilesloaded');
+    google.maps.event.addListener(map, 'zoom_changed', function(){
+      mapService.saveMapState(map, mapName)
+    });
+    google.maps.event.addListener(map, 'dragend', function(){
+      mapService.saveMapState(map, mapName)
+    });
+
+    mapService.loadMapState(map, mapName);
+
+    dropPins(userService.sentMessages);
+    dropPins(userService.receivedMessages);
+    geoLocate();
   };
 
   var images = {
