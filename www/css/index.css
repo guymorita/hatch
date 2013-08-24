@@ -67,6 +67,13 @@ body {
   clear: both;
   float: left;
 }
+#map-canvas {
+  height: 100%
+}
+#welcome-buttons{
+  position:relative;
+  clear: both;
+}
 
 /*.scroll {
     padding: 10px;
