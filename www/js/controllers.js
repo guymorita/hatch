@@ -235,7 +235,7 @@ function newPinCtrl($scope, navSvc, $rootScope, hatchService) {
     addPin($scope.position.coords.latitude, $scope.position.coords.longitude);
   },function(e) { console.log("Error retrieving position " + e.code + " " + e.message) });
 
-  $scope.initialize = function() {    
+  $scope.initialize = function() {
     setTimeout(function(){
       var mapOptions = {
         zoom: 10,
@@ -266,7 +266,7 @@ function newPinCtrl($scope, navSvc, $rootScope, hatchService) {
         hatchService.set('latlng', {
           lat: marker.position.mb,
           lng: marker.position.nb
-        });  
+        });
       });
     }
   }
@@ -275,13 +275,13 @@ function newPinCtrl($scope, navSvc, $rootScope, hatchService) {
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
 
 function showPinsCtrl ($scope, navSvc, userService, $http) {
-  
+
   $scope.getMessages = function(){
     var url = oaktreeUrl +'message/retrieve/' + userService.currentUser._id.toString();
-    $http.get(url).success(function(res, status, headers){   
+    $http.get(url).success(function(res, status, headers){
       userService.setReceivedMessages(res.inbox);
       userService.setSentMessages(res.outbox);
-      console.log(userService.currentUser) 
+      console.log(userService.currentUser)
     }).error(function(){
     });
   };
@@ -327,7 +327,7 @@ function showPinsCtrl ($scope, navSvc, userService, $http) {
   };
 
 
-  $scope.initialize = function() {    
+  $scope.initialize = function() {
     setTimeout(function(){
       var mapOptions = {
         zoom: 10,
@@ -353,7 +353,7 @@ function showPinsCtrl ($scope, navSvc, userService, $http) {
       size: new google.maps.Size(50, 50),
     }
   }
-  
+
   var dropPins = function(messageType){
     var eventType;
     for (var i = 0; i < messageType.length; i++) {
@@ -375,18 +375,10 @@ function showPinsCtrl ($scope, navSvc, userService, $http) {
         } else {
           addPin(instance, images.egg);
         }
-      } 
+      }
     }
   };
-    //   if (messageType === userService.sentMessages) {
-    //     addPin(instance, usemarker)
-    //   } else if ( bounds.contains( pinLocation ) ) {
-    //     addPin(instance, usemarker)
-    //   } else {
-    //     addPin(instance)
-    //   }
-    // }
-  
+
 
   var addPin = function(instance, image, eventType) {
     var myLatlng = new google.maps.LatLng(instance.latlng.lat, instance.latlng.lng);
@@ -398,7 +390,7 @@ function showPinsCtrl ($scope, navSvc, userService, $http) {
       animation: google.maps.Animation.DROP,
       icon: image
     });
-    if (eventType){
+    if (eventType !== 'undefined'){
       if (eventType === 0){
           console.log('zero')
         google.maps.event.addListener(newPin, 'click', function() {
@@ -422,39 +414,9 @@ function showPinsCtrl ($scope, navSvc, userService, $http) {
           navSvc.slidePage('/messageRead');
           $scope.$apply();
         });
-      }   
+      }
     }
   };
-
-
-  //   if (usemarker && message.status !== 1){
-  //     console.log('message', message)
-  //     var newPin = new google.maps.Marker({
-  //       _id: message._id,
-  //       position: myLatlng,
-  //       map: map,
-  //       animation: google.maps.Animation.DROP
-  //     });
-  //     google.maps.event.addListener(newPin, 'click', function() {
-  //       userService.setCurrentRead(message);
-  //       $scope.$apply();
-  //       console.log(userService.currentRead)
-  //       clearInterval(handle);
-  //       newPin.setMap(null);
-  //       navSvc.slidePage('/messageRead');
-  //       $scope.$apply();
-  //     });
-    
-  //   } else {
-  //     newPin = new google.maps.Marker({
-  //       _id: message._id,
-  //       position: myLatlng,
-  //       map: map,
-  //       animation: google.maps.Animation.DROP,
-  //       icon: images.egg
-  //     });
-  //   }
-  // };
 
 };
 
