@@ -11,4 +11,9 @@ angular.module('myApp.filters', [])
     return function(input){
         return moment(input).utc().local().fromNow();
     }
+  })
+  .filter('distmeters', function(){
+    return function(distance){
+      return distance.toString().split('.')[0]+' meters';
+    }
   });

@@ -143,11 +143,16 @@ var UsersCtrl = function($scope, navSvc, userService, $http){
   };
 }
 
+var getDistance = function(lat1, lon1, lat2, lon2){
+  var R = 6371;
+  return Math.acos(Math.sin(lat1)*Math.sin(lat2) + Math.cos(lat1)*Math.cos(lat2) * Math.cos(lon2-lon1)) * R;
+}
+
 
 var InboxCtrl = function($scope, $filter, navSvc, userService, $http, locationService){
-  // navigator.geolocation.getCurrentPosition(function(position) {
-  //   locationService.position= { lat: position.coords.latitude, lng: position.coords.longitude };
-  // },function(e) { console.log("Error retrieving position " + e.code + " " + e.message) });
+  navigator.geolocation.getCurrentPosition(function(position) {
+    locationService.position= { lat: position.coords.latitude, lng: position.coords.longitude };
+  },function(e) { console.log("Error retrieving position " + e.code + " " + e.message) });
 
   $scope.slidePage = function (path,type) {
     navSvc.slidePage(path,type);
@@ -157,6 +162,9 @@ var InboxCtrl = function($scope, $filter, navSvc, userService, $http, locationSe
     $http.get(url).success(function(res, status, headers){
       userService.buildFriendLookup();
       userService.setReceivedMessages(res.inbox);
+      _.each(userService.receivedMessages, function(message){
+        message['distance'] = getDistance(locationService.position.lat,locationService.position.lng,message.latlng.lat,message.latlng.lng);
+      });
       userService.setSentMessages(res.outbox);
       console.log('user sent messages', userService.sentMessages);
       _.each(userService.sentMessages, function(messageObj){

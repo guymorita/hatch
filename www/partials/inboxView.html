@@ -33,7 +33,7 @@
         <ul class="topcoat-list">
             <li class="topcoat-list__item" ng-repeat="message in receivedMessages" ng-click="setCurrent(message); slidePage('/messageRead')">
                 <div><strong>{{message.title}}</strong></div>
-                <div>{{message.sender_name}} | sent {{message.date | momenttime}}</div>
+                <div>{{message.sender_name}} | sent {{message.date | momenttime}} | distance {{message.distance | distmeters}}</div>
             </li>
         </ul>
         <h3 class="topcoat-list__header">Sent</h3>
