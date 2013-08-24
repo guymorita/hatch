@@ -57,6 +57,14 @@ myApp.factory('imageService', function(){
   };
 });
 
+myApp.factory('locationService', function(){
+    return {
+     set: function(field, value){
+      this.position = value;
+    }
+  };
+});
+
 myApp.factory('phonegapReady', function() {
     return function (fn) {
         var queue = [];

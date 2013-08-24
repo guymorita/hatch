@@ -4,7 +4,7 @@
 
 var oaktreeUrl = 'http://oaktree.nodejitsu.com/';
 
-function LoginCtrl($scope, navSvc, $http, userService){
+function LoginCtrl($scope, navSvc, $http, userService, locationService){
   $scope.slidePage = function (path,type) {
     navSvc.slidePage(path,type);
   };
@@ -184,7 +184,7 @@ function HomeCtrl($scope,navSvc,$rootScope, userService) {
     };
 }
 
-function NewMessage($scope, navSvc, userService, hatchService, imageService){
+function NewMessage($scope, navSvc, userService, hatchService, imageService, locationService){
   $scope.title = '';
   $scope.content = '';
   $scope.hidden = false;
@@ -220,31 +220,30 @@ function NewMessage($scope, navSvc, userService, hatchService, imageService){
     $('.userPic').hide();
     hatchService.set('picData', null);
   }
+
+  navigator.geolocation.getCurrentPosition(function(position) {
+    locationService.position= { lat: position.coords.latitude, lng: position.coords.longitude };
+    console.log(locationService.position)
+  },function(e) { console.log("Error retrieving position " + e.code + " " + e.message) });
 }
 
-function newPinCtrl($scope, navSvc, $rootScope, hatchService) {
+function newPinCtrl($scope, navSvc, $rootScope, hatchService, locationService) {
   var map;
   var pinAdded = false;
   var marker;
 
   $scope.title = 'Choose Location'
 
-  navigator.geolocation.getCurrentPosition(function(position) {
-    $scope.position=position;
-    map.setCenter(new google.maps.LatLng($scope.position.coords.latitude, $scope.position.coords.longitude));
-    addPin($scope.position.coords.latitude, $scope.position.coords.longitude);
-  },function(e) { console.log("Error retrieving position " + e.code + " " + e.message) });
-
   $scope.initialize = function() {
     setTimeout(function(){
       var mapOptions = {
         zoom: 10,
-        center: new google.maps.LatLng(-34.397, 150.644),
+        center: new google.maps.LatLng(locationService.position.lat, locationService.position.lng),
         mapTypeId: google.maps.MapTypeId.ROADMAP
       };
       map = new google.maps.Map(document.getElementById('map-canvas'),
           mapOptions);
-
+      addPin(locationService.position.lat, locationService.position.lng);
     }, 10);
   }
 
