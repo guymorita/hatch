@@ -76,17 +76,17 @@ myApp.factory('locationService', function(){
 
 myApp.factory('mapService', function(){
   return {
-    saveMapState: function(map, mapName) { 
-        var mapZoom = map.getZoom(); 
-        var mapCenter = map.getCenter(); 
-        var mapLat = mapCenter.lat(); 
-        var mapLng = mapCenter.lng(); 
-        var cookiestring = mapLat + "_" + mapLng + "_" + mapZoom; 
-        this.setCookie(mapName,cookiestring, 30); 
+    saveMapState: function(map, mapName) {
+        var mapZoom = map.getZoom();
+        var mapCenter = map.getCenter();
+        var mapLat = mapCenter.lat();
+        var mapLng = mapCenter.lng();
+        var cookiestring = mapLat + "_" + mapLng + "_" + mapZoom;
+        this.setCookie(mapName,cookiestring, 30);
     },
 
-    loadMapState: function(map, mapName) { 
-        var gotCookieString = this.getCookie(mapName); 
+    loadMapState: function(map, mapName) {
+        var gotCookieString = this.getCookie(mapName);
         var splitStr = gotCookieString.split("_");
         var savedMapLat = parseFloat(splitStr[0]);
         var savedMapLng = parseFloat(splitStr[1]);

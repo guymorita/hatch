@@ -144,7 +144,11 @@ var UsersCtrl = function($scope, navSvc, userService, $http){
 }
 
 
-var InboxCtrl = function($scope, $filter, navSvc, userService, $http){
+var InboxCtrl = function($scope, $filter, navSvc, userService, $http, locationService){
+  // navigator.geolocation.getCurrentPosition(function(position) {
+  //   locationService.position= { lat: position.coords.latitude, lng: position.coords.longitude };
+  // },function(e) { console.log("Error retrieving position " + e.code + " " + e.message) });
+
   $scope.slidePage = function (path,type) {
     navSvc.slidePage(path,type);
   };
@@ -160,12 +164,14 @@ var InboxCtrl = function($scope, $filter, navSvc, userService, $http){
       });
       $scope.receivedMessages = userService.receivedMessages;
       $scope.sentMessages = userService.sentMessages;
-      // console.log(userService.allMessages)
     }).error(function(){
     });
   };
   $scope.setCurrent = function(message){
     userService.setCurrentRead(message);
+  };
+  $scope.tryOpen = function(message){
+
   };
 }
 
@@ -234,7 +240,7 @@ var NewMessage = function($scope, navSvc, userService, hatchService, imageServic
 }
 
 
-var newPinCtrl = function($scope, navSvc, $rootScope, locationService, hatchService) {
+var newPinCtrl = function($scope, navSvc, $rootScope, locationService, hatchService, mapService) {
   var pinMap;
   var pinAdded = false;
   var marker;
@@ -293,7 +299,7 @@ var newPinCtrl = function($scope, navSvc, $rootScope, locationService, hatchServ
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
 
-var showPinsCtrl = function($scope, navSvc, userService, locationService, $http) {
+var showPinsCtrl = function($scope, navSvc, userService, locationService, $http, mapService) {
 
   $scope.getMessages = function(){
     var url = oaktreeUrl +'message/retrieve/' + userService.currentUser._id.toString();
