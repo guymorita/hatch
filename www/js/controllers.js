@@ -4,7 +4,7 @@
 
 var oaktreeUrl = 'http://oaktree.nodejitsu.com/';
 
-function LoginCtrl($scope, navSvc, $http, userService){
+var LoginCtrl = function($scope, navSvc, $http, userService){
   $scope.slidePage = function (path,type) {
     navSvc.slidePage(path,type);
   };
@@ -43,7 +43,7 @@ function LoginCtrl($scope, navSvc, $http, userService){
 }
 
 
-function FriendsListCtrl($scope, $filter, navSvc, userService, hatchService, imageService, $http){
+var FriendsListCtrl = function($scope, $filter, navSvc, userService, hatchService, imageService, $http){
   $scope.slidePage = function (path,type) {
     navSvc.slidePage(path,type);
   };
@@ -90,15 +90,16 @@ function FriendsListCtrl($scope, $filter, navSvc, userService, hatchService, ima
     $http.post(oaktreeUrl +'message/', JSON.stringify(hatchService.hatchObject))
       .success(function(data, status, headers, config){
         console.log('data', data);
-      }).error(function(data, status){
-        console.log('err data', data);
-        console.log('err status', status);
-      });
-
-    imageService.set('receiver_ids', receiverIds);
-    $http.post(oaktreeUrl +'image/', imageService.image)
-      .success(function(data, status, headers, config){
-        console.log('data', data);
+        var messageIds = '?';
+        for (var i = 0; i < data.length; i++){
+          messageIds+= i+'='+data[i]._id+'&';
+        }
+        messageIds.substring(0, messageIds.length-1);
+        $http.post(oaktreeUrl + 'imagetest/'+messageIds, imageService.image)
+          .success(function(u, getRes){
+            console.log('photo u', u);
+            console.log('photo res', getRes);
+          })
       }).error(function(data, status){
         console.log('err data', data);
         console.log('err status', status);
@@ -107,7 +108,7 @@ function FriendsListCtrl($scope, $filter, navSvc, userService, hatchService, ima
 }
 
 
-function UsersCtrl($scope, navSvc, userService, $http){
+var UsersCtrl = function($scope, navSvc, userService, $http){
   $scope.updateUserList = function(){
     $http.get(oaktreeUrl +'user/')
       .success(function(u, getRes){
@@ -143,17 +144,23 @@ function UsersCtrl($scope, navSvc, userService, $http){
 }
 
 
-function InboxCtrl($scope, $filter, navSvc, userService, $http){
+var InboxCtrl = function($scope, $filter, navSvc, userService, $http){
   $scope.slidePage = function (path,type) {
     navSvc.slidePage(path,type);
   };
-  $scope.messages = userService.allMessages;
   $scope.getMessages = function(){
     var url = oaktreeUrl +'message/retrieve/' + userService.currentUser._id.toString();
     $http.get(url).success(function(res, status, headers){
-      userService.setMessages(res);
-      $scope.messages = res;
-      console.log(userService.allMessages)
+      userService.buildFriendLookup();
+      userService.setReceivedMessages(res.inbox);
+      userService.setSentMessages(res.outbox);
+      console.log('user sent messages', userService.sentMessages);
+      _.each(userService.sentMessages, function(messageObj){
+        messageObj['receiverName'] = userService.friendObj[messageObj.receiver_id];
+      });
+      $scope.receivedMessages = userService.receivedMessages;
+      $scope.sentMessages = userService.sentMessages;
+      // console.log(userService.allMessages)
     }).error(function(){
     });
   };
@@ -163,11 +170,11 @@ function InboxCtrl($scope, $filter, navSvc, userService, $http){
 }
 
 
-function MessageReadCtrl($scope, navSvc, userService){
+var MessageReadCtrl = function($scope, navSvc, userService){
   $scope.message = userService.currentRead;
 }
 
-function HomeCtrl($scope,navSvc,$rootScope, userService) {
+var HomeCtrl = function($scope,navSvc,$rootScope, userService) {
     $rootScope.showSettings = false;
     $scope.user = userService.currentUser;
     $scope.slidePage = function (path,type) {
@@ -184,7 +191,7 @@ function HomeCtrl($scope,navSvc,$rootScope, userService) {
     };
 }
 
-function NewMessage($scope, navSvc, userService, hatchService, imageService){
+var NewMessage = function($scope, navSvc, userService, hatchService, imageService){
   $scope.title = '';
   $scope.content = '';
   $scope.hidden = false;
@@ -222,7 +229,7 @@ function NewMessage($scope, navSvc, userService, hatchService, imageService){
   }
 }
 
-function newPinCtrl($scope, navSvc, $rootScope, hatchService) {
+var newPinCtrl = function($scope, navSvc, $rootScope, hatchService) {
   var map;
   var pinAdded = false;
   var marker;
@@ -274,7 +281,7 @@ function newPinCtrl($scope, navSvc, $rootScope, hatchService) {
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
 
-function showPinsCtrl ($scope, navSvc, userService, $http) {
+var showPinsCtrl = function($scope, navSvc, userService, $http) {
 
   $scope.getMessages = function(){
     var url = oaktreeUrl +'message/retrieve/' + userService.currentUser._id.toString();
@@ -421,7 +428,7 @@ function showPinsCtrl ($scope, navSvc, userService, $http) {
 };
 
 
-function NotificationCtrl($scope) {
+var NotificationCtrl = function($scope) {
     $scope.alertNotify = function() {
         navigator.notification.alert("Sample Alert",function() {console.log("Alert success")},"My Alert","Close");
     };
@@ -440,7 +447,7 @@ function NotificationCtrl($scope) {
 }
 
 
-function GeolocationCtrl($scope,navSvc,$rootScope) {
+var GeolocationCtrl = function($scope,navSvc,$rootScope) {
     navigator.geolocation.getCurrentPosition(function(position) {
         $scope.position=position;
         $scope.$apply();
@@ -451,12 +458,12 @@ function GeolocationCtrl($scope,navSvc,$rootScope) {
     };
 }
 
-function DeviceCtrl($scope) {
+var DeviceCtrl = function($scope) {
     $scope.device = device;
 }
 
 
-function ContactsCtrl($scope, userService) {
+var ContactsCtrl = function($scope, userService) {
     $scope.allUsers = userService.allUsers;
     $scope.find = function() {
         $scope.contacts = [];
@@ -472,7 +479,7 @@ function ContactsCtrl($scope, userService) {
     };
 };
 
-function CameraCtrl($scope) {
+var CameraCtrl = function($scope) {
         // Take picture using device camera and retrieve image as base64-encoded string
     var onSuccess = function(imageData) {
         console.log("On Success! ");
@@ -491,7 +498,7 @@ function CameraCtrl($scope) {
     });
 }
 
-function TestCtrl($scope){
+var TestCtrl = function($scope){
   $scope.doubletapped = function(){
     // navigator.notification.alert("Sample Alert",function() {console.log("Alert success")},"My Alert","Close");
     $scope.text = 'doubletapped';

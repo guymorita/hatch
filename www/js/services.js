@@ -31,13 +31,22 @@ myApp.factory('userService', function(){
         currentRead: null,
         setCurrentRead: function(message){
             this.currentRead = message;
+        },
+        friendObj: {},
+        buildFriendLookup: function(){
+            var that = this;
+            _.each(this.currentUser.friends, function(userObj, index){
+                console.log('user Obj', userObj);
+                that.friendObj[userObj._id] = userObj.username;
+            });
+            console.log('friend obj', this.friendObj);
         }
     };
 });
 
 myApp.factory('changePageService', function(){
     console.log('service')
-});  
+});
 
 myApp.factory('hatchService', function(){
     return {

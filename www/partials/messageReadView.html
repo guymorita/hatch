@@ -11,11 +11,11 @@
         </a>
     </div>
 </div>
-<div class="topcoat-list__container list" ng-controller="MessageReadCtrl" ng-model="message">
-    <h3 class="topcoat-list__header">Message from</h3>
-    <h3>{{message.title}}</h3>
+<div class="topcoat-list__container" ng-controller="MessageReadCtrl" ng-model="message">
+    <h3 class="topcoat-list__header">Message from {{message.sender_name}}</h3>
+    <h3><i class="icon-inbox" style="float: right; margin: 0 30px 0 0;"></i>{{message.title}}</h3>
+    <p><i class="icon-time"></i> {{message.date | momenttime}}</p>
     <p>{{message.content}}</p>
-    <p>Sender: {{message.sender_id}}</p>
+    <p>from {{message.sender_name}}</p>
     <p>Location: {{message.latlng.lat}} {{message.latlng.lng}}</p>
 </div>
-<ng-include src="'partials/settingsOverlay.html'"></ng-include>
