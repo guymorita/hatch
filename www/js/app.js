@@ -10,8 +10,8 @@ var myApp = angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.d
         $httpProvider.defaults.useXDomain = true;
         delete $httpProvider.defaults.headers.common['X-Requested-With'];
         $httpProvider.defaults.headers.post['Content-Type'] =
-            'application/x-www-form-urlencoded';
-            // 'application/json';
+            // 'application/x-www-form-urlencoded';
+            'application/json';
     }])
     .config(['$routeProvider', function($routeProvider) {
         $routeProvider.when('/login', {templateUrl: 'partials/loginView.html', controller: 'HomeCtrl'});

@@ -35,7 +35,7 @@
         <plugin name="Battery" value="CDVBattery" />
         <plugin name="Globalization" value="CDVGlobalization" />
         <plugin name="InAppBrowser" value="CDVInAppBrowser" />
-        <plugin name="PushPlugin" value="PushPlugin" />
+        <plugin name="PushNotification" value="PushNotification" />
     </plugins>
     <access origin="*" />
 </widget>

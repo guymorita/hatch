@@ -10,43 +10,34 @@ function LoginCtrl($scope, navSvc, $http, userService){
   };
   $scope.username = '';
   $scope.password = '';
-  $scope.fetch = function(){
-    var userUrl = oaktreeUrl +'user/login/'+ $scope.username+'/'+$scope.password;
+  $scope.bootUp = function(){
+    try {
+        var userPass = window.localStorage.getItem("powuseee");
+        $scope.username = userPass.split(':')[0];
+        $scope.password = userPass.split(':')[1];
+        $scope.fetch('login/');
+    } catch (e){
+      console.log('Error getting userpass', e);
+    }
+  };
+  $scope.fetch = function(fetchRoute){
+    var userUrl = oaktreeUrl +'user/'+ fetchRoute + $scope.username+'/'+$scope.password;
     $http.get(userUrl)
       .success(function(u, getRes){
         userService.setUser(u);
-        var usersUrl = oaktreeUrl +'user/';
-        $http.get(usersUrl)
+        var usePass = $scope.username+":"+$scope.password;
+        window.localStorage.setItem("powuseee", usePass);
+        $http.get(oaktreeUrl +'user/')
           .success(function(users, getRes2){
             userService.setAllUsers(users);
           });
+        if (app.userToken){
+          $http.get(oaktreeUrl + 'user/token/'+u._id+'/'+app.userToken)
+            .success(function(u, getRes3){
+            });
+        };
         $scope.slidePage('/newmessage');
       }).error(function(u, getRes){
-
-      });
-  };
-}
-
-
-function SignUpCtrl($scope, navSvc, userService, $http){
-  $scope.slidePage = function (path,type) {
-    navSvc.slidePage(path,type);
-  };
-  $scope.username = '';
-  $scope.password = '';
-  $scope.fetch = function(){
-    var userUrl = oaktreeUrl +'user/new/'+ $scope.username+'/'+$scope.password;
-    $http.get(userUrl)
-      .success(function(u, getRes){
-        userService.setUser(u);
-        var usersUrl = oaktreeUrl +'user/';
-        $http.get(usersUrl)
-          .success(function(users, getRes2){
-            userService.setAllUsers(users);
-          });
-        $scope.slidePage('/newmessage');
-      }).error(function(u, getRes){
-
       });
   };
 }
@@ -71,7 +62,6 @@ function FriendsListCtrl($scope, $filter, navSvc, userService, hatchService, ima
         $scope.currentFriends.push(userObj);
       }
     });
-    // $scope.friends = userService.currentUser.friends;
   };
   $scope.acceptFriend = function(userObj){
     $http.get(oaktreeUrl+'friends/accept/'+userObj._id+'/'+userService.currentUser._id)
@@ -91,12 +81,13 @@ function FriendsListCtrl($scope, $filter, navSvc, userService, hatchService, ima
   $scope.send = function(){
     // build the object
     hatchService.set('sender_id', userService.currentUser._id);
+    hatchService.set('sender_name', userService.currentUser.username);
     _.each($filter('filter')($scope.currentFriends, {checked:true}), function(value){
       receiverIds.push(value._id);
     });
     hatchService.set('receiver_ids', receiverIds);
     console.log('hatch', hatchService.hatchObject);
-    $http.post(oaktreeUrl +'message/', hatchService.hatchObject)
+    $http.post(oaktreeUrl +'message/', JSON.stringify(hatchService.hatchObject))
       .success(function(data, status, headers, config){
         console.log('data', data);
       }).error(function(data, status){
@@ -553,4 +544,3 @@ function TestCtrl($scope){
     $scope.text = 'hold';
   }
 }
-

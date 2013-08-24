@@ -26,7 +26,7 @@
 //
 
 #import <UIKit/UIKit.h>
-// #import "PushNotification.h"
+#import "PushNotification.h"
 
 #import <Cordova/CDVViewController.h>
 

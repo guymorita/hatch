@@ -1,1 +1,0 @@
-{"prepare_queue":{"installed":[],"uninstalled":[]},"config_munge":{"plugins-plist":{},"config.xml":{"plugins":{"<plugin name=\"PushPlugin\" value=\"PushPlugin\" />":1}}},"installed_plugins":{"com.adobe.plugins.PushPlugin":{"PACKAGE_NAME":"com.angularphonegap.demoapp"}},"dependent_plugins":{}}
