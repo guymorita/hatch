@@ -336,7 +336,7 @@ function showPinsCtrl ($scope, navSvc, userService, $http, locationService, mapS
       fillOpacity: 0.35,
       map: map,
       center: circleLatlng,
-      radius: 1000
+      radius: 200
     };
     circle = new google.maps.Circle(circleOptions);
     bounds = circle.getBounds();
@@ -361,17 +361,17 @@ function showPinsCtrl ($scope, navSvc, userService, $http, locationService, mapS
   };
 
   var images = {
-    message: {
-      url: './img/message.png',
-      size: new google.maps.Size(50, 50),
+    redegg: {
+      url: './img/redegg.png',
+      size: new google.maps.Size(25, 25),
     },
-    egg: {
-      url: './img/yoshiegg.png',
-      size: new google.maps.Size(50, 50),
+    greenegg: {
+      url: './img/greenegg.png',
+      size: new google.maps.Size(25, 25),
     },
-    box: {
-      url: './img/checkbox_unchecked_dark.png',
-      size: new google.maps.Size(50, 50),
+    blueegg: {
+      url: './img/blueegg.png',
+      size: new google.maps.Size(25, 25),
     }
   }
 
@@ -382,19 +382,14 @@ function showPinsCtrl ($scope, navSvc, userService, $http, locationService, mapS
       var pinLocation = new google.maps.LatLng(instance.latlng.lat, instance.latlng.lng)
 
       if (messageType === userService.sentMessages) {
-        if (instance.status === 1){
-          eventType = 0;
-          addPin(instance, images.box, eventType);
-        } else if (instance.status === 0){
-          eventType = 0;
-          addPin(instance, images.box, eventType);
-        }
+        eventType = 0;
+        addPin(instance, images.blueegg, eventType);
       } else if (messageType === userService.receivedMessages && instance.status !== 1) {
         if ( bounds.contains( pinLocation ) ) {
           eventType = 1;
-          addPin(instance, images.message, eventType);
+          addPin(instance, images.greenegg, eventType);
         } else {
-          addPin(instance, images.egg);
+          addPin(instance, images.redegg);
         }
       }
     }
