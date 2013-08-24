@@ -284,16 +284,13 @@ function newPinCtrl($scope, navSvc, $rootScope, hatchService) {
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
 
 function showPinsCtrl ($scope, navSvc, userService, $http) {
+  
   $scope.getMessages = function(){
     var url = oaktreeUrl +'message/retrieve/' + userService.currentUser._id.toString();
-    $http.get(url).success(function(res, status, headers){
-      
+    $http.get(url).success(function(res, status, headers){   
       userService.setReceivedMessages(res.inbox);
       userService.setSentMessages(res.outbox);
-
-      console.log('received', userService.receivedMessages)
-      console.log('sent', userService.sentMessages)
-    
+      console.log(userService.currentUser) 
     }).error(function(){
     });
   };
@@ -338,20 +335,6 @@ function showPinsCtrl ($scope, navSvc, userService, $http) {
     }, 3000);
   };
 
-  var dropPins = function(messageType){
-    for (var i = 0; i < messageType.length; i++) {
-      console.log(messageType[i])
-      var pinLocation = new google.maps.LatLng(messageType[i].latlng.lat, messageType[i].latlng.lng)
-
-      if (messageType === userService.sentMessages) {
-        addPin(messageType[i], usemarker)
-      } else if ( bounds.contains( pinLocation ) ) {
-        addPin(messageType[i], usemarker)
-      } else {
-        addPin(messageType[i])
-      }
-    }
-  };
 
   $scope.initialize = function() {    
     setTimeout(function(){
@@ -365,43 +348,122 @@ function showPinsCtrl ($scope, navSvc, userService, $http) {
     }, 10);
   };
 
-  var image = {
-    url: './img/yoshiegg.png',
-    size: new google.maps.Size(50, 50),
+  var images = {
+    message: {
+      url: './img/message.png',
+      size: new google.maps.Size(50, 50),
+    },
+    egg: {
+      url: './img/yoshiegg.png',
+      size: new google.maps.Size(50, 50),
+    },
+    box: {
+      url: './img/checkbox_unchecked_dark.png',
+      size: new google.maps.Size(50, 50),
+    }
   }
+  
+  var dropPins = function(messageType){
+    var eventType;
+    for (var i = 0; i < messageType.length; i++) {
+      var instance = messageType[i];
+      var pinLocation = new google.maps.LatLng(instance.latlng.lat, instance.latlng.lng)
 
-  var addPin = function(message, usemarker) {
-    // console.log('addpin', message)
-    var myLatlng = new google.maps.LatLng(message.latlng.lat, message.latlng.lng);
-    if (usemarker && message.status !== 1){
-      var newPin = new google.maps.Marker({
-        _id: message._id,
-        position: myLatlng,
-        map: map,
-        animation: google.maps.Animation.DROP,
-        title: 'inside'
-      });
-      google.maps.event.addListener(newPin, 'click', function() {
-        userService.setCurrentRead(message);
-        $scope.$apply();
-        console.log(userService.currentRead)
-        clearInterval(handle);
-        newPin.setMap(null);
-        navSvc.slidePage('/messageRead');
-        $scope.$apply();
-      });
-    
-    } else {
-      newPin = new google.maps.Marker({
-        _id: message._id,
-        position: myLatlng,
-        map: map,
-        animation: google.maps.Animation.DROP,
-        icon: image,
-        title: 'outside'
-      });
+      if (messageType === userService.sentMessages) {
+        if (instance.status === 1){
+          eventType = 0;
+          addPin(instance, images.box, eventType);
+        } else if (instance.status === 0){
+          eventType = 0;
+          addPin(instance, images.box, eventType);
+        }
+      } else if (messageType === userService.receivedMessages && instance.status !== 1) {
+        if ( bounds.contains( pinLocation ) ) {
+          eventType = 1;
+          addPin(instance, images.message, eventType);
+        } else {
+          addPin(instance, images.egg);
+        }
+      } 
     }
   };
+    //   if (messageType === userService.sentMessages) {
+    //     addPin(instance, usemarker)
+    //   } else if ( bounds.contains( pinLocation ) ) {
+    //     addPin(instance, usemarker)
+    //   } else {
+    //     addPin(instance)
+    //   }
+    // }
+  
+
+  var addPin = function(instance, image, eventType) {
+    var myLatlng = new google.maps.LatLng(instance.latlng.lat, instance.latlng.lng);
+    console.log(eventType)
+    var newPin = new google.maps.Marker({
+      _id: instance._id,
+      position: myLatlng,
+      map: map,
+      animation: google.maps.Animation.DROP,
+      icon: image
+    });
+    if (eventType){
+      if (eventType === 0){
+          console.log('zero')
+        google.maps.event.addListener(newPin, 'click', function() {
+          userService.setCurrentRead(instance);
+          $scope.$apply();
+          console.log(userService.currentRead)
+          clearInterval(handle);
+          navSvc.slidePage('/messageRead');
+          $scope.$apply();
+        });
+      }
+      if (eventType === 1){
+        console.log('1')
+        google.maps.event.addListener(newPin, 'click', function() {
+          //need to tell server this message has been read
+          newPin.setMap(null);
+          userService.setCurrentRead(instance);
+          $scope.$apply();
+          console.log(userService.currentRead)
+          clearInterval(handle);
+          navSvc.slidePage('/messageRead');
+          $scope.$apply();
+        });
+      }   
+    }
+  };
+
+
+  //   if (usemarker && message.status !== 1){
+  //     console.log('message', message)
+  //     var newPin = new google.maps.Marker({
+  //       _id: message._id,
+  //       position: myLatlng,
+  //       map: map,
+  //       animation: google.maps.Animation.DROP
+  //     });
+  //     google.maps.event.addListener(newPin, 'click', function() {
+  //       userService.setCurrentRead(message);
+  //       $scope.$apply();
+  //       console.log(userService.currentRead)
+  //       clearInterval(handle);
+  //       newPin.setMap(null);
+  //       navSvc.slidePage('/messageRead');
+  //       $scope.$apply();
+  //     });
+    
+  //   } else {
+  //     newPin = new google.maps.Marker({
+  //       _id: message._id,
+  //       position: myLatlng,
+  //       map: map,
+  //       animation: google.maps.Animation.DROP,
+  //       icon: images.egg
+  //     });
+  //   }
+  // };
 
 };
 
