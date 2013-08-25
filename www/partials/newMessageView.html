@@ -34,15 +34,18 @@
         <div id="messageContent">
           <ul class="topcoat-list">
           </ul>
-          <input type="text" class="topcoat-text-input" value="" placeholder="Title" ng-model="title">
-          <br>
-          <textarea class="topcoat-text-input" style="height: 150px" placeholder="Content" ng-model="content"></textarea>
+          <form name="MessageForm">
+            <input type="text" class="topcoat-text-input" value="" name="title" placeholder="Title" ng-model="title" ng-maxlength="20">
+            <span class="error" ng-show="MessageForm.title.$error.maxlength" style="color: red;">Title too long!</span>
+            <br>
+            <textarea class="topcoat-text-input" style="height: 150px; padding: 20px;" placeholder="Content" ng-model="content"></textarea>
+          </form>
         </div>
         <div id="leftButtons">
-          <h4>Hidden?</h4><input type="checkbox" class="topcoat-checkbox" ng-model="hidden"></input>
+          <!-- <h4>Hidden?</h4><input type="checkbox" class="topcoat-checkbox" ng-model="hidden"></input>
           <span ng-show="picData" ng-click="removeImage()">
               <img class="userPic" style="display: ; margin:0px; border:0px; padding:0px; width:40px; height:40px;" ng-src="{{picData}}" />
-          </span>
+          </span> -->
         </div>
         <div id="rightButtons">
         <a class="topcoat-icon-button--quiet" ng-click="takePic()">

@@ -180,18 +180,26 @@ var InboxCtrl = function($scope, $filter, navSvc, userService, $http, locationSe
     userService.setCurrentRead(message);
   };
   $scope.tryOpen = function(message){
-    if (message.distance < 200){
+    if (message.distance < 150){
       userService.setCurrentRead(message);
-      $scope.slidePage('messageRead');
+      if(message.status !== 1){
+        $scope.slidePage('messageRead');
+      } else {
+        navigator.notification.alert('You already read this =P',function() {console.log("Alert success")},'Ooooops!',"Close");
+      }
     } else {
-      navigator.notification.alert('You need to be closer by '+ $filter('distmeters')(message.distance-200),function() {console.log("Alert success")},'Almost!',"Close");
+      navigator.notification.alert('You need to be closer by '+ $filter('distmeters')(message.distance-150),function() {console.log("Alert success")},'Almost!',"Close");
     }
   };
 }
 
 
-var MessageReadCtrl = function($scope, navSvc, userService){
+var MessageReadCtrl = function($scope, navSvc, $http, userService){
   $scope.message = userService.currentRead;
+  $http.get(oaktreeUrl+'message/read/'+userService.currentRead._id)
+    .success(function(u, getRes){
+      console.log('Message read');
+    })
 }
 
 var HomeCtrl = function($scope,navSvc,$rootScope, userService) {
@@ -224,7 +232,7 @@ var NewMessage = function($scope, navSvc, userService, hatchService, imageServic
   };
   $scope.takePic = function() {
       var options =   {
-          quality: 30,
+          quality: 40,
           destinationType: Camera.DestinationType.DATA_URL,
           sourceType: 1,      // 0:Photo Library, 1=Camera, 2=Saved Photo Album
           encodingType: 0,     // 0=JPG 1=PNG
@@ -303,6 +311,13 @@ var newPinCtrl = function($scope, navSvc, $rootScope, locationService, hatchServ
         lat: lat,
         lng: lng
        });
+      google.maps.event.addListener(pinMap, 'click', function(event) {
+         marker.setPosition(event.latLng)
+         hatchService.set('latlng', {
+           lat: marker.position.mb,
+           lng: marker.position.nb
+         });
+       });
       google.maps.event.addListener(marker, 'dragend', function() { console.log(marker.position)
         hatchService.set('latlng', {
           lat: marker.position.mb,
@@ -365,7 +380,7 @@ var showPinsCtrl = function($scope, navSvc, userService, locationService, $http,
       fillOpacity: 0.35,
       map: map,
       center: circleLatlng,
-      radius: 200
+      radius: 150
     };
     circle = new google.maps.Circle(circleOptions);
     bounds = circle.getBounds();
@@ -448,7 +463,7 @@ var showPinsCtrl = function($scope, navSvc, userService, locationService, $http,
       }
       infoWindow.open(map, newPin);
     });
-    
+
     if (eventType !== 'undefined'){
       if (eventType === 0){
         google.maps.event.addListener(newPin, 'dblclick', function() {

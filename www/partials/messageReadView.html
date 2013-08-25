@@ -3,7 +3,7 @@
         <button class="topcoat-button--large--quiet" ng-click="back()">Back</button>
     </div>
     <div class="topcoat-navigation-bar__item center half" ng-controller="MessageReadCtrl" ng-model="message">
-        <h1 class="topcoat-navigation-bar__title">{{message.title}}</h1>
+        <h1 class="topcoat-navigation-bar__title">Message</h1>
     </div>
     <div class="topcoat-navigation-bar__item right quarter">
         <a class="topcoat-icon-button--quiet" ng-click="changeSettings()">
@@ -13,10 +13,10 @@
 </div>
 <div class="topcoat-list__container" ng-controller="MessageReadCtrl" ng-model="message">
     <h3 class="topcoat-list__header">Message from {{message.sender_name}}</h3>
-    <h3><i class="icon-inbox" style="float: right; margin: 0 30px 0 0;"></i>{{message.title}}</h3>
+    <h3>{{message.title}}</h3>
     <p><i class="icon-time"></i> {{message.date | momenttime}}</p>
     <p>{{message.content}}</p>
     <p>from {{message.sender_name}}</p>
     <p>Location: {{message.latlng.lat}} {{message.latlng.lng}}</p>
-    <img src="{{ message.pic_url }}"></img>
+    <img ng-show="message.pic_url" src="{{ message.pic_url }}"></img>
 </div>
