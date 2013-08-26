@@ -8,7 +8,9 @@ angular.module('myApp.services', []).
 
 // phonegap ready service - listens to deviceready
 
-myApp.factory('userService', function(){
+var oaktreeUrl = 'http://oaktree.nodejitsu.com/';
+
+myApp.factory('userService', function($http){
     return {
         currentUser: null,
         setUser: function(userObject){
@@ -17,10 +19,6 @@ myApp.factory('userService', function(){
         allUsers: null,
         setAllUsers: function(usersArray){
           this.allUsers = usersArray;
-        },
-        allMessages: null,
-        setMessages: function(messagesArray){
-            this.allMessages = messagesArray;
         },
         setSentMessages: function(messagesArray){
             this.sentMessages = messagesArray;
@@ -40,6 +38,32 @@ myApp.factory('userService', function(){
                 that.friendObj[userObj._id] = userObj.username;
             });
             console.log('friend obj', this.friendObj);
+        },
+        allMessages: null,
+        pullMessages: function(cb){
+            $http.get(oaktreeUrl + 'message/retrieve/'+this.currentUser._id)
+                .success(function(u, getRes){
+                    this.setReceivedMessages(u.inbox);
+                    this.setSentMessages(u.outbox);
+                    cb();
+                })
+                .error(function(err, otherRes){
+                    console.log(err);
+                })
+        },
+        getUserObj: function(cb){
+          var userPass = window.localStorage.getItem("powuseee");
+          var username = userPass.split(':')[0];
+          var password = userPass.split(':')[1];
+          var that = this;
+          $http.get(oaktreeUrl + 'user/login/' + username+'/'+password)
+            .success(function(u, getRes){
+              that.setUser(u);
+              cb();
+            })
+            .error(function(err, getRes){
+              console.log('Error', err);
+            });
         }
     };
 });
@@ -50,11 +74,16 @@ myApp.factory('changePageService', function(){
 
 myApp.factory('hatchService', function(){
     return {
-     hatchObject: {},
-     set: function(field, value){
-      this.hatchObject[field] = value;
-    }
-  };
+      hatchObject: {},
+      set: function(field, value){
+        this.hatchObject[field] = value;
+      },
+      clear: function(){
+        for (var key in this.hatchObject) {
+            this.hatchObject[key] = null;
+        }
+      }
+    };
 });
 
 myApp.factory('imageService', function(){
@@ -62,7 +91,12 @@ myApp.factory('imageService', function(){
      photo: {},
      set: function(field, value){
       this.photo[field] = value;
-    }
+     },
+     clear: function(){
+        for (var photo in this.photo){
+            this.photo[photo] = null;
+        }
+     }
   };
 });
 
@@ -73,6 +107,14 @@ myApp.factory('locationService', function(){
     }
   };
 });
+
+myApp.factory('messageService', function($http){
+    return {
+        getMessages: function(userId){
+
+        }
+    }
+})
 
 myApp.factory('mapService', function(){
   return {

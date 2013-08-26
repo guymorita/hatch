@@ -17,6 +17,6 @@
     <p><i class="icon-time"></i> {{message.date | momenttime}}</p>
     <p>{{message.content}}</p>
     <p>from {{message.sender_name}}</p>
-    <p>Location: {{message.latlng.lat}} {{message.latlng.lng}}</p>
+    <p>Location: {{message.address}}</p>
     <img ng-show="message.pic_url" src="{{ message.pic_url }}"></img>
 </div>

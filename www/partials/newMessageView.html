@@ -35,10 +35,10 @@
           <ul class="topcoat-list">
           </ul>
           <form name="MessageForm">
-            <input type="text" class="topcoat-text-input" value="" name="title" placeholder="Title" ng-model="title" ng-maxlength="20">
+            <input type="text" class="topcoat-text-input" value="" name="title" placeholder="{{title}} Title" ng-model="title" ng-maxlength="20"></input>
             <span class="error" ng-show="MessageForm.title.$error.maxlength" style="color: red;">Title too long!</span>
             <br>
-            <textarea class="topcoat-text-input" style="height: 150px; padding: 20px;" placeholder="Content" ng-model="content"></textarea>
+            <textarea class="topcoat-text-input" style="height: 150px; padding: 20px;" placeholder="Content" ng-model="content">{{content}}</textarea>
           </form>
         </div>
         <div id="leftButtons">

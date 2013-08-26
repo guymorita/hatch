@@ -20,6 +20,18 @@ var LoginCtrl = function($scope, navSvc, $http, userService, locationService){
       console.log('Error getting userpass', e);
     }
   };
+  var incorrect = false;
+  $(document).bind("keydown", function (event) {
+    if (incorrect){
+      $scope.$apply(function (){
+        console.log('alksjdflk')
+        $('.signInPswd').css("color", "black");
+        $('.signUpPswd').css("color", "black");
+        incorrect = false;
+      });
+    }
+  });
+
   $scope.fetch = function(fetchRoute){
     var userUrl = oaktreeUrl +'user/'+ fetchRoute + $scope.username+'/'+$scope.password;
     $http.get(userUrl)
@@ -38,7 +50,18 @@ var LoginCtrl = function($scope, navSvc, $http, userService, locationService){
         };
         $scope.slidePage('/newmessage');
       }).error(function(u, getRes){
+        $('.signInPswd').css("color", "red");
+        incorrect = true;
       });
+  };
+
+  $scope.signUp = function(fetchRoute){
+    if ($scope.password === $scope.pswdCheck){
+      $scope.fetch(fetchRoute);
+    } else {
+      $('.signUpPswd').css("color", "red");
+      incorrect = true;
+    }
   };
 }
 
@@ -50,18 +73,20 @@ var FriendsListCtrl = function($scope, $filter, navSvc, userService, hatchServic
   $scope.pendingFriends = [];
   $scope.currentFriends = [];
   $scope.updateFriendList = function(){
-    _.each(userService.currentUser.friends, function(userObj, key){
-      userObj['checked'] = false;
-      if (userObj.status === 0){
-        userObj.pending = ' - pending';
-        $scope.pendingFriends.push(userObj);
-      } else if (userObj.status === 1){
-        userObj.waiting = 1;
-        $scope.pendingFriends.push(userObj);
-      } else if (userObj.status === 2){
-        $scope.currentFriends.push(userObj);
-      }
-    });
+    userService.getUserObj(function(){
+      _.each(userService.currentUser.friends, function(userObj, key){
+        userObj['checked'] = false;
+        if (userObj.status === 0){
+          userObj.pending = ' - pending';
+          $scope.pendingFriends.push(userObj);
+        } else if (userObj.status === 1){
+          userObj.waiting = 1;
+          $scope.pendingFriends.push(userObj);
+        } else if (userObj.status === 2){
+          $scope.currentFriends.push(userObj);
+        }
+      });
+    })
   };
   $scope.acceptFriend = function(userObj){
     $http.get(oaktreeUrl+'friends/accept/'+userObj._id+'/'+userService.currentUser._id)
@@ -101,15 +126,21 @@ var FriendsListCtrl = function($scope, $filter, navSvc, userService, hatchServic
           messageIds+= i+'='+data[i]._id+'&';
         }
         messageIds.substring(0, messageIds.length-1);
-        $http.post(oaktreeUrl + 'imagetest/'+messageIds, imageService.photo)
-          .success(function(u, getRes){
-            console.log('photo u', u);
-            console.log('photo res', getRes);
-          })
+        if (imageService.photo !== null) {
+          $http.post(oaktreeUrl + 'imagetest/' + messageIds, imageService.photo)
+            .success(function(u, getRes){
+              console.log('photo u', u);
+              console.log('photo res', getRes);
+            });
+        }
       }).error(function(data, status){
         console.log('err data', data);
         console.log('err status', status);
       });
+    hatchService.clear();
+    imageService.clear();
+    console.log(hatchService.hatchObject)
+    console.log(imageService.photo)
   };
 }
 
@@ -202,10 +233,29 @@ var InboxCtrl = function($scope, $filter, navSvc, userService, $http, locationSe
 
 var MessageReadCtrl = function($scope, navSvc, $http, userService){
   $scope.message = userService.currentRead;
+    console.log(userService.currentRead.latlng)
+  var latlng =  new google.maps.LatLng(userService.currentRead.latlng.lat, userService.currentRead.latlng.lng)
+  var geocoder = new google.maps.Geocoder();
+  geocoder.geocode({'latLng': latlng}, function(results, status) {
+
+    if (status == google.maps.GeocoderStatus.OK) {
+      if (results[1]) {
+
+      $scope.message.address = results[1].formatted_address;
+
+      $scope.apply();
+      } else {
+        alert('No results found');
+      }
+    } else {
+      alert('Geocoder failed due to: ' + status);
+    }
+  });
+
   $http.get(oaktreeUrl+'message/read/'+userService.currentRead._id)
     .success(function(u, getRes){
       console.log('Message read');
-    })
+    });
 }
 
 var HomeCtrl = function($scope,navSvc,$rootScope, userService) {
@@ -226,8 +276,8 @@ var HomeCtrl = function($scope,navSvc,$rootScope, userService) {
 }
 
 var NewMessage = function($scope, navSvc, userService, hatchService, imageService, locationService){
-  $scope.title = '';
-  $scope.content = '';
+  $scope.title = hatchService.hatchObject.title;
+  $scope.content = hatchService.hatchObject.content;
   $scope.hidden = false;
 
   $scope.next = function(path){
@@ -237,26 +287,26 @@ var NewMessage = function($scope, navSvc, userService, hatchService, imageServic
     navSvc.slidePage(path);
   };
   $scope.takePic = function() {
-      var options =   {
-          quality: 40,
-          destinationType: Camera.DestinationType.DATA_URL,
-          sourceType: 1,      // 0:Photo Library, 1=Camera, 2=Saved Photo Album
-          encodingType: 0,     // 0=JPG 1=PNG
-          targetWidth: 640,
-          targetHeight: 1136
-      }
-      // Take picture using device camera and retrieve image as base64-encoded string
-      navigator.camera.getPicture(onSuccess,onFail,options);
+    var options =   {
+        quality: 40,
+        destinationType: Camera.DestinationType.DATA_URL,
+        sourceType: 1,      // 0:Photo Library, 1=Camera, 2=Saved Photo Album
+        encodingType: 0,     // 0=JPG 1=PNG
+        targetWidth: 640,
+        targetHeight: 1136
+    }
+    // Take picture using device camera and retrieve image as base64-encoded string
+    navigator.camera.getPicture(onSuccess,onFail,options);
   };
   var onSuccess = function(imageData) {
-      console.log("On Success! ");
-      $scope.picData = "data:image/jpeg;base64," +imageData;
-      $scope.$apply();
-      imageService.set('photo', $scope.picData);
-      $('.userPic').show();
+    console.log("On Success! ");
+    $scope.picData = "data:image/jpeg;base64," +imageData;
+    $scope.$apply();
+    imageService.set('photo', $scope.picData);
+    $('.userPic').show();
   };
   var onFail = function(e) {
-      console.log("On fail " + e);
+    console.log("On fail " + e);
   };
 
   $scope.removeImage = function(){
@@ -333,7 +383,6 @@ var newPinCtrl = function($scope, navSvc, $rootScope, locationService, hatchServ
     }
   }
 }
-
 
 var showPinsCtrl = function($scope, navSvc, userService, locationService, $http, mapService) {
 
