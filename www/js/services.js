@@ -50,11 +50,16 @@ myApp.factory('changePageService', function(){
 
 myApp.factory('hatchService', function(){
     return {
-     hatchObject: {},
-     set: function(field, value){
-      this.hatchObject[field] = value;
-    }
-  };
+      hatchObject: {},
+      set: function(field, value){
+        this.hatchObject[field] = value;
+      },
+      clear: function(){
+        for (var key in this.hatchObject) {
+            this.hatchObject[key] = null;
+        }
+      }
+    };
 });
 
 myApp.factory('imageService', function(){
@@ -62,7 +67,12 @@ myApp.factory('imageService', function(){
      photo: {},
      set: function(field, value){
       this.photo[field] = value;
-    }
+     },
+     clear: function(){
+        for (var photo in this.photo){
+            this.photo[photo] = null;
+        }
+     }
   };
 });
 

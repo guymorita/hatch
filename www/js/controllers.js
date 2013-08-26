@@ -20,6 +20,18 @@ var LoginCtrl = function($scope, navSvc, $http, userService, locationService){
       console.log('Error getting userpass', e);
     }
   };
+  var incorrect = false;
+  $(document).bind("keydown", function (event) {
+    if (incorrect){
+      $scope.$apply(function (){
+        console.log('alksjdflk')
+        $('.signInPswd').css("color", "black");
+        $('.signUpPswd').css("color", "black");
+        incorrect = false;
+      });
+    }
+  });
+
   $scope.fetch = function(fetchRoute){
     var userUrl = oaktreeUrl +'user/'+ fetchRoute + $scope.username+'/'+$scope.password;
     $http.get(userUrl)
@@ -38,7 +50,18 @@ var LoginCtrl = function($scope, navSvc, $http, userService, locationService){
         };
         $scope.slidePage('/newmessage');
       }).error(function(u, getRes){
+        $('.signInPswd').css("color", "red");
+        incorrect = true;
       });
+  };
+
+  $scope.signUp = function(fetchRoute){
+    if ($scope.password === $scope.pswdCheck){
+      $scope.fetch(fetchRoute);
+    } else {
+      $('.signUpPswd').css("color", "red");
+      incorrect = true;
+    }
   };
 }
 
@@ -95,15 +118,21 @@ var FriendsListCtrl = function($scope, $filter, navSvc, userService, hatchServic
           messageIds+= i+'='+data[i]._id+'&';
         }
         messageIds.substring(0, messageIds.length-1);
-        $http.post(oaktreeUrl + 'imagetest/'+messageIds, imageService.photo)
-          .success(function(u, getRes){
-            console.log('photo u', u);
-            console.log('photo res', getRes);
-          })
+        if (imageService.photo !== null) {
+          $http.post(oaktreeUrl + 'imagetest/' + messageIds, imageService.photo)
+            .success(function(u, getRes){
+              console.log('photo u', u);
+              console.log('photo res', getRes);
+            });
+        }
       }).error(function(data, status){
         console.log('err data', data);
         console.log('err status', status);
       });
+    hatchService.clear();
+    imageService.clear();
+    console.log(hatchService.hatchObject)
+    console.log(imageService.photo)
   };
 }
 
@@ -196,10 +225,29 @@ var InboxCtrl = function($scope, $filter, navSvc, userService, $http, locationSe
 
 var MessageReadCtrl = function($scope, navSvc, $http, userService){
   $scope.message = userService.currentRead;
+    console.log(userService.currentRead.latlng)
+  var latlng =  new google.maps.LatLng(userService.currentRead.latlng.lat, userService.currentRead.latlng.lng)
+  var geocoder = new google.maps.Geocoder();
+  geocoder.geocode({'latLng': latlng}, function(results, status) {
+    
+    if (status == google.maps.GeocoderStatus.OK) {
+      if (results[1]) {
+      
+      $scope.message.address = results[1].formatted_address;
+
+      $scope.apply();
+      } else {
+        alert('No results found');
+      }
+    } else {
+      alert('Geocoder failed due to: ' + status);
+    }
+  });
+
   $http.get(oaktreeUrl+'message/read/'+userService.currentRead._id)
     .success(function(u, getRes){
       console.log('Message read');
-    })
+    });
 }
 
 var HomeCtrl = function($scope,navSvc,$rootScope, userService) {

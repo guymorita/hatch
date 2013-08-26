@@ -24,6 +24,12 @@
 body {
   overflow:hidden;
 }
+
+#sp-page {
+  background: #dfe2e2;
+  color: #000;
+}
+
 .list {
     width: 100%;
     height: 100%;
