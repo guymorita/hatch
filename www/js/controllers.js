@@ -268,8 +268,8 @@ var HomeCtrl = function($scope,navSvc,$rootScope, userService) {
 }
 
 var NewMessage = function($scope, navSvc, userService, hatchService, imageService, locationService){
-  $scope.title = '';
-  $scope.content = '';
+  $scope.title = hatchService.hatchObject.title;
+  $scope.content = hatchService.hatchObject.content;
   $scope.hidden = false;
 
   $scope.next = function(path){
@@ -279,26 +279,26 @@ var NewMessage = function($scope, navSvc, userService, hatchService, imageServic
     navSvc.slidePage(path);
   };
   $scope.takePic = function() {
-      var options =   {
-          quality: 40,
-          destinationType: Camera.DestinationType.DATA_URL,
-          sourceType: 1,      // 0:Photo Library, 1=Camera, 2=Saved Photo Album
-          encodingType: 0,     // 0=JPG 1=PNG
-          targetWidth: 640,
-          targetHeight: 1136
-      }
-      // Take picture using device camera and retrieve image as base64-encoded string
-      navigator.camera.getPicture(onSuccess,onFail,options);
+    var options =   {
+        quality: 40,
+        destinationType: Camera.DestinationType.DATA_URL,
+        sourceType: 1,      // 0:Photo Library, 1=Camera, 2=Saved Photo Album
+        encodingType: 0,     // 0=JPG 1=PNG
+        targetWidth: 640,
+        targetHeight: 1136
+    }
+    // Take picture using device camera and retrieve image as base64-encoded string
+    navigator.camera.getPicture(onSuccess,onFail,options);
   };
   var onSuccess = function(imageData) {
-      console.log("On Success! ");
-      $scope.picData = "data:image/jpeg;base64," +imageData;
-      $scope.$apply();
-      imageService.set('photo', $scope.picData);
-      $('.userPic').show();
+    console.log("On Success! ");
+    $scope.picData = "data:image/jpeg;base64," +imageData;
+    $scope.$apply();
+    imageService.set('photo', $scope.picData);
+    $('.userPic').show();
   };
   var onFail = function(e) {
-      console.log("On fail " + e);
+    console.log("On fail " + e);
   };
 
   $scope.removeImage = function(){
