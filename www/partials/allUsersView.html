@@ -8,17 +8,14 @@
         <h1 class="topcoat-navigation-bar__title">Add Friends</h1>
     </div>
     <div class="topcoat-navigation-bar__item right quarter">
-        <a class="topcoat-icon-button--quiet" ng-click="changeSettings()">
-            <span class="topcoat-icon settings-icon"></span>
-        </a>
     </div>
 </div>
 <div class="topcoat-list__container" ng-controller="UsersCtrl" ng-init="updateUserList()">
     <h3 class="topcoat-list__header"></h3>
-    <ul class="topcoat-list list">
+    <ul class="topcoat-list">
       <li class="topcoat-list__item" ng-repeat="user in users">
         <button class="topcoat-button--cta" ng-click="add(user)" ng-class="itemClass(user)" style="float: right; margin: 5px 0 0 0;">Add</button>
-          <h2>{{user.username}}</h2>
+          <h3>{{user.username}}</h3>
       </li>
     </ul>
 </div>

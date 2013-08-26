@@ -69,6 +69,12 @@ var FriendsListCtrl = function($scope, $filter, navSvc, userService, hatchServic
         userObj.invited = 1;
       });
   };
+  $scope.denyFriend = function(userObj){
+    $http.get(oaktreeUrl + 'friends/deny/'+userObj._id+'/'+userService.currentUser._id)
+      .success(function(u, getRes){
+        userObj.invited = 1;
+      })
+  }
 
   $scope.friendClass = function(user){
     if (user.invited){
