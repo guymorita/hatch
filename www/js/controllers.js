@@ -111,6 +111,7 @@ var FriendsListCtrl = function($scope, $filter, navSvc, userService, hatchServic
   };
   $scope.allUsers = userService.allUsers;
   $scope.selectedFriends = $filter('filter')($scope.currentFriends, {checked:true});
+
   var receiverIds = [];
   $scope.send = function(){
     // build the object
@@ -123,16 +124,16 @@ var FriendsListCtrl = function($scope, $filter, navSvc, userService, hatchServic
     console.log('hatch', hatchService.hatchObject);
     $http.post(oaktreeUrl +'message/', JSON.stringify(hatchService.hatchObject))
       .success(function(data, status, headers, config){
-        console.log('data', data);
-        var messageIds = '?';
-        for (var i = 0; i < data.length; i++){
-          messageIds+= i+'='+data[i]._id+'&';
-        }
-        messageIds.substring(0, messageIds.length-1);
-        if (imageService.photo && typeof imageService.photo !== 'undefined') {
+        console.log('send message success data', data);
+        if (imageService.photo && typeof imageService.photo.photo !== 'undefined') {
+          var messageIds = '?';
+          for (var i = 0; i < data.length; i++){
+            messageIds+= i+'='+data[i]._id+'&';
+          }
+          messageIds.substring(0, messageIds.length-1);
           console.log('hatch obj', hatchService.hatchObject);
           console.log('image obj', imageService.photo);
-          $http.post(oaktreeUrl + 'imagetest/' + messageIds, imageService.photo)
+          $http.post(oaktreeUrl + 'image/' + messageIds, imageService.photo)
             .success(function(u, getRes){
               console.log('photo u', u);
               console.log('photo res', getRes);
@@ -141,8 +142,8 @@ var FriendsListCtrl = function($scope, $filter, navSvc, userService, hatchServic
             });
         }
       }).error(function(data, status){
-        console.log('err data', data);
-        console.log('err status', status);
+        console.log('send msg err data', data);
+        console.log('send msg err status', status);
         hatchService.clear();
         imageService.clear();
       });
@@ -336,7 +337,7 @@ var newPinCtrl = function($scope, navSvc, $rootScope, locationService, hatchServ
   var pinAdded = false;
   var marker;
 
-  $scope.title = 'Choose Location'
+  $scope.title = 'Choose Location';
 
   $scope.initialize = function() {
     setTimeout(function(){
@@ -378,13 +379,14 @@ var newPinCtrl = function($scope, navSvc, $rootScope, locationService, hatchServ
         lng: lng
        });
       google.maps.event.addListener(pinMap, 'click', function(event) {
-         marker.setPosition(event.latLng)
+         marker.setPosition(event.latLng);
          hatchService.set('latlng', {
            lat: marker.position.mb,
            lng: marker.position.nb
          });
        });
-      google.maps.event.addListener(marker, 'dragend', function() { console.log(marker.position)
+      google.maps.event.addListener(marker, 'dragend', function() {
+        console.log(marker.position);
         hatchService.set('latlng', {
           lat: marker.position.mb,
           lng: marker.position.nb
