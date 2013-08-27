@@ -147,7 +147,7 @@ var FriendsListCtrl = function($scope, $filter, navSvc, userService, hatchServic
         imageService.clear();
       });
   };
-}
+};
 
 
 var UsersCtrl = function($scope, navSvc, userService, $http){
@@ -176,19 +176,19 @@ var UsersCtrl = function($scope, navSvc, userService, $http){
     user.added = 1;
     $http.get(oaktreeUrl +'friends/add/'+userService.currentUser._id+'/'+user._id)
       .success(function(u, getRes){
-      })
+      });
   };
   $scope.itemClass = function(user){
     if (user.added){
       return 'is-disabled';
     }
   };
-}
+};
 
 var getDistance = function(lat1, lon1, lat2, lon2){
   var R = 6371;
   return Math.acos(Math.sin(lat1)*Math.sin(lat2) + Math.cos(lat1)*Math.cos(lat2) * Math.cos(lon2-lon1)) * R;
-}
+};
 
 
 var InboxCtrl = function($scope, $filter, navSvc, userService, $http, locationService){
@@ -220,7 +220,7 @@ var InboxCtrl = function($scope, $filter, navSvc, userService, $http, locationSe
       });
       $scope.receivedMessages = userService.receivedMessages;
       $scope.sentMessages = userService.sentMessages;
-      console.log('res', res)
+      console.log('res', res);
     }).error(function(){
     });
   };
@@ -239,13 +239,13 @@ var InboxCtrl = function($scope, $filter, navSvc, userService, $http, locationSe
       navigator.notification.alert('You need to be closer by '+ $filter('distmeters')(message.distance-150),function() {console.log("Alert success")},'Almost!',"Close");
     }
   };
-}
+};
 
 
 var MessageReadCtrl = function($scope, navSvc, $http, userService){
   $scope.message = userService.currentRead;
-    console.log(userService.currentRead.latlng)
-  var latlng =  new google.maps.LatLng(userService.currentRead.latlng.lat, userService.currentRead.latlng.lng)
+    console.log(userService.currentRead.latlng);
+  var latlng =  new google.maps.LatLng(userService.currentRead.latlng.lat, userService.currentRead.latlng.lng);
   var geocoder = new google.maps.Geocoder();
   geocoder.geocode({'latLng': latlng}, function(results, status) {
 
@@ -267,7 +267,7 @@ var MessageReadCtrl = function($scope, navSvc, $http, userService){
     .success(function(u, getRes){
       console.log('Message read');
     });
-}
+};
 
 var HomeCtrl = function($scope,navSvc,$rootScope, userService) {
     $rootScope.showSettings = false;
@@ -284,7 +284,7 @@ var HomeCtrl = function($scope,navSvc,$rootScope, userService) {
     $scope.closeOverlay = function () {
         $rootScope.showSettings = false;
     };
-}
+};
 
 var NewMessage = function($scope, navSvc, userService, hatchService, imageService, locationService){
   $scope.title = hatchService.hatchObject.title;
@@ -305,7 +305,7 @@ var NewMessage = function($scope, navSvc, userService, hatchService, imageServic
         encodingType: 0,     // 0=JPG 1=PNG
         targetWidth: 640,
         targetHeight: 1136
-    }
+    };
     // Take picture using device camera and retrieve image as base64-encoded string
     navigator.camera.getPicture(onSuccess,onFail,options);
   };
@@ -323,12 +323,12 @@ var NewMessage = function($scope, navSvc, userService, hatchService, imageServic
   $scope.removeImage = function(){
     $('.userPic').hide();
     imageService.set('photo', null);
-  }
+  };
 
   navigator.geolocation.getCurrentPosition(function(position) {
     locationService.position= { lat: position.coords.latitude, lng: position.coords.longitude };
   },function(e) { console.log("Error retrieving position " + e.code + " " + e.message) });
-}
+};
 
 
 var newPinCtrl = function($scope, navSvc, $rootScope, locationService, hatchService, mapService) {
@@ -345,24 +345,23 @@ var newPinCtrl = function($scope, navSvc, $rootScope, locationService, hatchServ
         center: new google.maps.LatLng(locationService.position.lat, locationService.position.lng),
         mapTypeId: google.maps.MapTypeId.ROADMAP
       };
-      pinMap = new google.maps.Map(document.getElementById('map-canvas'),
-          pinMapOptions);
+      pinMap = new google.maps.Map(document.getElementById('map-canvas'), pinMapOptions);
       addPin(locationService.position.lat, locationService.position.lng);
 
-      var mapName = "pinMap"
+      var mapName = "pinMap";
 
       google.maps.event.clearListeners(pinMap, 'tilesloaded');
       google.maps.event.addListener(pinMap, 'zoom_changed', function(){
-        mapService.saveMapState(pinMap, mapName)
+        mapService.saveMapState(pinMap, mapName);
       });
       google.maps.event.addListener(pinMap, 'dragend', function(){
-        mapService.saveMapState(pinMap, mapName)
+        mapService.saveMapState(pinMap, mapName);
       });
 
       mapService.loadMapState(pinMap, mapName);
 
     }, 10);
-  }
+  };
 
   var addPin = function(lat, lng) {
     if (!pinAdded){
@@ -392,8 +391,8 @@ var newPinCtrl = function($scope, navSvc, $rootScope, locationService, hatchServ
         });
       });
     }
-  }
-}
+  };
+};
 
 var showPinsCtrl = function($scope, navSvc, userService, locationService, $http, mapService) {
 
@@ -434,8 +433,7 @@ var showPinsCtrl = function($scope, navSvc, userService, locationService, $http,
       center: new google.maps.LatLng(locationService.position.lat, locationService.position.lng),
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
-    map = new google.maps.Map(document.getElementById('map-canvas'),
-        mapOptions);
+    map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
     var circleLatlng = new google.maps.LatLng(locationService.position.lat, locationService.position.lng);
     var circleOptions = {
@@ -453,14 +451,14 @@ var showPinsCtrl = function($scope, navSvc, userService, locationService, $http,
 
 
 
-    var mapName = "myMap"
+    var mapName = "myMap";
 
     google.maps.event.clearListeners(map, 'tilesloaded');
     google.maps.event.addListener(map, 'zoom_changed', function(){
-      mapService.saveMapState(map, mapName)
+      mapService.saveMapState(map, mapName);
     });
     google.maps.event.addListener(map, 'dragend', function(){
-      mapService.saveMapState(map, mapName)
+      mapService.saveMapState(map, mapName);
     });
 
     mapService.loadMapState(map, mapName);
@@ -473,23 +471,23 @@ var showPinsCtrl = function($scope, navSvc, userService, locationService, $http,
   var images = {
     redegg: {
       url: './img/redegg.png',
-      size: new google.maps.Size(25, 25),
+      size: new google.maps.Size(25, 25)
     },
     greenegg: {
       url: './img/greenegg.png',
-      size: new google.maps.Size(25, 25),
+      size: new google.maps.Size(25, 25)
     },
     blueegg: {
       url: './img/blueegg.png',
-      size: new google.maps.Size(25, 25),
+      size: new google.maps.Size(25, 25)
     }
-  }
+  };
 
   var dropPins = function(messageType){
     var eventType;
     for (var i = 0; i < messageType.length; i++) {
       var instance = messageType[i];
-      var pinLocation = new google.maps.LatLng(instance.latlng.lat, instance.latlng.lng)
+      var pinLocation = new google.maps.LatLng(instance.latlng.lat, instance.latlng.lng);
 
       if (messageType === userService.sentMessages) {
         eventType = 0;
@@ -575,23 +573,23 @@ var NotificationCtrl = function($scope) {
     $scope.confirmNotify = function() {
         navigator.notification.confirm("My Confirmation",function(){console.log("Confirm Success")},"Are you sure?",["Ok","Cancel"]);
     };
-}
+};
 
 
 var GeolocationCtrl = function($scope,navSvc,$rootScope) {
     navigator.geolocation.getCurrentPosition(function(position) {
         $scope.position=position;
         $scope.$apply();
-        },function(e) { console.log("Error retrieving position " + e.code + " " + e.message) });
+        },function(e) { console.log("Error retrieving position " + e.code + " " + e.message); });
 
     $scope.back = function () {
         navSvc.back();
     };
-}
+};
 
 var DeviceCtrl = function($scope) {
     $scope.device = device;
-}
+};
 
 
 var ContactsCtrl = function($scope, userService) {
@@ -606,7 +604,7 @@ var ContactsCtrl = function($scope, userService) {
         navigator.contacts.find(fields,function(contacts) {
             $scope.contacts=contacts;
             $scope.$apply();
-        },function(e){console.log("Error finding contacts " + e.code)},options);
+        },function(e){console.log("Error finding contacts " + e.code);},options);
     };
 };
 
@@ -636,11 +634,11 @@ var TestCtrl = function($scope){
   };
   $scope.dragged = function(){
     $scope.text = 'dragged';
-  }
+  };
   $scope.swipe = function(){
     $scope.text = 'swipe';
-  }
+  };
   $scope.hold = function(){
     $scope.text = 'hold';
-  }
-}
+  };
+};
