@@ -24,7 +24,7 @@ var LoginCtrl = function($scope, navSvc, $http, userService, locationService){
   $(document).bind("keydown", function (event) {
     if (incorrect){
       // $scope.$apply(function (){
-      console.log('event', event)
+      console.log('event', event);
       $('.signInPswd').css("color", "black");
       $('.signUpPswd').css("color", "black");
       incorrect = false;
@@ -48,7 +48,7 @@ var LoginCtrl = function($scope, navSvc, $http, userService, locationService){
           $http.get(oaktreeUrl + 'user/token/'+u._id+'/'+app.userToken)
             .success(function(u, getRes3){
             });
-        };
+        }
         $scope.slidePage('/newmessage');
       }).error(function(u, getRes){
         $('.signInPswd').css("color", "red");
@@ -64,7 +64,7 @@ var LoginCtrl = function($scope, navSvc, $http, userService, locationService){
       incorrect = true;
     }
   };
-}
+};
 
 
 var FriendsListCtrl = function($scope, $filter, navSvc, userService, hatchService, imageService, $http){
@@ -89,7 +89,7 @@ var FriendsListCtrl = function($scope, $filter, navSvc, userService, hatchServic
             $scope.currentFriends.push(userObj);
           }
         });
-      })
+      });
   };
   $scope.acceptFriend = function(userObj){
     $http.get(oaktreeUrl+'friends/accept/'+userObj._id+'/'+userService.currentUser._id)
@@ -101,14 +101,14 @@ var FriendsListCtrl = function($scope, $filter, navSvc, userService, hatchServic
     $http.get(oaktreeUrl + 'friends/deny/'+userObj._id+'/'+userService.currentUser._id)
       .success(function(u, getRes){
         userObj.invited = 1;
-      })
-  }
+      });
+  };
 
   $scope.friendClass = function(user){
     if (user.invited){
       return 'is-disabled';
     }
-  }
+  };
   $scope.allUsers = userService.allUsers;
   $scope.selectedFriends = $filter('filter')($scope.currentFriends, {checked:true});
   var receiverIds = [];
@@ -206,7 +206,7 @@ var InboxCtrl = function($scope, $filter, navSvc, userService, $http, locationSe
       userService.setReceivedMessages(res.inbox);
       console.log('received messages', userService.receivedMessages);
       _.each(userService.receivedMessages, function(message){
-        if (message.latlng){
+        if (typeof message.latlng !== 'undefined' && Object.keys(message.latlng) > 0 ){
           message['distance'] = getDistance(locationService.position.lat,locationService.position.lng,message.latlng.lat,message.latlng.lng);
         } else {
           message['distance'] = 0;
