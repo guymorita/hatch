@@ -56,9 +56,10 @@ myApp.factory('userService', function($http){
           var username = userPass.split(':')[0];
           var password = userPass.split(':')[1];
           var that = this;
-          $http.get(oaktreeUrl + 'user/login/' + username+'/'+password)
-            .success(function(u, getRes){
+          $http.get(oaktreeUrl + 'user/login/' + username +'/'+ password)
+            .success(function(u, getRes, headers){
               that.setUser(u);
+              console.log('got user obj', u);
               cb();
             })
             .error(function(err, getRes){

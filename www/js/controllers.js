@@ -23,21 +23,21 @@ var LoginCtrl = function($scope, navSvc, $http, userService, locationService){
   var incorrect = false;
   $(document).bind("keydown", function (event) {
     if (incorrect){
-      $scope.$apply(function (){
-        console.log('alksjdflk')
-        $('.signInPswd').css("color", "black");
-        $('.signUpPswd').css("color", "black");
-        incorrect = false;
-      });
+      // $scope.$apply(function (){
+      console.log('event', event)
+      $('.signInPswd').css("color", "black");
+      $('.signUpPswd').css("color", "black");
+      incorrect = false;
+      // });
     }
   });
 
   $scope.fetch = function(fetchRoute){
-    var userUrl = oaktreeUrl +'user/'+ fetchRoute + $scope.username+'/'+$scope.password;
+    var userUrl = oaktreeUrl +'user/'+ fetchRoute + $scope.username.toLowerCase()+'/'+$scope.password.toLowerCase();
     $http.get(userUrl)
       .success(function(u, getRes){
         userService.setUser(u);
-        var usePass = $scope.username+":"+$scope.password;
+        var usePass = $scope.username.toLowerCase()+":"+$scope.password.toLowerCase();
         window.localStorage.setItem("powuseee", usePass);
         $http.get(oaktreeUrl +'user/')
           .success(function(users, getRes2){
@@ -74,18 +74,23 @@ var FriendsListCtrl = function($scope, $filter, navSvc, userService, hatchServic
   $scope.currentFriends = [];
   $scope.updateFriendList = function(){
     userService.getUserObj(function(){
-      _.each(userService.currentUser.friends, function(userObj, key){
-        userObj['checked'] = false;
-        if (userObj.status === 0){
-          userObj.pending = ' - pending';
-          $scope.pendingFriends.push(userObj);
-        } else if (userObj.status === 1){
-          userObj.waiting = 1;
-          $scope.pendingFriends.push(userObj);
-        } else if (userObj.status === 2){
-          $scope.currentFriends.push(userObj);
-        }
-      });
+      // $http.get(oaktreeUrl+'friends/' + userService.currentUser._id)
+      //   .success(function(u, getRes){
+      //     userService.currentUser.friends = u;
+          _.each(userService.currentUser.friends, function(userObj, key){
+            userObj['checked'] = false;
+            if (userObj.status === 0){
+              userObj.pending = ' - pending';
+              $scope.pendingFriends.push(userObj);
+            } else if (userObj.status === 1){
+              userObj.waiting = 1;
+              $scope.pendingFriends.push(userObj);
+            } else if (userObj.status === 2){
+              $scope.currentFriends.push(userObj);
+            }
+          });
+        // })
+      // console.log('friends2', userService.currentUser.friends);
     })
   };
   $scope.acceptFriend = function(userObj){
