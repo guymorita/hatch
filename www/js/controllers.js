@@ -13,8 +13,8 @@ var LoginCtrl = function($scope, navSvc, $http, userService, locationService){
   $scope.bootUp = function(){
     try {
         var userPass = window.localStorage.getItem("powuseee");
-        $scope.username = userPass.split(':')[0];
-        $scope.password = userPass.split(':')[1];
+        $scope.username = userPass.split(':')[0].toLowerCase();
+        $scope.password = userPass.split(':')[1].toLowerCase();
         $scope.fetch('login/');
     } catch (e){
       console.log('Error getting userpass', e);
@@ -38,6 +38,7 @@ var LoginCtrl = function($scope, navSvc, $http, userService, locationService){
       .success(function(u, getRes){
         userService.setUser(u);
         var usePass = $scope.username.toLowerCase()+":"+$scope.password.toLowerCase();
+        console.log('usepass'. usePass);
         window.localStorage.setItem("powuseee", usePass);
         $http.get(oaktreeUrl +'user/')
           .success(function(users, getRes2){
@@ -73,25 +74,22 @@ var FriendsListCtrl = function($scope, $filter, navSvc, userService, hatchServic
   $scope.pendingFriends = [];
   $scope.currentFriends = [];
   $scope.updateFriendList = function(){
-    userService.getUserObj(function(){
-      // $http.get(oaktreeUrl+'friends/' + userService.currentUser._id)
-      //   .success(function(u, getRes){
-      //     userService.currentUser.friends = u;
-          _.each(userService.currentUser.friends, function(userObj, key){
-            userObj['checked'] = false;
-            if (userObj.status === 0){
-              userObj.pending = ' - pending';
-              $scope.pendingFriends.push(userObj);
-            } else if (userObj.status === 1){
-              userObj.waiting = 1;
-              $scope.pendingFriends.push(userObj);
-            } else if (userObj.status === 2){
-              $scope.currentFriends.push(userObj);
-            }
-          });
-        // })
-      // console.log('friends2', userService.currentUser.friends);
-    })
+    $http.get(oaktreeUrl+'friends/' + userService.currentUser._id)
+      .success(function(u, getRes){
+        userService.currentUser.friends = u;
+        _.each(userService.currentUser.friends, function(userObj, key){
+          userObj['checked'] = false;
+          if (userObj.status === 0){
+            userObj.pending = ' - pending';
+            $scope.pendingFriends.push(userObj);
+          } else if (userObj.status === 1){
+            userObj.waiting = 1;
+            $scope.pendingFriends.push(userObj);
+          } else if (userObj.status === 2){
+            $scope.currentFriends.push(userObj);
+          }
+        });
+      })
   };
   $scope.acceptFriend = function(userObj){
     $http.get(oaktreeUrl+'friends/accept/'+userObj._id+'/'+userService.currentUser._id)
@@ -131,21 +129,23 @@ var FriendsListCtrl = function($scope, $filter, navSvc, userService, hatchServic
           messageIds+= i+'='+data[i]._id+'&';
         }
         messageIds.substring(0, messageIds.length-1);
-        if (imageService.photo !== null) {
+        if (imageService.photo && typeof imageService.photo !== 'undefined') {
+          console.log('hatch obj', hatchService.hatchObject);
+          console.log('image obj', imageService.photo);
           $http.post(oaktreeUrl + 'imagetest/' + messageIds, imageService.photo)
             .success(function(u, getRes){
               console.log('photo u', u);
               console.log('photo res', getRes);
+              hatchService.clear();
+              imageService.clear();
             });
         }
       }).error(function(data, status){
         console.log('err data', data);
         console.log('err status', status);
+        hatchService.clear();
+        imageService.clear();
       });
-    hatchService.clear();
-    imageService.clear();
-    console.log(hatchService.hatchObject)
-    console.log(imageService.photo)
   };
 }
 
@@ -204,8 +204,14 @@ var InboxCtrl = function($scope, $filter, navSvc, userService, $http, locationSe
     $http.get(url).success(function(res, status, headers){
       userService.buildFriendLookup();
       userService.setReceivedMessages(res.inbox);
+      console.log('received messages', userService.receivedMessages);
       _.each(userService.receivedMessages, function(message){
-        message['distance'] = getDistance(locationService.position.lat,locationService.position.lng,message.latlng.lat,message.latlng.lng);
+        if (message.latlng){
+          message['distance'] = getDistance(locationService.position.lat,locationService.position.lng,message.latlng.lat,message.latlng.lng);
+        } else {
+          message['distance'] = 0;
+        }
+
       });
       userService.setSentMessages(res.outbox);
       console.log('user sent messages', userService.sentMessages);

@@ -53,6 +53,7 @@ myApp.factory('userService', function($http){
         },
         getUserObj: function(cb){
           var userPass = window.localStorage.getItem("powuseee");
+          console.log('userpass service', userPass);
           var username = userPass.split(':')[0];
           var password = userPass.split(':')[1];
           var that = this;
@@ -95,7 +96,7 @@ myApp.factory('imageService', function(){
      },
      clear: function(){
         for (var photo in this.photo){
-            this.photo[photo] = null;
+            this.photo[photo] = undefined;
         }
      }
   };

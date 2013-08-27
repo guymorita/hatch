@@ -1,12 +1,12 @@
 <div class="topcoat-navigation-bar" ng-controller="HomeCtrl">
   <div class="topcoat-navigation-bar__item left quarter">
-      <button class="topcoat-button--large--quiet" ng-click="back()">Back</button>
+      <button class="topcoat-button--large--quiet" ng-click="slidePage('/inbox')">Back</button>
   </div>
     <div class="topcoat-navigation-bar__item center half">
         <h1 class="topcoat-navigation-bar__title">{{ title }}</h1>
     </div>
   <div class="topcoat-navigation-bar__item right quarter">
-      <button class="topcoat-button--large--quiet" ng-click="slidePage('/inbox')">Inbox</button>
+      <!-- <button class="topcoat-button--large--quiet" ng-click="slidePage('/inbox')">Inbox</button> -->
   </div>
 </div>
 <div id="map-canvas" ng-init="getMessages();">
