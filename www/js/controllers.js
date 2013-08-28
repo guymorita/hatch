@@ -140,14 +140,12 @@ var FriendsListCtrl = function($scope, $filter, navSvc, userService, hatchServic
               console.log('photo res', getRes);
               hatchService.clear();
               imageService.clear();
-              imageService.photo = {};
             })
             .error(function(data, status){
               console.log('error status', status);
               console.log('error data', data);
               hatchService.clear();
               imageService.clear();
-              imageService.photo = {};
             });
         } else {
           hatchService.clear();

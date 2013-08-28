@@ -49,7 +49,7 @@ myApp.factory('userService', function($http){
                 })
                 .error(function(err, otherRes){
                     console.log(err);
-                });
+                })
         },
         getUserObj: function(cb){
           var userPass = window.localStorage.getItem("powuseee");
@@ -71,7 +71,7 @@ myApp.factory('userService', function($http){
 });
 
 myApp.factory('changePageService', function(){
-    console.log('service');
+    console.log('service')
 });
 
 myApp.factory('hatchService', function(){
@@ -90,16 +90,16 @@ myApp.factory('hatchService', function(){
 
 myApp.factory('imageService', function(){
     return {
-     photo: {},
-     set: function(field, value){
-      this.photo[field] = value;
-     },
-     clear: function(){
-        for (var key in this.photo){
-          delete this.photo[key];
-        }
-     }
-  };
+       photo: {},
+       set: function(field, value){
+        this.photo[field] = value;
+       },
+       clear: function(){
+          for (var key in this.photo){
+            delete this.photo[key];
+          }
+       }
+    };
 });
 
 myApp.factory('locationService', function(){
@@ -116,7 +116,7 @@ myApp.factory('messageService', function($http){
 
         }
     }
-});
+})
 
 myApp.factory('mapService', function(){
   return {
@@ -162,7 +162,7 @@ myApp.factory('mapService', function(){
           }
         return "";
     }
-  };
+  }
 });
 
 myApp.factory('phonegapReady', function() {
@@ -277,7 +277,7 @@ myApp.factory('navSvc', function($navigate) {
         back: function () {
             $navigate.back();
         }
-    };
+    }
 });
 
 myApp.factory('compass', function ($rootScope, phonegapReady) {
@@ -329,9 +329,9 @@ myApp.factory('contacts', function ($rootScope, phonegapReady) {
                         onError.apply(that, args);
                     });
                 }
-            }, options);
-        });
-    };
+            }, options)
+        })
+    }
 });
 
 
