@@ -12,10 +12,16 @@ var LoginCtrl = function($scope, navSvc, $http, userService, locationService){
   $scope.password = '';
   $scope.bootUp = function(){
     try {
-        var userPass = window.localStorage.getItem("powuseee");
-        $scope.username = userPass.split(':')[0].toLowerCase();
-        $scope.password = userPass.split(':')[1].toLowerCase();
-        $scope.fetch('login/');
+      var userPass = window.localStorage.getItem("powuseee");
+      $scope.username = userPass.split(':')[0].toLowerCase();
+      $scope.password = userPass.split(':')[1];
+
+      var userObj = {
+        username: $scope.username,
+        password: $scope.password
+      };
+
+      $scope.fetch('login/', userObj);
     } catch (e){
       console.log('Error getting userpass', e);
     }
@@ -32,33 +38,48 @@ var LoginCtrl = function($scope, navSvc, $http, userService, locationService){
     }
   });
 
-  $scope.fetch = function(fetchRoute){
-    var userUrl = oaktreeUrl +'user/'+ fetchRoute + $scope.username.toLowerCase()+'/'+$scope.password.toLowerCase();
-    $http.get(userUrl)
-      .success(function(u, getRes){
-        userService.setUser(u);
-        var usePass = $scope.username.toLowerCase()+":"+$scope.password.toLowerCase();
-        console.log('usepass'. usePass);
-        window.localStorage.setItem("powuseee", usePass);
-        $http.get(oaktreeUrl +'user/')
-          .success(function(users, getRes2){
-            userService.setAllUsers(users);
-          });
-        if (app.userToken){
-          $http.get(oaktreeUrl + 'user/token/'+u._id+'/'+app.userToken)
-            .success(function(u, getRes3){
+  $scope.login = function(){
+    var userObj = {
+        username: $scope.username,
+        password: $scope.password
+      };
+      $scope.fetch('login/', userObj);
+  };
+
+  $scope.fetch = function(fetchRoute, userObject){
+    console.log('called fetch', fetchRoute);
+    $http.post(oaktreeUrl +'user/'+ fetchRoute, JSON.stringify(userObject))
+            .success(function(u, getRes){
+              console.log('success??');
+              userService.setUser(u);
+              var usePass = userObject.username+":"+userObject.password;
+              console.log('usepass'. usePass);
+              window.localStorage.setItem("powuseee", usePass);
+              $http.get(oaktreeUrl +'user/')
+                .success(function(users, getRes2){
+                  userService.setAllUsers(users);
+                });
+              if(app.userToken){
+                $http.get(oaktreeUrl + 'user/token/'+u._id+'/'+app.userToken)
+                  .success(function(u, getRes3){
+                  });
+              }
+              $scope.slidePage('/newmessage');
+            })
+            .error(function(data, status){
+              $('.signInPswd').css("color", "red");
+              incorrect = true;
             });
-        }
-        $scope.slidePage('/newmessage');
-      }).error(function(u, getRes){
-        $('.signInPswd').css("color", "red");
-        incorrect = true;
-      });
   };
 
   $scope.signUp = function(fetchRoute){
     if ($scope.password === $scope.pswdCheck){
-      $scope.fetch(fetchRoute);
+      var userObj = {
+        username: $scope.username.toLowerCase(),
+        password: $scope.password,
+        phone: $scope.phone
+      };
+      $scope.fetch(fetchRoute, userObj);
     } else {
       $('.signUpPswd').css("color", "red");
       incorrect = true;
