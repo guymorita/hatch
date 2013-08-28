@@ -1,6 +1,5 @@
 <div id="sp-nav" ng-controller="HomeCtrl">
   <div class="topcoat-list__container">
-    <h3 class="topcoat-list__header">Home</h3>
     <ul class="topcoat-list">
       <li class="topcoat-list__item--first" ng-click="slidePage('/newmessage')">
           New Message
@@ -18,32 +17,33 @@
   </div>
 </div>
 <div id="sp-page">
-
-  <div class="topcoat-navigation-bar" ng-controller="HomeCtrl">
-      <div class="topcoat-navigation-bar__item left quarter">
-          <a class="topcoat-icon-button--quiet" ng-click="$spMenu.toggle()">
-              <span class="topcoat-icon home-icon"></span>
-          </a>
-      </div>
-      <div class="topcoat-navigation-bar__item center half">
-          <h1 class="topcoat-navigation-bar__title">My Friends</h1>
-      </div>
-      <div class="topcoat-navigation-bar__item right quarter">
-          <button class="topcoat-button--large--quiet" ng-click="slidePage('/allUsers')">Add</button>
-      </div>
-  </div>
-  <div class="topcoat-list__container" ng-controller="FriendsListCtrl" ng-init="updateFriendList()">
-      <h3 class="topcoat-list__header">Pending Friends</h3>
-      <ul class="topcoat-list">
-        <li class="topcoat-list__item" ng-repeat="pfriend in pendingFriends">
-            {{pfriend.username}}{{pfriend.pending}} <button class="topcoat-button--cta" ng-show="pfriend.waiting" ng-click="acceptFriend(pfriend)" ng-class="friendClass(pfriend)">Accept</button> <button class="topcoat-button--cta" ng-show="pfriend.waiting" ng-click="denyFriend(pfriend)" ng-class="friendClass(pfriend)">Deny</button>
-        </li>
-      </ul>
-      <h3 class="topcoat-list__header">Current Friends</h3>
-      <ul class="topcoat-list">
-        <li class="topcoat-list__item" ng-repeat="friend in currentFriends">
-            {{friend.username}}
-        </li>
-      </ul>
+    <div class="topcoat-navigation-bar" ng-controller="HomeCtrl">
+        <div class="topcoat-navigation-bar__item left quarter">
+            <a class="topcoat-icon-button--quiet" ng-click="$spMenu.toggle()">
+                <span class="topcoat-icon home-icon"></span>
+            </a>
+        </div>
+        <div class="topcoat-navigation-bar__item center half">
+            <h1 class="topcoat-navigation-bar__title">My Friends</h1>
+        </div>
+        <div class="topcoat-navigation-bar__item right quarter">
+            <button class="topcoat-button--large--quiet" ng-click="slidePage('/allUsers')">Add</button>
+        </div>
+    </div>
+  <div class="body-container">
+    <div class="topcoat-list__container" ng-controller="FriendsListCtrl" ng-init="updateFriendList()">
+        <h3 class="topcoat-list__header">Pending Friends</h3>
+        <ul class="topcoat-list">
+          <li class="topcoat-list__item" ng-repeat="pfriend in pendingFriends">
+              {{pfriend.username}}{{pfriend.pending}} <button class="topcoat-button--cta" ng-show="pfriend.waiting" ng-click="acceptFriend(pfriend)" ng-class="friendClass(pfriend)">Accept</button> <button class="topcoat-button--cta" ng-show="pfriend.waiting" ng-click="denyFriend(pfriend)" ng-class="friendClass(pfriend)">Deny</button>
+          </li>
+        </ul>
+        <h3 class="topcoat-list__header">Current Friends</h3>
+        <ul class="topcoat-list">
+          <li class="topcoat-list__item" ng-repeat="friend in currentFriends">
+              {{friend.username}}
+          </li>
+        </ul>
+    </div>
   </div>
 </div>

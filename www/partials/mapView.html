@@ -1,14 +1,36 @@
-<div class="topcoat-navigation-bar" ng-controller="HomeCtrl">
-  <div class="topcoat-navigation-bar__item left quarter">
-      <button class="topcoat-button--large--quiet" ng-click="slidePage('/inbox')">Back</button>
-  </div>
-    <div class="topcoat-navigation-bar__item center half">
-        <h1 class="topcoat-navigation-bar__title">{{ title }}</h1>
-    </div>
-  <div class="topcoat-navigation-bar__item right quarter">
-      <!-- <button class="topcoat-button--large--quiet" ng-click="slidePage('/inbox')">Inbox</button> -->
+<div id="sp-nav" ng-controller="HomeCtrl">
+  <div class="topcoat-list__container">
+    <ul class="topcoat-list">
+      <li class="topcoat-list__item--first" ng-click="slidePage('/newmessage')">
+          New Message
+      </li>
+      <li class="topcoat-list__item" ng-click="$spMenu.toggle()">
+          My Map
+      </li>
+      <li class="topcoat-list__item" ng-click="slidePage('/inbox')">
+          Inbox
+      </li>
+      <li class="topcoat-list__item" ng-click="slidePage('/friends')">
+          My Friends
+      </li>
+    </ul>
   </div>
 </div>
-<div id="map-canvas" ng-init="getMessages();">
-  <div class="gm-style"></div>
+
+<div id="sp-page">
+      <div class="topcoat-navigation-bar" ng-controller="HomeCtrl">
+          <div class="topcoat-navigation-bar__item left quarter">
+              <a class="topcoat-icon-button--quiet" ng-click="$spMenu.toggle()">
+                  <span class="topcoat-icon home-icon"></span>
+              </a>
+          </div>
+          <div class="topcoat-navigation-bar__item center half">
+              <h1 class="topcoat-navigation-bar__title">My Map</h1>
+          </div>
+      </div>
+
+    <div id="map-canvas" ng-init="getMessages();">
+      <div class="gm-style"></div>
+    </div>
+  </div>
 </div>

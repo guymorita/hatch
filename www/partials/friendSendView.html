@@ -4,18 +4,20 @@
   </div>
 
     <div class="topcoat-navigation-bar__item center half">
-        <h1 class="topcoat-navigation-bar__title">Send to...</h1>
+        <h1 class="topcoat-navigation-bar__title">Select Friends</h1>
     </div>
 </div>
-<div class="topcoat-list__container" ng-controller="FriendsListCtrl" ng-init="updateFriendList()">
-  <h3 class="topcoat-list__header">Select Friends</h3>
-  <ul class="topcoat-list">
-    <li class="topcoat-list__item">
-      <label class="topcoat-checkbox__label" ng-repeat="friend in currentFriends">
-        <div class="topcoat-checkbox">{{friend.username}}</div>
-        <input type="checkbox" name="friends[]" value="{{friend.username}}" ng-checked="friend.checked" ng-model="friend.checked">
-      </label>
-    </li>
-  </ul>
-  <button class="topcoat-button--cta" ng-click="send(); slidePage('/inbox')">Send</button>
+
+<div class="body-container">
+  <div class="topcoat-list__container" ng-controller="FriendsListCtrl" ng-init="updateFriendList()">
+    <ul class="topcoat-list">
+      <li class="topcoat-list__item">
+        <label class="topcoat-checkbox__label" ng-repeat="friend in currentFriends">
+          <div class="topcoat-checkbox">{{friend.username}}</div>
+          <input type="checkbox" name="friends[]" value="{{friend.username}}" ng-checked="friend.checked" ng-model="friend.checked">
+        </label>
+      </li>
+    </ul>
+    <button class="topcoat-button--cta" ng-click="send(); slidePage('/inbox')">Send</button>
+  </div>
 </div>

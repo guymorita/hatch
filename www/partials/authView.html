@@ -1,26 +1,28 @@
-<div class="topcoat-navigation-bar" ng-controller="HomeCtrl">
-    <div class="topcoat-navigation-bar__item left quarter">
-        <a class="topcoat-icon-button--quiet" ng-click="slidePage('/home','modal')">
-            <span class="topcoat-icon home-icon"></span>
-        </a>
+<div class="body-container">
+    <div class="topcoat-navigation-bar" ng-controller="HomeCtrl">
+        <div class="topcoat-navigation-bar__item left quarter">
+            <a class="topcoat-icon-button--quiet" ng-click="slidePage('/home','modal')">
+                <span class="topcoat-icon home-icon"></span>
+            </a>
+        </div>
+        <div class="topcoat-navigation-bar__item center half">
+            <h1 class="topcoat-navigation-bar__title">Enter Auth Code</h1>
+        </div>
+        <div class="topcoat-navigation-bar__item right quarter">
+            <a class="topcoat-icon-button--quiet" ng-click="changeSettings()">
+                <span class="topcoat-icon settings-icon"></span>
+            </a>
+        </div>
     </div>
-    <div class="topcoat-navigation-bar__item center half">
-        <h1 class="topcoat-navigation-bar__title">Enter Auth Code</h1>
+    <div class="topcoat-list__container list">
+        <h3 class="topcoat-list__header">auth code</h3>
+        <ul class="topcoat-list">
+            <button class="topcoat-list__item--first" ng-click="slidePage('/tutorial')">
+                Tutorial
+            </button>
+            <button class="topcoat-list__item" ng-click="slidePage('/create')">
+                Create
+            </button>
+        </ul>
     </div>
-    <div class="topcoat-navigation-bar__item right quarter">
-        <a class="topcoat-icon-button--quiet" ng-click="changeSettings()">
-            <span class="topcoat-icon settings-icon"></span>
-        </a>
-    </div>
-</div>
-<div class="topcoat-list__container list">
-    <h3 class="topcoat-list__header">auth code</h3>
-    <ul class="topcoat-list">
-        <button class="topcoat-list__item--first" ng-click="slidePage('/tutorial')">
-            Tutorial
-        </button>
-        <button class="topcoat-list__item" ng-click="slidePage('/create')">
-            Create
-        </button>
-    </ul>
 </div>

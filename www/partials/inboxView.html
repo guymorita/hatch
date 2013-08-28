@@ -1,6 +1,5 @@
 <div id="sp-nav" ng-controller="HomeCtrl">
   <div class="topcoat-list__container">
-    <h3 class="topcoat-list__header">Home</h3>
     <ul class="topcoat-list">
       <li class="topcoat-list__item--first" ng-click="slidePage('/newmessage')">
           New Message
@@ -28,6 +27,7 @@
             <h1 class="topcoat-navigation-bar__title">Inbox</h1>
         </div>
     </div>
+  <div class="body-container">
     <div class="topcoat-list__container" ng-controller="InboxCtrl" ng-init="getMessages()">
         <h3 class="topcoat-list__header" ng-click="showReceived = !showReceived">Received</h3>
         <ul class="topcoat-list">
@@ -44,4 +44,5 @@
             </li>
         </ul>
     </div>
+  </div>
 </div>
