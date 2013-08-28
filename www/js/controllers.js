@@ -126,6 +126,7 @@ var FriendsListCtrl = function($scope, $filter, navSvc, userService, hatchServic
       .success(function(data, status, headers, config){
         console.log('send message success data', data);
         if (imageService.photo && typeof imageService.photo.photo !== 'undefined') {
+          console.log('attaching image...');
           var messageIds = '?';
           for (var i = 0; i < data.length; i++){
             messageIds+= i+'='+data[i]._id+'&';
@@ -139,10 +140,20 @@ var FriendsListCtrl = function($scope, $filter, navSvc, userService, hatchServic
               console.log('photo res', getRes);
               hatchService.clear();
               imageService.clear();
+              imageService.photo = {};
+            })
+            .error(function(data, status){
+              console.log('error status', status);
+              console.log('error data', data);
+              hatchService.clear();
+              imageService.clear();
+              imageService.photo = {};
             });
+        } else {
+          hatchService.clear();
+          imageService.clear();
         }
       }).error(function(data, status){
-        console.log('send msg err data', data);
         console.log('send msg err status', status);
         hatchService.clear();
         imageService.clear();
