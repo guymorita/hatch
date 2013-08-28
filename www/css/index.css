@@ -68,7 +68,7 @@ body {
 }
 
 #rightButtons {
-  float: left;
+  float: right;
   margin: 0 0 0 80px;
 }
 
@@ -94,6 +94,39 @@ body {
   height:1px;
   border-bottom:1px solid grey;
 }
+
+.purple{
+  background-color: #522759;
+  color: white;
+}
+
+.pink{
+  background-color: #C9353B;
+  color: white;
+}
+
+.orange{
+  background-color: #F5694A;
+  color: white;
+}
+
+.yellow{
+  background-color: #E5E324;
+  color: white;
+}
+
+.seafoam{
+  background-color: #00937A;
+  color: white;
+}
+
+/*
+purple: 522759
+pink: C9353B
+orange: F5694A
+lellow: FFFF6C
+seafoam: 00937A
+*/
 
 /*.scroll {
   padding: 10px;

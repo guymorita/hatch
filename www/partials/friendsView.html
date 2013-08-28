@@ -1,16 +1,21 @@
-<div id="sp-nav" ng-controller="HomeCtrl">
+<div id="sp-nav" class="purple" ng-controller="HomeCtrl">
+  <div class="topcoat-navigation-bar__item center half">
+      <a class="topcoat-icon-button--quiet" ng-click="$spMenu.toggle()">
+          <span class="topcoat-icon home-icon"></span>
+      </a>
+  </div>
   <div class="topcoat-list__container">
     <ul class="topcoat-list">
-      <li class="topcoat-list__item--first" ng-click="slidePage('/newmessage')">
+      <li class="topcoat-list__item--first seafoam" ng-click="$spMenu.toggle()">
           New Message
       </li>
-      <li class="topcoat-list__item" ng-click="slidePage('/map')">
+      <li class="topcoat-list__item orange" ng-click="slidePage('/map')">
           My Map
       </li>
-      <li class="topcoat-list__item" ng-click="slidePage('/inbox')">
+      <li class="topcoat-list__item yellow" ng-click="slidePage('/inbox')">
           Inbox
       </li>
-      <li class="topcoat-list__item" ng-click="$spMenu.toggle()">
+      <li class="topcoat-list__item pink" ng-click="slidePage('/friends')">
           My Friends
       </li>
     </ul>
