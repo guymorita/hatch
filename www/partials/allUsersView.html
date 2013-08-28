@@ -8,12 +8,14 @@
     <div class="topcoat-navigation-bar__item right quarter">
     </div>
 </div>
-<div class="topcoat-list__container" ng-controller="UsersCtrl" ng-init="updateUserList()">
-    <h3 class="topcoat-list__header"></h3>
-    <ul class="topcoat-list">
-      <li class="topcoat-list__item" ng-repeat="user in users">
-        <button class="topcoat-button--cta" ng-click="add(user)" ng-class="itemClass(user)" style="float: right; margin: 5px 0 0 0;">Add</button>
-          <h3>{{user.username}}</h3>
-      </li>
-    </ul>
+<div class="body-container">
+    <div class="topcoat-list__container" ng-controller="UsersCtrl" ng-init="updateUserList()">
+        <h3 class="topcoat-list__header"></h3>
+        <ul class="topcoat-list">
+          <li class="topcoat-list__item" ng-repeat="user in users">
+            <button class="topcoat-button--cta" ng-click="add(user)" ng-class="itemClass(user)" style="float: right; margin: 5px 0 0 0;">Add</button>
+              <h3>{{user.username}}</h3>
+          </li>
+        </ul>
+    </div>
 </div>

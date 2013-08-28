@@ -7,9 +7,12 @@
     </div>
 </div>
 <div class="topcoat-list__container" ng-controller="LoginCtrl">
-    <h3 class="topcoat-list__header">Sign Up</h3>
-    <input type="text" class="topcoat-text-input" value="" placeholder="username" ng-model="username">
-    <br><input type="password" class="topcoat-text-input signUpPswd" value="" placeholder="password" ng-model="password">
-    <br><input type="password" class="topcoat-text-input signUpPswd" value="" placeholder="password again" ng-model="pswdCheck">
+    <input type="text" class="topcoat-text-input" value="" placeholder="what's your name?" ng-model="username" autofocus>
+    <div class="line-separator"></div>
+    <br><input type="tel" min="10" max="16" class="topcoat-text-input" value="" placeholder="555-555-5555" ng-model="phone">
+    <div class="line-separator"></div>
+    <br><input type="password" class="topcoat-text-input signUpPswd" value="" placeholder="password?" ng-model="password">
+    <div class="line-separator"></div>
+    <br><input type="password" class="topcoat-text-input signUpPswd" value="" placeholder="password again, thx" ng-model="pswdCheck">
     <br><button class="topcoat-button--cta" ng-click="signUp('new/')">Enter</button>
 </div>

@@ -90,16 +90,16 @@ myApp.factory('hatchService', function(){
 
 myApp.factory('imageService', function(){
     return {
-     photo: {},
-     set: function(field, value){
-      this.photo[field] = value;
-     },
-     clear: function(){
-        for (var photo in this.photo){
-            this.photo[photo] = undefined;
-        }
-     }
-  };
+       photo: {},
+       set: function(field, value){
+        this.photo[field] = value;
+       },
+       clear: function(){
+          for (var key in this.photo){
+            delete this.photo[key];
+          }
+       }
+    };
 });
 
 myApp.factory('locationService', function(){

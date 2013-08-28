@@ -1,17 +1,22 @@
-<div id="sp-nav" ng-controller="HomeCtrl">
+<div id="sp-nav" class="purple" ng-controller="HomeCtrl">
+  <div class="topcoat-navigation-bar__item centerize">
+      <a class="topcoat-icon-button--quiet" ng-click="$spMenu.toggle()">
+          <span class="topcoat-icon home-icon"></span>
+      </a>
+  </div>
   <div class="topcoat-list__container">
-    <h3 class="topcoat-list__header">Home</h3>
     <ul class="topcoat-list">
-      <li class="topcoat-list__item--first" ng-click="$spMenu.toggle()">
+      <li class="topcoat-list__item--first seafoam" ng-click="$spMenu.toggle()">
           New Message
       </li>
-      <li class="topcoat-list__item" ng-click="slidePage('/map')">
+      <li class="topcoat-list__item orange" ng-click="slidePage('/map')">
+          <span class="topcoat-icon locate-icon"></span>
           My Map
       </li>
-      <li class="topcoat-list__item" ng-click="slidePage('/inbox')">
+      <li class="topcoat-list__item yellow" ng-click="slidePage('/inbox')">
           Inbox
       </li>
-      <li class="topcoat-list__item" ng-click="slidePage('/friends')">
+      <li class="topcoat-list__item pink" ng-click="slidePage('/friends')">
           My Friends
       </li>
     </ul>
@@ -19,39 +24,42 @@
 </div>
 
 <div id="sp-page">
-    <div class="topcoat-navigation-bar" ng-controller="HomeCtrl">
-        <div class="topcoat-navigation-bar__item left quarter">
-            <a class="topcoat-icon-button--quiet" ng-click="$spMenu.toggle()">
-                <span class="topcoat-icon home-icon"></span>
-            </a>
-        </div>
-        <div class="topcoat-navigation-bar__item center half">
-            <h1 class="topcoat-navigation-bar__title">New Message</h1>
-        </div>
-    </div>
-    <div class="topcoat-list__container" ng-controller="NewMessage">
-        <h3 class="topcoat-list__header">Write a new message</h3>
-        <div id="messageContent">
-          <ul class="topcoat-list">
-          </ul>
-          <form name="MessageForm">
-            <input type="text" class="topcoat-text-input" value="" name="title" placeholder="{{title}} Title" ng-model="title" ng-maxlength="20"></input>
-            <span class="error" ng-show="MessageForm.title.$error.maxlength" style="color: red;">Title too long!</span>
-            <br>
-            <textarea class="topcoat-text-input" style="height: 150px; padding: 20px;" placeholder="Content" ng-model="content">{{content}}</textarea>
-          </form>
-        </div>
-        <div id="leftButtons">
-          <h4>Hidden?</h4><input type="checkbox" class="topcoat-checkbox" ng-model="hidden"></input>
-          <span ng-show="picData" ng-click="removeImage()">
-              <img class="userPic" style="display: ; margin:0px; border:0px; padding:0px; width:40px; height:40px;" ng-src="{{picData}}" />
-          </span>
-        </div>
-        <div id="rightButtons">
-        <a class="topcoat-icon-button--quiet" ng-click="takePic()">
-            <span class="topcoat-icon camera-icon"></span>
-        </a>
-        </div>
-        <br><button id="messageButton" class="topcoat-button--cta" ng-click="next('/pinmap')">Choose Location</button>
-    </div>
+      <div class="topcoat-navigation-bar" ng-controller="HomeCtrl">
+          <div class="topcoat-navigation-bar__item left quarter">
+              <a class="topcoat-icon-button--quiet" ng-click="$spMenu.toggle()">
+                  <span class="topcoat-icon home-icon"></span>
+              </a>
+          </div>
+          <div class="topcoat-navigation-bar__item center half">
+              <h1 class="topcoat-navigation-bar__title">New Message</h1>
+          </div>
+      </div>
+  <div class="body-container">
+      <div class="topcoat-list__container" ng-controller="NewMessage">
+          <div id="messageContent">
+            <ul class="topcoat-list">
+            </ul>
+            <form name="MessageForm">
+              <input type="text" class="topcoat-text-input" value="" name="title" placeholder="{{title}} Title" ng-model="title" ng-maxlength="20"></input>
+              <span class="error" ng-show="MessageForm.title.$error.maxlength" style="color: red;">Title too long!</span>
+              <br>
+              <div class="line-separator"></div>
+              <textarea class="topcoat-text-input" style="height: 150px;" placeholder="Content" ng-model="content">{{content}}</textarea>
+            </form>
+          </div>
+          <div class="line-separator"></div>
+          <div id="leftButtons">
+            <h4>Hidden?</h4><input type="checkbox" class="topcoat-checkbox" ng-model="hidden"></input>
+            <span ng-show="picData" ng-click="removeImage()">
+                <img class="userPic" style="display: ; margin:0px; border:0px; padding:0px; width:40px; height:40px;" ng-src="{{picData}}" />
+            </span>
+          </div>
+          <div id="rightButtons">
+          <a class="topcoat-icon-button--quiet" ng-click="takePic()">
+              <span class="topcoat-icon camera-icon"></span>
+          </a>
+          </div>
+          <br><button id="messageButton" class="topcoat-button--cta" ng-click="next('/pinmap')">Choose Location</button>
+      </div>
+  </div>
 </div>
