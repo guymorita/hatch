@@ -138,7 +138,7 @@ var FriendsListCtrl = function($scope, $filter, navSvc, userService, hatchServic
       receiverIds.push(value._id);
     });
     hatchService.set('receiver_ids', receiverIds);
-    console.log('hatch', hatchService.hatchObject);
+    console.log('hatch', hatchService.hatchObject.latlng);
     $http.post(oaktreeUrl +'message/', JSON.stringify(hatchService.hatchObject))
       .success(function(data, status, headers, config){
         console.log('send message success data', data);
@@ -645,15 +645,14 @@ var newPinCtrl = function($scope, navSvc, $rootScope, locationService, hatchServ
       google.maps.event.addListener(pinMap, 'click', function(event) {
          marker.setPosition(event.latLng);
          hatchService.set('latlng', {
-           lat: marker.position.mb,
-           lng: marker.position.nb
+           lat: marker.position.ob,
+           lng: marker.position.pb
          });
        });
       google.maps.event.addListener(marker, 'dragend', function() {
-        console.log(marker.position);
         hatchService.set('latlng', {
-          lat: marker.position.mb,
-          lng: marker.position.nb
+          lat: marker.position.ob,
+          lng: marker.position.pb
         });
       });
     }
@@ -764,7 +763,7 @@ var showPinsCtrl = function($scope, navSvc, userService, locationService, $http,
           if ( bounds.contains( pinLocation ) ) {
             eventType = 1;
             addPin(instance, images.greenegg, eventType);
-          } else if (instance.hidden !== false) {
+          } else if (!instance.hidden) {
             addPin(instance, images.redegg);
           }
         }
