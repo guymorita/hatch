@@ -526,7 +526,7 @@ var showPinsCtrl = function($scope, navSvc, userService, locationService, $http,
         if ( bounds.contains( pinLocation ) ) {
           eventType = 1;
           addPin(instance, images.greenegg, eventType);
-        } else {
+        } else (instance.hidden !== false) {
           addPin(instance, images.redegg);
         }
       }
