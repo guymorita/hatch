@@ -15,6 +15,7 @@ var myApp = angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.d
     }])
     .config(['$routeProvider', function($routeProvider) {
         $routeProvider.when('/login', {templateUrl: 'partials/loginView.html', controller: 'HomeCtrl'});
+        $routeProvider.when('/contactSearchView', {templateUrl: 'partials/contactSearchView.html', controller: 'ContactsCtrl'});
 
         $routeProvider.when('/signup', {templateUrl: 'partials/signUpView.html', controller: 'HomeCtrl'});
         $routeProvider.when('/tutorial', {templateUrl: 'partials/tutorialView.html', controller: 'HomeCtrl'});

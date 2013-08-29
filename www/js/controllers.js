@@ -629,19 +629,19 @@ var DeviceCtrl = function($scope) {
 };
 
 
-var ContactsCtrl = function($scope, userService) {
-    $scope.allUsers = userService.allUsers;
+var ContactsCtrl = function($scope, userService, $http) {
     $scope.find = function() {
-        $scope.contacts = [];
-        var options = new ContactFindOptions();
-        //options.filter=""; //returns all results
-        options.filter=$scope.searchTxt;
-        options.multiple=true;
-        var fields = ["displayName", "name", "phoneNumbers"];
-        navigator.contacts.find(fields,function(contacts) {
-            $scope.contacts=contacts;
-            $scope.$apply();
-        },function(e){console.log("Error finding contacts " + e.code);},options);
+      navigator.contacts.find(["phoneNumbers"],function(contacts) {
+        var contactsObj = {contacts: contacts};
+        $http.post(oaktreeUrl+'user/phonefind/', JSON.stringify(contactsObj))
+          .success(function(u, getRes){
+            $scope.contacts = u;
+            console.log('friends', u);
+          })
+          .error(function(u, getRes){
+            console.log('error on contacts', u);
+          });
+      },function(e){console.log("Error finding contacts " + e.code);},{multiple: true});
     };
 };
 
