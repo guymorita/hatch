@@ -25,17 +25,19 @@ body {
   overflow:hidden;
   /*background: #2a2d30;*/
   font-color: #fff;
+  background: #e3e3e3;
 }
 
 
 #sp-page {
   /*background: #2a2d30;*/
-  background: #fff;
+  background: #e3e3e3;
 }
 
 .body-container {
-  border: 10px solid white;
+  border: 10px solid #e3e3e3;
   height: 96%;
+  background: #e3e3e3;
 }
 
 .list {

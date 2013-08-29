@@ -94,7 +94,7 @@ limitations under the License.
   border: none;
   cursor: default;
   -webkit-user-select: none;
-  -moz-user-select: none;
+  -moz-user-select: no2e;
   -ms-user-select: none;
   user-select: none;
   -o-text-overflow: ellipsis;
@@ -105,19 +105,21 @@ limitations under the License.
   font-size: 16px;
   line-height: 3rem;
   letter-spacing: 1px;
-  text-shadow: 0 1px #fff;
+  /*text-shadow: 2px 4px 3px rgba(0,0,0,0.3);*/
   vertical-align: top;
   background: #00937A;
-  -webkit-box-shadow: inset 0 1px #fff;
-  box-shadow: inset 0 1px #fff;
-  border: 1px solid #a5a8a8;
+  color: white;
+/*  -webkit-box-shadow: inset 0 1px #fff;
+  box-shadow: inset 0 1px #fff;*/
+  /*border: 1px solid #a5a8a8;*/
+  border-radius: 4px;
 }
 .topcoat-button:active,
 .topcoat-button.is-active,
 .topcoat-button--large:active,
 .topcoat-button--large.is-active {
-  -webkit-box-shadow: inset 0 1px rgba(0,0,0,0.12);
-  box-shadow: inset 0 1px rgba(0,0,0,0.12);
+  /*-webkit-box-shadow: inset 0 1px rgba(0,0,0,0.12);
+  box-shadow: inset 0 1px rgba(0,0,0,0.12);*/
 }
 .topcoat-button:disabled,
 .topcoat-button.is-disabled {
@@ -151,10 +153,10 @@ limitations under the License.
 .topcoat-button--quiet.is-active,
 .topcoat-button--large--quiet:active,
 .topcoat-button--large--quiet.is-active {
-  text-shadow: 0 1px #fff;
+  /*text-shadow: 0 1px #fff;*/
   /*border: 1px solid #a5a8a8;*/
-  -webkit-box-shadow: inset 0 1px rgba(0,0,0,0.12);
-  box-shadow: inset 0 1px rgba(0,0,0,0.12);
+/*  -webkit-box-shadow: inset 0 1px rgba(0,0,0,0.12);
+  box-shadow: inset 0 1px rgba(0,0,0,0.12);*/
 }
 .topcoat-button--quiet:disabled,
 .topcoat-button--quiet.is-disabled {
@@ -238,7 +240,7 @@ limitations under the License.
 */
 .topcoat-button--cta,
 .topcoat-button--large--cta {
-  border: 1px solid #fff;
+  /*border: 1px solid #fff;*/
   /*-webkit-box-shadow: inset 0 1px rgba(255,255,255,0.36);*/
   /*box-shadow: inset 0 1px rgba(255,255,255,0.36);*/
   /*font-weight: 500;*/
@@ -249,8 +251,8 @@ limitations under the License.
 .topcoat-button--cta.is-active,
 .topcoat-button--large--cta:active,
 .topcoat-button--large--cta.is-active {
-  -webkit-box-shadow: inset 0 1px rgba(0,0,0,0.12);
-  box-shadow: inset 0 1px rgba(0,0,0,0.12);
+  /*-webkit-box-shadow: inset 0 1px rgba(0,0,0,0.12);*/
+  /*box-shadow: inset 0 1px rgba(0,0,0,0.12);*/
 }
 .topcoat-button--cta:disabled,
 .topcoat-button--cta.is-disabled {
@@ -362,9 +364,9 @@ limitations under the License.
 }
 .topcoat-icon-button:active,
 .topcoat-icon-button.is-active {
-  -webkit-box-shadow: inset 0 1px rgba(0,0,0,0.12);
+/*  -webkit-box-shadow: inset 0 1px rgba(0,0,0,0.12);
   box-shadow: inset 0 1px rgba(0,0,0,0.12);
-}
+*/}
 .topcoat-icon-button:disabled,
 .topcoat-icon-button.is-disabled {
   opacity: 0.3;
@@ -407,8 +409,8 @@ limitations under the License.
 .topcoat-icon-button--large--quiet.is-active {
   text-shadow: 0 1px #fff;
   /*border: 1px solid #a5a8a8;*/
-  -webkit-box-shadow: inset 0 1px rgba(0,0,0,0.12);
-  box-shadow: inset 0 1px rgba(0,0,0,0.12);
+ /* -webkit-box-shadow: inset 0 1px rgba(0,0,0,0.12);
+  box-shadow: inset 0 1px rgba(0,0,0,0.12);*/
 }
 .topcoat-icon-button--quiet:disabled,
 .topcoat-icon-button--quiet.is-disabled {
@@ -448,8 +450,8 @@ limitations under the License.
 }
 .topcoat-icon-button--large:active,
 .topcoat-icon-button--large.is-active {
-  -webkit-box-shadow: inset 0 1px rgba(0,0,0,0.12);
-  box-shadow: inset 0 1px rgba(0,0,0,0.12);
+ /* -webkit-box-shadow: inset 0 1px rgba(0,0,0,0.12);
+  box-shadow: inset 0 1px rgba(0,0,0,0.12);*/
 }
 .topcoat-icon-button--large:disabled,
 .topcoat-icon-button--large.is-disabled {
