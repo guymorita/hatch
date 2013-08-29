@@ -1,64 +1,66 @@
-<div id="sp-nav" class="slate" ng-controller="HomeCtrl">
-  <div class="topcoat-navigation-bar" ng-controller="HomeCtrl">
-    <div class="topcoat-navigation-bar__item centerize">
-        <a class="topcoat-icon-button--quiet" ng-click="$spMenu.toggle()">
-            <span class="topcoat-icon home-icon"></span>
-        </a>
-    </div>
+<div id="sp-nav" class="purple" ng-controller="HomeCtrl">
+  <div class="topcoat-navigation-bar__item center half">
+      <a class="topcoat-icon-button--quiet" ng-click="$spMenu.toggle()">
+          <span class="topcoat-icon home-icon"></span>
+      </a>
   </div>
   <div class="topcoat-list__container">
     <ul class="topcoat-list">
-      <li class="topcoat-list__item--first space slate" ng-click="slidePage('/newmessage')">
-          <span class="topcoat-icon writemsg-icon"></span>
+      <li class="topcoat-list__item--first seafoam" ng-click="slidePage('/newmessage')">
           New Message
       </li>
-      <li class="topcoat-list__item space slate" ng-click="slidePage('/map')">
-          <span class="topcoat-icon locate-icon"></span>
+      <li class="topcoat-list__item orange" ng-click="slidePage('/map')">
           My Map
       </li>
-      <li class="topcoat-list__item space slate" ng-click="$spMenu.toggle()">
-          <span class="topcoat-icon msg-icon"></span>
+      <li class="topcoat-list__item yellow" ng-click="$spMenu.toggle()">
           Inbox
       </li>
-      <li class="topcoat-list__item space slate" ng-click="slidePage('/friends')">
-          <span class="topcoat-icon group-icon"></span>
+      <li class="topcoat-list__item pink" ng-click="slidePage('/friends')">
           My Friends
-      </li>
-      <li class="topcoat-list__item space slate" ng-click="slidePage('/inbox')">
-          <span class="topcoat-icon lock-icon"></span>
-          Log Out
       </li>
     </ul>
   </div>
 </div>
-
-<div id="sp-page">
-      <div class="topcoat-navigation-bar seafoam" ng-controller="HomeCtrl">
+<div id="sp-page" ng-controller="InboxCtrl" ng-init="getMessages()">
+  <div class="body-container">
+    <div id="container">
+      <div class="topcoat-navigation-bar" ng-controller="HomeCtrl">
         <div class="topcoat-navigation-bar__item left quarter">
-            <a class="topcoat-icon-button--quiet" ng-click="$spMenu.toggle()">
-                <span class="topcoat-icon home-icon"></span>
-            </a>
+          <a class="topcoat-icon-button--quiet" ng-click="$spMenu.toggle()">
+            <span class="topcoat-icon home-icon"></span>
+          </a>
         </div>
         <div class="topcoat-navigation-bar__item center half">
-            <h1 class="topcoat-navigation-bar__title">Inbox</h1>
+          <h1 class="topcoat-navigation-bar__title">Inbox</h1>
         </div>
-    </div>
-  <div class="body-container">
-    <div class="topcoat-list__container" ng-controller="InboxCtrl" ng-init="getMessages()">
-        <h3 class="topcoat-list__header" ng-click="showReceived = !showReceived">Received</h3>
-        <ul class="topcoat-list">
-                <li class="topcoat-list__item" ng-hide="showReceived" ng-repeat="message in receivedMessages" ng-show="!{{ message.hidden }}" ng-click="tryOpen(message)">
-                <div><strong>{{message.title}}</strong></div>
-                <div>{{message.sender_name}} | sent {{message.date | momenttime}} | distance {{message.distance | distmeters}}</div>
+      </div>
+      <div id="pullrefresh">
+        <div class="message">
+          <div id="pullrefresh-icon" class="icon arrow arrow-down">
+          </div>
+            <span></span>
+        </div>
+      </div>
+      <div id="content">
+        <div class="topcoat-list__container">
+          <h3 class="topcoat-list__header" ng-click="showReceived = !showReceived">Received</h3>
+          <ul class="topcoat-list">
+           <li class="topcoat-list__item" ng-hide="showReceived" ng-repeat="message in receivedMessages" ng-show="!{{ message.hidden }}" ng-click="tryOpen(message)">
+              <div><strong>{{message.title}}</strong></div>
+              <div>{{message.sender_name}} | sent {{message.date | momenttime}} | distance {{message.distance | distmeters}}</div>
             </li>
-        </ul>
-        <h3 class="topcoat-list__header" ng-click="showSent = !showSent">Sent</h3>
-        <ul class="topcoat-list">
+          </ul>
+          <h3 class="topcoat-list__header" ng-click="showSent = !showSent">Sent</h3>
+          <ul class="topcoat-list">
             <li class="topcoat-list__item" ng-hide="showSent" ng-repeat="message in sentMessages" ng-click="setCurrent(message); slidePage('/messageRead')">
-                <div><strong>{{message.title}}</strong></div>
-                <div>{{message.receiverName}} | sent {{message.date | momenttime}}</div>
+              <div><strong>{{message.title}}</strong></div>
+              <div>{{message.receiverName}} | sent {{message.date | momenttime}}</div>
             </li>
-        </ul>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div ng-init="delayed()">
     </div>
   </div>
 </div>
