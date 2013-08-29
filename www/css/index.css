@@ -25,21 +25,22 @@ body {
   overflow:hidden;
   /*background: #2a2d30;*/
   font-color: #fff;
-  background: #e3e3e3;
+  background: #bdc3c7;
 }
-
+/*F8F8FF*/
 #sp-nav{
   width:100%;
 }
 #sp-page {
+  overflow:hidden;
   /*background: #2a2d30;*/
-  background: #e3e3e3;
+  background: #bdc3c7;
 }
 
 .body-container {
-  border: 10px solid #e3e3e3;
+  border: 10px solid #bdc3c7;
   height: 96%;
-  background: #e3e3e3;
+  background: #bdc3c7;
 }
 
 .list {
@@ -80,10 +81,13 @@ body {
   clear: both;
 }
 
-#messageButton{
-  position:relative;
+.messageButton{
+  background-color: rgba(255, 255, 255, 0.5);
+  /*position:relative;*/
   clear: both;
   float: left;
+  left: 25%;
+  color: grey;
 }
 #map-canvas {
   height: 93%
@@ -96,19 +100,25 @@ body {
 
 .line-separator{
   height:1px;
-  border-bottom:1px solid #e3e3e3;
+  border-bottom:1px solid #bdc3c7;
+}
+
+.slate{
+  background-color: #1F1E1D;
+  color: white;
+  border-bottom: 2px outset #1F1E1D;
 }
 
 .purple{
   background-color: #522759;
   color: white;
+  border-bottom: 2px outset #522759;
 }
-
 .pink{
   background-color: #C9353B;
   color: white;
-  border-bottom: 2px outset #C90012;
-  border-top: 2px outset #C90012;
+  border-bottom: 2px outset #C94147;
+  border-top: 2px outset #C94147;
 }
 
 .orange{
@@ -126,16 +136,16 @@ body {
 }
 
 .seafoam{
-  background-color: #00937A;
+  background-color: #27ae60;
   color: white;
-  border-bottom: 2px outset #459391;
-  border-top: 2px outset #459391;
+  border-bottom: 2px outset #289382;
+  border-top: 2px outset #289382;
 }
 
 .gray{
-  background-color: #e3e3e3;
+  background-color: #bdc3c7;
   color: white;
-  border-bottom: 1px solid #e3e3e3;
+  border-bottom: 1px solid #bdc3c7;
 }
 
 /*
@@ -184,12 +194,63 @@ seafoam: 00937A
 }
 
 .space{
-  height: 50px;
+  /*height: 50px;*/
   line-height: 50px;
 }
 
+
+/*======================icons=======================*/
+
 .home-icon {
   background: url("../img/home.png") no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+}
+
+.hmbrgr-icon {
+  background: url("../img/hamburger_light.svg") no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+}
+
+.eye-icon {
+  background: url("../img/openeye.png") no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+}
+
+.blink-icon {
+  background: url("../img/closedeye.png") no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+}
+
+.writemsg-icon {
+  background: url("../img/writemsg.png") no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+}
+
+.lock-icon {
+  background: url("../img/lock.png") no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+}
+
+.group-icon {
+  background: url("../img/group.png") no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+}
+.msg-icon {
+  background: url("../img/msg.png") no-repeat;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;

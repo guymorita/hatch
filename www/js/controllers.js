@@ -322,11 +322,16 @@ var NewMessage = function($scope, navSvc, userService, hatchService, imageServic
   $scope.content = hatchService.hatchObject.content;
   $scope.hidden = false;
 
+  $scope.hide = function(){
+    $scope.hidden = !$scope.hidden;
+  }
+
   $scope.next = function(path){
     hatchService.set('title', $scope.title);
     hatchService.set('content', $scope.content);
     hatchService.set('hidden', $scope.hidden);
     navSvc.slidePage(path);
+    console.log($scope.hidden)
   };
   $scope.takePic = function() {
     var options =   {
