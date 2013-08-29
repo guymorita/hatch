@@ -15,19 +15,13 @@
 </div>
 
 <div ng-controller="ContactsCtrl">
-    <form ng-submit="find()">
-        <div class="left" style="float:left">
-            <input ng-model="searchTxt" type="text" value="" placeholder="search" class="topcoat-search-input">
-        </div>
-    </form>
-
-    <div ng-show="contacts.length>0">
+    <div ng-show="contacts.length>0" ng-init="find()">
         <p class="centerize">Number of contacts found: {{contacts.length}}</p>
         <div class="topcoat-list__container list">
             <ul class=topcoat-list>
                 <li ng-repeat="contact in contacts" class="topcoat-list__item">
-                    <p>{{ contact.name.formatted }}
-                    <a href="tel://{{contact.phoneNumbers[0].value}}" style="float:right">{{ contact.phoneNumbers[0].value }}</a></p>
+                    <p>{{contact.username}}{{contact.phone}}
+                    <!-- <a href="tel://{{contact.phoneNumbers[0].value}}" style="float:right">{{ contact.phoneNumbers[0].value }}</a></p> -->
                 </li>
             </ul>
         </div>
