@@ -120,6 +120,12 @@ body {
   color: white;
 }
 
+.gray{
+  background-color: #e3e3e3;
+  color: white;
+  border-bottom: 1px solid #e3e3e3;
+}
+
 /*
 purple: 522759
 pink: C9353B
