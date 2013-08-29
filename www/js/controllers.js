@@ -30,7 +30,6 @@ var LoginCtrl = function($scope, navSvc, $http, userService, locationService){
   $(document).bind("keydown", function (event) {
     if (incorrect){
       // $scope.$apply(function (){
-      console.log('event', event);
       $('.signInPswd').css("color", "black");
       $('.signUpPswd').css("color", "black");
       incorrect = false;
@@ -47,13 +46,10 @@ var LoginCtrl = function($scope, navSvc, $http, userService, locationService){
   };
 
   $scope.fetch = function(fetchRoute, userObject){
-    console.log('called fetch', fetchRoute);
     $http.post(oaktreeUrl +'user/'+ fetchRoute, JSON.stringify(userObject))
             .success(function(u, getRes){
-              console.log('success??');
               userService.setUser(u);
               var usePass = userObject.username+":"+userObject.password;
-              console.log('usepass'. usePass);
               window.localStorage.setItem("powuseee", usePass);
               $http.get(oaktreeUrl +'user/')
                 .success(function(users, getRes2){
@@ -529,7 +525,7 @@ var showPinsCtrl = function($scope, navSvc, userService, locationService, $http,
       if (messageType === userService.sentMessages) {
         eventType = 0;
         addPin(instance, images.blueegg, eventType);
-      } else if (messageType === userService.receivedMessages && instance.status !== 1) {
+      } else if (messageType === userService.receivedMessages && instance.status !== 1 && instance.hidden !== false) {
         if ( bounds.contains( pinLocation ) ) {
           eventType = 1;
           addPin(instance, images.greenegg, eventType);

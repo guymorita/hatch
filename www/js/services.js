@@ -34,10 +34,8 @@ myApp.factory('userService', function($http){
         buildFriendLookup: function(){
             var that = this;
             _.each(this.currentUser.friends, function(userObj, index){
-                console.log('user Obj', userObj);
                 that.friendObj[userObj._id] = userObj.username;
             });
-            console.log('friend obj', this.friendObj);
         },
         allMessages: null,
         pullMessages: function(cb){
