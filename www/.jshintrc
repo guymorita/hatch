@@ -1,0 +1,8 @@
+{
+  "globals": {
+    "angular": false,
+    "navigator": false,
+    "console": false,
+    "_": false
+  }
+}

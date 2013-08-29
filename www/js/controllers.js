@@ -99,7 +99,7 @@ var FriendsListCtrl = function($scope, $filter, navSvc, userService, hatchServic
       .success(function(u, getRes){
         userService.currentUser.friends = u;
         _.each(userService.currentUser.friends, function(userObj, key){
-          userObj['checked'] = false;
+          userObj.checked = false;
           if (userObj.status === 0){
             userObj.pending = ' - pending';
             $scope.pendingFriends.push(userObj);
@@ -135,6 +135,7 @@ var FriendsListCtrl = function($scope, $filter, navSvc, userService, hatchServic
 
   var receiverIds = [];
   $scope.send = function(){
+    console.log('hatch obj', hatchService.hatchObject);
     // build the object
     hatchService.set('sender_id', userService.currentUser._id);
     hatchService.set('sender_name', userService.currentUser.username);
@@ -182,26 +183,53 @@ var FriendsListCtrl = function($scope, $filter, navSvc, userService, hatchServic
 
 
 var UsersCtrl = function($scope, navSvc, userService, $http){
-  $scope.updateUserList = function(){
-    $http.get(oaktreeUrl +'user/')
-      .success(function(u, getRes){
-        userService.setAllUsers(u);
-        $scope.users = u;
-        var matchUserObj = {};
-        for (var j = 0; j < $scope.users.length; j++){
-          if (userService.currentUser._id === $scope.users[j]._id){
-            $scope.users.splice(j, 1);
-          } else {
-            matchUserObj[$scope.users[j]._id] = j;
+  // $scope.updateUserList = function(){
+  //   $http.get(oaktreeUrl +'user/')
+  //     .success(function(u, getRes){
+  //       userService.setAllUsers(u);
+  //       $scope.users = u;
+  //       var matchUserObj = {};
+  //       for (var j = 0; j < $scope.users.length; j++){
+  //         if (userService.currentUser._id === $scope.users[j]._id){
+  //           $scope.users.splice(j, 1);
+  //         } else {
+  //           matchUserObj[$scope.users[j]._id] = j;
+  //         }
+  //       }
+  //       for (var i = 0; i < userService.currentUser.friends.length; i++){
+  //         if (matchUserObj[userService.currentUser.friends[i]._id]){ // if the userId is in the match user Obj
+  //           $scope.users[matchUserObj[userService.currentUser.friends[i]._id]].added = 1; // find array slot. add a new property to it. array slot j.
+  //         }
+  //       }
+  //     }).error(function(u, getRes){
+  //     });
+  // };
+  $scope.updateUserList = function() {
+    navigator.contacts.find(["phoneNumbers"],function(contacts) {
+      var contactsObj = {contacts: contacts};
+      $http.post(oaktreeUrl+'user/phonefind/', JSON.stringify(contactsObj))
+        .success(function(u, getRes){
+          // $scope.contacts = u;
+          // console.log('friends', u);
+          $scope.users = u;
+          var matchUserObj = {};
+          for (var j = 0; j < $scope.users.length; j++){
+            if (userService.currentUser._id === $scope.users[j]._id){
+              $scope.users.splice(j, 1);
+            } else {
+              matchUserObj[$scope.users[j]._id] = j;
+            }
           }
-        }
-        for (var i = 0; i < userService.currentUser.friends.length; i++){
-          if (matchUserObj[userService.currentUser.friends[i]._id]){ // if the userId is in the match user Obj
-            $scope.users[matchUserObj[userService.currentUser.friends[i]._id]].added = 1; // find array slot. add a new property to it. array slot j.
+          for (var i = 0; i < userService.currentUser.friends.length; i++){
+            if (matchUserObj[userService.currentUser.friends[i]._id]){ // if the userId is in the match user Obj
+              $scope.users[matchUserObj[userService.currentUser.friends[i]._id]].added = 1; // find array slot. add a new property to it. array slot j.
+            }
           }
-        }
-      }).error(function(u, getRes){
-      });
+        })
+        .error(function(u, getRes){
+          console.log('error on contacts', u);
+        });
+    },function(e){console.log("Error finding contacts " + e.code);},{multiple: true});
   };
   $scope.add = function(user){
     user.added = 1;
@@ -213,6 +241,36 @@ var UsersCtrl = function($scope, navSvc, userService, $http){
     if (user.added){
       return 'is-disabled';
     }
+  };
+};
+
+var ContactsCtrl = function($scope, userService, $http) {
+  $scope.find = function() {
+    navigator.contacts.find(["phoneNumbers"],function(contacts) {
+      var contactsObj = {contacts: contacts};
+      $http.post(oaktreeUrl+'user/phonefind/', JSON.stringify(contactsObj))
+        .success(function(u, getRes){
+          // $scope.contacts = u;
+          // console.log('friends', u);
+          $scope.users = u;
+          var matchUserObj = {};
+          for (var j = 0; j < $scope.users.length; j++){
+            if (userService.currentUser._id === $scope.users[j]._id){
+              $scope.users.splice(j, 1);
+            } else {
+              matchUserObj[$scope.users[j]._id] = j;
+            }
+          }
+          for (var i = 0; i < userService.currentUser.friends.length; i++){
+            if (matchUserObj[userService.currentUser.friends[i]._id]){ // if the userId is in the match user Obj
+              $scope.users[matchUserObj[userService.currentUser.friends[i]._id]].added = 1; // find array slot. add a new property to it. array slot j.
+            }
+          }
+        })
+        .error(function(u, getRes){
+          console.log('error on contacts', u);
+        });
+    },function(e){console.log("Error finding contacts " + e.code);},{multiple: true});
   };
 };
 
@@ -240,9 +298,10 @@ var InboxCtrl = function($scope, $filter, navSvc, userService, $http, locationSe
       console.log('received messages', userService.receivedMessages);
       _.each(userService.receivedMessages, function(message){
         if (message.latlng){
-          message['distance'] = getDistance(locationService.position.lat,locationService.position.lng,message.latlng.lat,message.latlng.lng);
+          message.distance = getDistance(locationService.position.lat,locationService.position.lng,message.latlng.lat,message.latlng.lng);
+          console.log('distance', message.distance);
         } else {
-          message['distance'] = 0;
+          message.distance = 0;
         }
       });
       userService.setSentMessages(res.outbox);
@@ -863,21 +922,6 @@ var DeviceCtrl = function($scope) {
 };
 
 
-var ContactsCtrl = function($scope, userService, $http) {
-    $scope.find = function() {
-      navigator.contacts.find(["phoneNumbers"],function(contacts) {
-        var contactsObj = {contacts: contacts};
-        $http.post(oaktreeUrl+'user/phonefind/', JSON.stringify(contactsObj))
-          .success(function(u, getRes){
-            $scope.contacts = u;
-            console.log('friends', u);
-          })
-          .error(function(u, getRes){
-            console.log('error on contacts', u);
-          });
-      },function(e){console.log("Error finding contacts " + e.code);},{multiple: true});
-    };
-};
 
 // var CameraCtrl = function($scope) {
 //         // Take picture using device camera and retrieve image as base64-encoded string
@@ -897,18 +941,6 @@ var ContactsCtrl = function($scope, userService, $http) {
 //         encodingType: 0     // 0=JPG 1=PNG
 //     });
 // }
-
-
-
-var HammerTestCtrl = function($scope){
-
-  // $scope.work = function() {
-  //   setTimeout(function(){
-  //     $("mobile-view").append("<script src='../lib/hammertest.js'></script>");
-  //   }, 2000);
-  // };
-
-};
 
 
 var TestCtrl = function($scope){
