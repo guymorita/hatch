@@ -231,7 +231,6 @@ var InboxCtrl = function($scope, $filter, navSvc, userService, $http, locationSe
     $http.get(url).success(function(res, status, headers){
       userService.buildFriendLookup();
       userService.setReceivedMessages(res.inbox);
-      console.log('received messages', userService.receivedMessages);
       _.each(userService.receivedMessages, function(message){
         if (typeof message.latlng !== 'undefined' && Object.keys(message.latlng) > 0 ){
           message['distance'] = getDistance(locationService.position.lat,locationService.position.lng,message.latlng.lat,message.latlng.lng);
@@ -241,13 +240,11 @@ var InboxCtrl = function($scope, $filter, navSvc, userService, $http, locationSe
 
       });
       userService.setSentMessages(res.outbox);
-      console.log('user sent messages', userService.sentMessages);
       _.each(userService.sentMessages, function(messageObj){
         messageObj['receiverName'] = userService.friendObj[messageObj.receiver_id];
       });
       $scope.receivedMessages = userService.receivedMessages;
       $scope.sentMessages = userService.sentMessages;
-      console.log('res', res);
     }).error(function(){
     });
   };
