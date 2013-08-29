@@ -28,7 +28,9 @@ body {
   background: #e3e3e3;
 }
 
-
+#sp-nav{
+  width:100%;
+}
 #sp-page {
   /*background: #2a2d30;*/
   background: #e3e3e3;
@@ -94,7 +96,7 @@ body {
 
 .line-separator{
   height:1px;
-  border-bottom:1px solid grey;
+  border-bottom:1px solid #e3e3e3;
 }
 
 .purple{
@@ -105,21 +107,29 @@ body {
 .pink{
   background-color: #C9353B;
   color: white;
+  border-bottom: 2px outset #C90012;
+  border-top: 2px outset #C90012;
 }
 
 .orange{
   background-color: #F5694A;
   color: white;
+  border-bottom: 2px outset #F5997A;
+  border-top: 2px outset #F5997A;
 }
 
 .yellow{
   background-color: #E5E324;
   color: white;
+  border-bottom: 2px outset #FFFE94;
+  border-top: 2px outset #FFFE94;
 }
 
 .seafoam{
   background-color: #00937A;
   color: white;
+  border-bottom: 2px outset #459391;
+  border-top: 2px outset #459391;
 }
 
 .gray{
@@ -171,6 +181,11 @@ seafoam: 00937A
   display: block;
   margin: 0 auto;
   text-align: center;
+}
+
+.space{
+  height: 50px;
+  line-height: 50px;
 }
 
 .home-icon {
