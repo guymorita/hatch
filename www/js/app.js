@@ -18,7 +18,7 @@ var myApp = angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.d
         $routeProvider.when('/contactSearchView', {templateUrl: 'partials/contactSearchView.html', controller: 'ContactsCtrl'});
 
         $routeProvider.when('/signup', {templateUrl: 'partials/signUpView.html', controller: 'HomeCtrl'});
-        $routeProvider.when('/tutorial', {templateUrl: 'partials/tutorialView.html', controller: 'HomeCtrl'});
+        $routeProvider.when('/tutorial', {templateUrl: 'partials/tutorialView.html', controller: 'TutorialCtrl'});
         $routeProvider.when('/auth', {templateUrl: 'partials/authView.html', controller: 'HomeCtrl'});
 
         $routeProvider.when('/newmessage', {templateUrl: 'partials/newMessageView.html', controller: 'HomeCtrl'});
@@ -37,6 +37,5 @@ var myApp = angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.d
         $routeProvider.when('/test', {templateUrl: 'partials/testView.html', controller: 'TestCtrl'});
         $routeProvider.when('/newnav', {templateUrl: 'partials/newNavView.html', controller: 'HomeCtrl'});
 
-        $routeProvider.when('/hammertest', {templateUrl: 'partials/pullRefresh.html', controller: 'HammerTestCtrl'});
-        $routeProvider.otherwise({redirectTo: '/login'});
+        $routeProvider.otherwise({redirectTo: '/tutorial'});
   }]);

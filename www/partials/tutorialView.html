@@ -13,12 +13,14 @@
         </a>
     </div>
 </div>
-<div class="topcoat-list__container list">
-    <h3 class="topcoat-list__header">tutorial</h3>
-    <ul class="topcoat-list">
-        <button class="topcoat-list__item--first" ng-click="slidePage('/newmessage')">
-            Next
-        </button>
-    </ul>
-</div>
+    <div id="carousel">
+        <ul>
+            <li class="pane1"><img src="http://i1-win.softpedia-static.com/screenshots/Mozilla-Fennec_4.png"></li>
+            <li class="pane2"><img src="http://www.concrete5.org/files/5513/1434/2885/jb_mobile_app_screenshot_0_1314342885.jpg"></li>
+            <li class="pane3"><h2>...or swipe...sgsgssg</h2> </li>
+            <li class="pane4"><h2>..or drag...</h2><span class="topcoat-icon dot-icon"></span></li>
+            <li class="pane5"><h2>Dit is het einde!</h2></li>
+        </ul>
+    </div>
+<div ng-init="roundandround()"></div>
 <ng-include src="'partials/settingsOverlay.html'"></ng-include>
