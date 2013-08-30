@@ -14,11 +14,10 @@ var myApp = angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.d
             'application/json';
     }])
     .config(['$routeProvider', function($routeProvider) {
-        $routeProvider.when('/login', {templateUrl: 'partials/loginView.html', controller: 'HomeCtrl'});
-        $routeProvider.when('/contactSearchView', {templateUrl: 'partials/contactSearchView.html', controller: 'ContactsCtrl'});
-
-        $routeProvider.when('/signup', {templateUrl: 'partials/signUpView.html', controller: 'HomeCtrl'});
         $routeProvider.when('/tutorial', {templateUrl: 'partials/tutorialView.html', controller: 'HomeCtrl'});
+
+        $routeProvider.when('/login', {templateUrl: 'partials/loginView.html', controller: 'HomeCtrl'});
+        $routeProvider.when('/signup', {templateUrl: 'partials/signUpView.html', controller: 'HomeCtrl'});
 
         $routeProvider.when('/newmessage', {templateUrl: 'partials/newMessageView.html', controller: 'HomeCtrl'});
         $routeProvider.when('/messageRead', {templateUrl: 'partials/messageReadView.html', controller: 'HomeCtrl'});
@@ -26,7 +25,6 @@ var myApp = angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.d
         $routeProvider.when('/map', {templateUrl: 'partials/mapView.html', controller: 'showPinsCtrl'});
         $routeProvider.when('/pinmap', {templateUrl: 'partials/pinMapView.html', controller: 'newPinCtrl'});
 
-        $routeProvider.when('/home', {templateUrl: 'partials/homeView.html', controller: 'HomeCtrl'});
         $routeProvider.when('/inbox', {templateUrl: 'partials/inboxView.html', controller: 'HomeCtrl'});
 
         $routeProvider.when('/friends', {templateUrl: 'partials/friendsView.html', controller: 'FriendsListCtrl'});
@@ -34,6 +32,5 @@ var myApp = angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.d
         $routeProvider.when('/allUsers', {templateUrl: 'partials/allUsersView.html', controller: 'ContactsCtrl'});
         $routeProvider.when('/test', {templateUrl: 'partials/testView.html', controller: 'TestCtrl'});
 
-        $routeProvider.when('/hammertest', {templateUrl: 'partials/pullRefresh.html', controller: 'HammerTestCtrl'});
         $routeProvider.otherwise({redirectTo: '/friendSend'});
   }]);
