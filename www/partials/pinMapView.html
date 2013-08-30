@@ -1,14 +1,12 @@
-<div class="topcoat-navigation-bar seafoam" ng-controller="HomeCtrl">
-  <div class="topcoat-navigation-bar__item left quarter">
-      <a class="topcoat-icon-button--quiet" ng-click="slidePage('/newmessage')">
-          <span class="topcoat-icon back-icon"></span>
-      </a>
+<div class="topcoat-navigation-bar purple" ng-controller="HomeCtrl">
+  <div class="topcoat-navigation-bar__item left quarter iconnav">
+      <i class="topcoat-icon-button--quiet icon-chevron-left icon-2x icontop" ng-click="slidePage('/newmessage')"></i>
   </div>
   <div class="topcoat-navigation-bar__item center half">
-      <h1 class="topcoat-navigation-bar__title">{{ title }}</h1>
+      <h1 class="topcoat-navigation-bar__title purple-title long">{{ title }}</h1>
   </div>
-  <div class="topcoat-navigation-bar__item right three-quarters">
-      <button class="topcoat-button--large--quiet" ng-click="slidePage('/friendSend')">Nxt</button>
+  <div class="topcoat-navigation-bar__item right quarter iconnav">
+    <i class="topcoat-icon-button--quiet icon-chevron-right icon-2x icontop" ng-click="slidePage('/friendSend')"></i>
   </div>
 </div>
 
