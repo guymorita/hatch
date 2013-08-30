@@ -32,8 +32,8 @@ body {
   padding: 0;
   background: #dfe2e2;
   color: #000;
-  /*font: 16px "Source Sans", helvetica, arial, sans-serif;*/
-  font-family: 'Gillsans-Bold', sans-serif;
+  /*font: 16px "GillSans", helvetica, arial, sans-serif;*/
+  font-family: "GillSans";
   font-weight: 200;
   text-rendering: optimizeLegibility;
 }
@@ -763,8 +763,8 @@ Navigation Bar
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  font-size: 1.8rem;
-  font-weight: 400;
+  font-size: 1.25rem;
+  font-weight: 600;
   color: #000;
 }
 
