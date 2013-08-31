@@ -8,10 +8,9 @@ angular.module('myApp.services', []).
 
 // phonegap ready service - listens to deviceready
 
-var oaktreeUrl = 'http://oaktree.nodejitsu.com/';
-
 myApp.factory('userService', function($http){
     return {
+        oaktreeUrl: 'http://oaktree.nodejitsu.com/',
         currentUser: null,
         setUser: function(userObject){
           this.currentUser = userObject;
@@ -39,7 +38,7 @@ myApp.factory('userService', function($http){
         },
         allMessages: null,
         pullMessages: function(cb){
-            $http.get(oaktreeUrl + 'message/retrieve/'+this.currentUser._id)
+            $http.get(this.oaktreeUrl + 'message/retrieve/'+this.currentUser._id)
                 .success(function(u, getRes){
                     this.setReceivedMessages(u.inbox);
                     this.setSentMessages(u.outbox);
@@ -55,7 +54,7 @@ myApp.factory('userService', function($http){
           var username = userPass.split(':')[0];
           var password = userPass.split(':')[1];
           var that = this;
-          $http.get(oaktreeUrl + 'user/login/' + username +'/'+ password)
+          $http.get(this.oaktreeUrl + 'user/login/' + username +'/'+ password)
             .success(function(u, getRes, headers){
               that.setUser(u);
               console.log('got user obj', u);

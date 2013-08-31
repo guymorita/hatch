@@ -1,25 +1,30 @@
-<div class="topcoat-navigation-bar seafoam" ng-controller="HomeCtrl">
-  <div class="topcoat-navigation-bar__item left quarter">
-      <a class="topcoat-icon-button--quiet" ng-click="slidePage('/pinmap')">
-          <span class="topcoat-icon back-icon"></span>
-      </a>
+<div class="topcoat-navigation-bar purple flow" ng-controller="HomeCtrl">
+  <div class="topcoat-navigation-bar__item left quarter iconnav">
+    <i class="topcoat-icon-button--quiet icon-chevron-left icon-2x icontop" ng-click="slidePage('/pinmap')"></i>
   </div>
 
     <div class="topcoat-navigation-bar__item center half">
-        <h1 class="topcoat-navigation-bar__title">Select Friends</h1>
+        <h1 class="topcoat-navigation-bar__title purple-title">Select Friends</h1>
     </div>
 </div>
 
 <div class="body-container">
-  <div class="topcoat-list__container" ng-controller="FriendsListCtrl" ng-init="updateFriendList()">
+  <div class="topcoat-list__container hatchlist" ng-controller="FriendsListCtrl" ng-init="updateFriendList()" style="overflow: hidden">
     <ul class="topcoat-list">
-      <li class="topcoat-list__item">
-        <label class="topcoat-checkbox__label" ng-repeat="friend in currentFriends">
-          <div class="topcoat-checkbox">{{friend.username}}</div>
-          <input type="checkbox" name="friends[]" value="{{friend.username}}" ng-checked="friend.checked" ng-model="friend.checked">
-        </label>
+      <h3 class="topcoat-list__header">Select some friends to send your message to</h3>
+      <li class="topcoat-list__item" ng-repeat="friend in currentFriends" ng-class="checkboxback(friend)">
+        <div>
+          <div class="nametext">
+            <strong>{{friend.username}}</strong>
+          </div>
+          <div>
+            <span name="friends[]" value="{{friend.username}}" ng-model="friend.checked" ng-class="checkboxClass(friend)" ng-click="check(friend)"></span>
+          </div>
+        </div>
       </li>
     </ul>
-    <button class="topcoat-button--cta" ng-click="send(); slidePage('/inbox')">Send</button>
+    <div class="bottombutton">
+      <button class="pure-button hatch-button-success center_button" ng-click="send(); slidePage('/inbox')">Send</button>
+    </div>
   </div>
 </div>

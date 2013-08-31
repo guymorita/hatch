@@ -1,100 +1,78 @@
-<div id="sp-nav" class="slate" ng-controller="HomeCtrl">
-  <div class="topcoat-navigation-bar" ng-controller="HomeCtrl">
-    <div class="topcoat-navigation-bar__item centerize">
-        <a class="topcoat-icon-button--quiet" ng-click="$spMenu.toggle()">
-            <span class="topcoat-icon home-icon"></span>
-        </a>
+<div id="sp-nav" ng-controller="HomeCtrl">
+  <div class="topcoat-navigation-bar color-nav" ng-controller="HomeCtrl">
+    <div class="topcoat-list__container">
+      <ul class="topcoat-list">
+        <h3 class="topcoat-list__header"><span class="topcoat-icon egg_small"></span>Hatch</h3>
+        <li class="topcoat-list__item--first babyblue" ng-click="$spMenu.toggle()">
+            <span class="topcoat-icon writemsg-icon"></span>
+            New Message
+        </li>
+        <li class="topcoat-list__item orange" ng-click="slidePage('/map')">
+          <span class="topcoat-icon locate-icon"></span>
+            My Map
+        </li>
+        <li class="topcoat-list__item green" ng-click="slidePage('/inbox')">
+          <span class="topcoat-icon msg-icon"></span>
+            Inbox
+        </li>
+        <li class="topcoat-list__item pink" ng-click="slidePage('/friends')">
+          <span class="topcoat-icon group-icon"></span>
+            My Friends
+        </li>
+        <li class="topcoat-list__item lightblue" ng-click="slidePage('/inbox')">
+            <span class="topcoat-icon settings-icon"></span>
+            Settings
+        </li>
+        <li class="topcoat-list__item lightpink" ng-click="logOut('/login')">
+            <span class="topcoat-icon lock-icon"></span>
+            Log Out
+        </li>
+      </ul>
     </div>
   </div>
-  <div class="topcoat-list__container">
-    <ul class="topcoat-list">
-      <li class="topcoat-list__item--first space slate" ng-click="$spMenu.toggle()">
-          <span class="topcoat-icon writemsg-icon"></span>
-          New Message
-      </li>
-      <li class="topcoat-list__item orange" ng-click="slidePage('/map')">
-          My Map
-      </li>
-      <li class="topcoat-list__item yellow" ng-click="slidePage('/inbox')">
-          Inbox
-      </li>
-      <li class="topcoat-list__item pink" ng-click="slidePage('/friends')">
-          My Friends
-      </li>
-    </ul>
-  </div>
 </div>
-<!-- 
-<div id="sp-nav" class="purple" ng-controller="HomeCtrl">
-  <div class="topcoat-navigation-bar__item centerize">
-      <a class="topcoat-icon-button--quiet" ng-click="$spMenu.toggle()">
-          <span class="topcoat-icon home-icon"></span>
-      </a>
-  </div>
-  <div class="topcoat-list__container">
-    <ul class="topcoat-list">
-      <li class="topcoat-list__item--first seafoam" ng-click="$spMenu.toggle()">
-          New Message
-      </li>
-      <li class="topcoat-list__item orange" ng-click="slidePage('/map')">
->>>>>>> 7dfd1f474642065b29b02caca91e02ee6aebe26a
-          <span class="topcoat-icon locate-icon"></span>
-          My Map
-      </li>
-      <li class="topcoat-list__item space slate" ng-click="slidePage('/inbox')">
-          <span class="topcoat-icon msg-icon"></span>
-          Inbox
-      </li>
-      <li class="topcoat-list__item space slate" ng-click="slidePage('/friends')">
-          <span class="topcoat-icon group-icon"></span>
-          My Friends
-      </li>
-      <li class="topcoat-list__item space slate" ng-click="slidePage('/inbox')">
-          <span class="topcoat-icon lock-icon"></span>
-          Log Out
-      </li>
-    </ul>
-  </div>
-</div>
- -->
-<div id="sp-page">
-      <div class="topcoat-navigation-bar seafoam" ng-controller="HomeCtrl">
+
+<div id="sp-page" class="flow">
+      <div class="topcoat-navigation-bar purple" ng-controller="HomeCtrl">
           <div class="topcoat-navigation-bar__item left quarter">
               <a class="topcoat-icon-button--quiet" ng-click="$spMenu.toggle()">
-                  <span class="topcoat-icon hmbrgr-icon"></span>
+                  <span class="topcoat-icon home-icon"></span>
               </a>
           </div>
           <div class="topcoat-navigation-bar__item center half">
-              <h1 class="topcoat-navigation-bar__title">New Message</h1>
+              <h1 class="topcoat-navigation-bar__title purple-title">New Message</h1>
+          </div>
+          <div class="topcoat-navigation-bar__item right quarter">
           </div>
       </div>
   <div class="body-container">
-      <div class="topcoat-list__container" ng-controller="NewMessage">
+      <div class="topcoat-list__container grayback" ng-controller="NewMessage">
           <div id="messageContent">
             <ul class="topcoat-list">
             </ul>
             <form name="MessageForm">
-              <input type="text" class="topcoat-text-input" value="" name="title" placeholder="{{title}} Title" ng-model="title" ng-maxlength="20"></input>
+              <input type="text" class="topcoat-text-input inputbox" value="" name="title" placeholder="{{title}} Title" ng-model="title" ng-maxlength="20"></input>
               <span class="error" ng-show="MessageForm.title.$error.maxlength" style="color: red;">Title too long!</span>
               <br>
               <div class="line-separator"></div>
-              <textarea class="topcoat-text-input" style="height: 150px;" placeholder="Content" ng-model="content">{{content}}</textarea>
+              <textarea class="topcoat-text-input inputbox inputbox_bottom" style="height: 150px;" placeholder="Content" ng-model="content">{{content}}</textarea>
             </form>
           </div>
           <br>
           <div id="leftButtons">
-            <span>Hidden?  </span><span class="topcoat-icon eye-icon" ng-click="hide()" ng-show="!hidden"></span>
+            <span ng-click="hide()">Hidden?  </span><span class="topcoat-icon eye-icon" ng-click="hide()" ng-show="!hidden"></span>
             <span class="topcoat-icon blink-icon" ng-click="hide()" ng-show="hidden"></span>
+          </div>
+          <div id="rightButtons">
             <span ng-show="picData" ng-click="removeImage()">
                 <img class="userPic" style="display: ; margin:0px; border:0px; padding:0px; width:40px; height:40px;" ng-src="{{picData}}" />
             </span>
+            <a class="topcoat-icon-button--quiet" ng-click="takePic()">
+                <span class="topcoat-icon camera-icon"></span>
+            </a>
           </div>
-          <div id="rightButtons">
-          <a class="topcoat-icon-button--quiet" ng-click="takePic()">
-              <span class="topcoat-icon camera-icon"></span>
-          </a>
-          </div>
-          <br><button class="topcoat-button--cta messageButton" ng-click="next('/pinmap')">Choose Location</button>
+          <br><button class="pure-button hatch-button-success center_button" ng-click="next('/pinmap')">Choose Location</button>
+
       </div>
   </div>
 </div>

@@ -1,19 +1,23 @@
-<div class="topcoat-navigation-bar seafoam" ng-controller="HomeCtrl">
-    <div class="topcoat-navigation-bar__item left quarter">
-        <a class="topcoat-icon-button--quiet" ng-click="back()">Back</a>
+<div class="topcoat-navigation-bar purple" ng-controller="HomeCtrl">
+    <div class="topcoat-navigation-bar__item left quarter iconnav">
+        <i class="topcoat-icon-button--quiet icon-chevron-left icon-2x icontop" ng-click="back()"></i>
     </div>
     <div class="topcoat-navigation-bar__item center half">
-        <h1 class="topcoat-navigation-bar__title">Add Friends</h1>
+        <h1 class="topcoat-navigation-bar__title purple-title">Add Friends</h1>
     </div>
     <div class="topcoat-navigation-bar__item right quarter">
     </div>
 </div>
 <div class="body-container">
-    <div class="topcoat-list__container" ng-controller="UsersCtrl" ng-init="updateUserList()">
+    <div class="topcoat-list__container grayback" ng-controller="UsersCtrl" ng-init="updateUserList()">
         <h3 class="topcoat-list__header"></h3>
         <ul class="topcoat-list">
+        <div ng-show="!users" style="text-align: center; margin: 5% 0 0 0;">
+            <div id="pullrefresh-icon" class="icon loading other"></div>
+            <h2>Loading</h2>
+        </div>
           <li class="topcoat-list__item" ng-repeat="user in users">
-            <button class="topcoat-button--cta" ng-click="add(user)" ng-class="itemClass(user)" style="float: right; margin: 5px 0 0 0;">Add</button>
+            <button class="pure-button hatch-button-success" ng-click="add(user)" ng-class="itemClass(user)" style="float: right; margin: 5px 0 0 0;">Add</button>
               <h3>{{user.username}}</h3>
           </li>
         </ul>

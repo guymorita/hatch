@@ -1,19 +1,24 @@
-<div class="topcoat-navigation-bar seafoam" ng-controller="HomeCtrl">
-    <div class="topcoat-navigation-bar__item left quarter">
-        <button class="topcoat-button--large--quiet" ng-click="slidePage('/login')">Back</button>
+
+<div class="topcoat-navigation-bar purple flow" ng-controller="HomeCtrl">
+    <div class="topcoat-navigation-bar__item left quarter iconnav">
+        <i class="topcoat-icon-button--quiet icon-chevron-left icon-2x icontop" ng-click="slidePage('/login')"></i>
     </div>
     <div class="topcoat-navigation-bar__item center half">
-        <h1 class="topcoat-navigation-bar__title">Sign Up</h1>
+        <h1 class="topcoat-navigation-bar__title purple-title">Sign Up</h1>
     </div>
 </div>
-<div class="topcoat-list__container" ng-controller="LoginCtrl">
-    <input type="text" class="topcoat-text-input" value="" placeholder="what's your name?" ng-model="username" autofocus>
+
+<div class="topcoat-list__container header" ng-controller="LoginCtrl">
+    <input type="text" class="topcoat-text-input centerinput" value="" placeholder="what's your name?" ng-model="username" autofocus>
     <div class="line-separator"></div>
-    <br><input type="tel" min="10" max="16" class="topcoat-text-input" value="" placeholder="555-555-5555" ng-model="phone">
+    <br><input type="tel" min="10" max="16" class="topcoat-text-input centerinput" value="" placeholder="555-555-5555" ng-model="phone">
     <div class="line-separator"></div>
-    <br><input type="password" class="topcoat-text-input signUpPswd" value="" placeholder="password?" ng-model="password">
+    <br><input type="password" class="topcoat-text-input centerinput signUpPswd" value="" placeholder="password?" ng-model="password">
     <div class="line-separator"></div>
-    <br><input type="password" class="topcoat-text-input signUpPswd" value="" placeholder="password again, thx" ng-model="pswdCheck">
+    <br><input type="password" class="topcoat-text-input centerinput signUpPswd" value="" placeholder="password again, thx" ng-model="pswdCheck">
     <div class="line-separator"></div>
-    <br><button class="topcoat-button--cta" ng-click="signUp('new/')">Enter</button>
+    <div id="message-buttons">
+
+    <button class="pure-button hatch-button-success" ng-click="signUp('new/')"><i class="icon-sun"></i> Enter</button>
+</div>
 </div>
