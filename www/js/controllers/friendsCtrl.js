@@ -25,13 +25,6 @@ var FriendsListCtrl = function($scope, $filter, navSvc, userService, hatchServic
         });
       });
   };
-  // $scope.currentFriends = [{username: 'Guy', _id: 123}, {username: 'Dave', _id: 123}, {username: 'Sav', _id: 123}, {username: 'Piu', _id: 123}]
-  // $scope.fakeSend = function(){
-  //   _.each($filter('filter')($scope.currentFriends, {checked:true}), function(value){
-  //     receiverIds.push(value._id);
-  //   });
-  //   console.log('receiverIds', receiverIds);
-  // }
 
   $scope.acceptFriend = function(userObj){
     $http.get(userService.oaktreeUrl+'friends/accept/'+userObj._id+'/'+userService.currentUser._id)
@@ -48,7 +41,7 @@ var FriendsListCtrl = function($scope, $filter, navSvc, userService, hatchServic
 
   $scope.friendClass = function(user){
     if (user.invited){
-      return 'is-disabled';
+      return 'pure-button-disabled';
     }
   };
   $scope.check = function(friend){
@@ -71,7 +64,7 @@ var FriendsListCtrl = function($scope, $filter, navSvc, userService, hatchServic
     if (friend.checked){
       return 'checkboxbackground';
     }
-  }
+  };
   $scope.allUsers = userService.allUsers;
   $scope.selectedFriends = $filter('filter')($scope.currentFriends, {checked:true});
   var receiverIds = [];

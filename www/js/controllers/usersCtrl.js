@@ -57,7 +57,7 @@ var UsersCtrl = function($scope, navSvc, userService, $http){
   };
   $scope.itemClass = function(user){
     if (user.added){
-      return 'is-disabled';
+      return 'pure-button-disabled';
     }
   };
 };

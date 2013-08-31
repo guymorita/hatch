@@ -280,7 +280,6 @@ var InboxCtrl = function($scope, $filter, navSvc, userService, $http, locationSe
       $scope.$apply(function(){
         $scope.getMessages();
       });
-      console.log('Hammer time!');
       setTimeout(function(){
         self.slideUp();
       }, 1000);
