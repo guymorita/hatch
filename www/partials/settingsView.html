@@ -1,4 +1,4 @@
-<div id="sp-nav" ng-controller="HomeCtrl">
+<div id="sp-nav">
   <div class="topcoat-navigation-bar color-nav" ng-controller="HomeCtrl">
     <div class="topcoat-list__container">
       <ul class="topcoat-list">
@@ -29,7 +29,7 @@
 </div>
 
 <div id="sp-page" class="flow">
-      <div class="topcoat-navigation-bar purple" ng-controller="SettingsCtrl">
+      <div class="topcoat-navigation-bar purple">
           <div class="topcoat-navigation-bar__item left quarter">
               <a class="topcoat-icon-button--quiet" ng-click="$spMenu.toggle()">
                   <span class="topcoat-icon home-icon"></span>
@@ -42,14 +42,21 @@
           </div>
       </div>
   <div class="body-container settings" ng-controller="SettingsCtrl">
-    <div class="topcoat-list__container grayback" ng-controller="NewMessage">
+    <div class="topcoat-list__container grayback">
       <h3 class="topcoat-list__header">My Account</h3>
       <input type="text" class="topcoat-text-input centerinput" value="username: {{username}}" disabled="disabled">
       <input type="text" class="topcoat-text-input centerinput" value="mobile #: {{phone}}" disabled="disabled">
-      <h3 class="topcoat-list__header">More Information</h3>
+      <div ng-show="confirmCode" class="confirmcode">
+        <h3 class="topcoat-list__header">Confirmation Code</h3>
+        <form name="MessageForm">
+          <input type="text" class="topcoat-text-input" placeholder="code" value="" ng-model="codez"></input>
+          <button class="pure-button hatch-button-success" ng-click="confirm()">Confirm</button>
+          <button class="pure-button hatch-button-error" ng-click="resend()">Resend</button>
+        </form>
+      </div>
       <h3 class="topcoat-list__header">Account</h3>
-      <button class="pure-button hatch-button-pink center_button pink" ng-click="logOut('/login')">Logout</button>
-
+      <button class="pure-button hatch-button-success center_button settings" ng-click="clear()" ng-class="clearClass()">Clear Inbox</button>
+      <button class="pure-button hatch-button-pink center_button settings" ng-click="logOut('/login')">Logout</button>
     </div>
   </div>
 </div>
