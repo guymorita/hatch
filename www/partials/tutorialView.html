@@ -1,24 +1,52 @@
-<div class="topcoat-navigation-bar" ng-controller="HomeCtrl">
-    <div class="topcoat-navigation-bar__item left quarter">
-        <a class="topcoat-icon-button--quiet" ng-click="slidePage('/home','modal')">
-            <span class="topcoat-icon home-icon"></span>
-        </a>
-    </div>
-    <div class="topcoat-navigation-bar__item center half">
-        <h1 class="topcoat-navigation-bar__title">Tutorial</h1>
-    </div>
-    <div class="topcoat-navigation-bar__item right quarter">
-        <a class="topcoat-icon-button--quiet" ng-click="changeSettings()">
-            <span class="topcoat-icon settings-icon"></span>
-        </a>
-    </div>
-</div>
-<div class="topcoat-list__container list">
-    <h3 class="topcoat-list__header">tutorial</h3>
-    <ul class="topcoat-list">
-        <button class="topcoat-list__item--first" ng-click="slidePage('/newmessage')">
-            Next
-        </button>
+<div id="carousel" ng-controller="HomeCtrl">
+    <ul>
+<!--             <li class="pane1"><img src="http://i1-win.softpedia-static.com/screenshots/Mozilla-Fennec_4.png"></li>
+        <li class="pane2"><img src="http://www.concrete5.org/files/5513/1434/2885/jb_mobile_app_screenshot_0_1314342885.jpg"></li> -->
+        <li class="pane0">
+            <h2>Welcome to Hatch, <br>{{ user.username }} </h2>
+            <span class="skipTut" ng-click="slidePage('/friends')">skip</span>
+            <span class="start">swipe to get started</span class="start">
+            <span class="topcoat-icon dot-icon home-icon dom"></span>
+            <span class="topcoat-icon dot-icon writemsg-icon"></span>
+            <span class="topcoat-icon dot-icon locate-icon"></span>
+            <span class="topcoat-icon dot-icon msg-icon"></span>
+        </li>
+        <li class="pane1">
+            <h2>Write.</h2>
+            <div class="newmsgview"></div>
+            <span class="skipTut" ng-click="slidePage('/friends')">skip</span>
+            <span class="topcoat-icon dot-icon home-icon"></span>
+            <span class="topcoat-icon dot-icon writemsg-icon dom"></span>
+            <span class="topcoat-icon dot-icon locate-icon"></span>
+            <span class="topcoat-icon dot-icon msg-icon"></span>
+        </li>
+        <li class="pane2">
+            <h2>Pin.</h2>
+            <span class="skipTut" ng-click="slidePage('/friends')">skip</span>
+            <div class="tutMap"></div>
+            <span class="tutChooseLocation">
+                Choose the location where the recipient <br>
+                must go to retrieve the message.<br>
+            </span>
+            <span class="topcoat-icon dot-icon home-icon"></span>
+            <span class="topcoat-icon dot-icon writemsg-icon"></span>
+            <span class="topcoat-icon dot-icon dom locate-icon"></span>
+            <span class="topcoat-icon dot-icon msg-icon"></span>
+        </li>
+        <li class="pane3">
+            <h2>Send.</h2>
+            <div class="tutGroup"></div>
+            <span class="friendTut">
+                All messages are private and temporary, <br>
+                recipients can only read each message once.<br>
+            </span>
+            <span class="skipTut" ng-click="slidePage('/friends')">start!</span>
+            <span class="topcoat-icon dot-icon home-icon"></span>
+            <span class="topcoat-icon dot-icon writemsg-icon"></span>
+            <span class="topcoat-icon dot-icon locate-icon"></span>
+            <span class="topcoat-icon dot-icon msg-icon dom"></span>
+        </li>
     </ul>
 </div>
+<div ng-init="roundandround()"></div>
 <ng-include src="'partials/settingsOverlay.html'"></ng-include>

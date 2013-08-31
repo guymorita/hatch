@@ -19,6 +19,9 @@ var myApp = angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.d
         $routeProvider.when('/login', {templateUrl: 'partials/loginView.html', controller: 'HomeCtrl'});
         $routeProvider.when('/signup', {templateUrl: 'partials/signUpView.html', controller: 'HomeCtrl'});
 
+        $routeProvider.when('/tutorial', {templateUrl: 'partials/tutorialView.html', controller: 'TutorialCtrl'});
+        $routeProvider.when('/auth', {templateUrl: 'partials/authView.html', controller: 'HomeCtrl'});
+
         $routeProvider.when('/newmessage', {templateUrl: 'partials/newMessageView.html', controller: 'HomeCtrl'});
         $routeProvider.when('/messageRead', {templateUrl: 'partials/messageReadView.html', controller: 'HomeCtrl'});
 
