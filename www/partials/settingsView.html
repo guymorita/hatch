@@ -1,1 +1,55 @@
-settingsView.html
+<div id="sp-nav" ng-controller="HomeCtrl">
+  <div class="topcoat-navigation-bar color-nav" ng-controller="HomeCtrl">
+    <div class="topcoat-list__container">
+      <ul class="topcoat-list">
+        <h3 class="topcoat-list__header"><span class="topcoat-icon egg_small"></span>Hatch</h3>
+        <li class="topcoat-list__item--first babyblue" ng-click="slidePage('/newmessage')">
+            <span class="topcoat-icon writemsg-icon"></span>
+            New Message
+        </li>
+        <li class="topcoat-list__item orange" ng-click="slidePage('/map')">
+          <span class="topcoat-icon locate-icon"></span>
+            My Map
+        </li>
+        <li class="topcoat-list__item green" ng-click="slidePage('/inbox')">
+          <span class="topcoat-icon msg-icon"></span>
+            Inbox
+        </li>
+        <li class="topcoat-list__item pink" ng-click="slidePage('/friends')">
+          <span class="topcoat-icon group-icon"></span>
+            My Friends
+        </li>
+        <li class="topcoat-list__item lightblue" ng-click="slidePage('/settings')">
+            <span class="topcoat-icon settings-icon"></span>
+            Settings
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div id="sp-page" class="flow">
+      <div class="topcoat-navigation-bar purple" ng-controller="SettingsCtrl">
+          <div class="topcoat-navigation-bar__item left quarter">
+              <a class="topcoat-icon-button--quiet" ng-click="$spMenu.toggle()">
+                  <span class="topcoat-icon home-icon"></span>
+              </a>
+          </div>
+          <div class="topcoat-navigation-bar__item center half">
+              <h1 class="topcoat-navigation-bar__title purple-title">Settings</h1>
+          </div>
+          <div class="topcoat-navigation-bar__item right quarter">
+          </div>
+      </div>
+  <div class="body-container settings" ng-controller="SettingsCtrl">
+    <div class="topcoat-list__container grayback" ng-controller="NewMessage">
+      <h3 class="topcoat-list__header">My Account</h3>
+      <input type="text" class="topcoat-text-input centerinput" value="username: {{username}}" disabled="disabled">
+      <input type="text" class="topcoat-text-input centerinput" value="mobile #: {{phone}}" disabled="disabled">
+      <h3 class="topcoat-list__header">More Information</h3>
+      <h3 class="topcoat-list__header">Account</h3>
+      <button class="pure-button hatch-button-pink center_button pink" ng-click="logOut('/login')">Logout</button>
+
+    </div>
+  </div>
+</div>
