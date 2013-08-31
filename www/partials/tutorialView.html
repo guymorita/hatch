@@ -3,8 +3,9 @@
 <!--             <li class="pane1"><img src="http://i1-win.softpedia-static.com/screenshots/Mozilla-Fennec_4.png"></li>
         <li class="pane2"><img src="http://www.concrete5.org/files/5513/1434/2885/jb_mobile_app_screenshot_0_1314342885.jpg"></li> -->
         <li class="pane0">
-            <h2>Welcome to Hatch, <br>{{ user.username }} </h2>
-            <span class="skipTut" ng-click="slidePage('/friends')">skip</span>
+            <h2>Welcome to Hatch,<br>{{ user.username }} </h2>
+            <span class="uppperRight" ng-click="slidePage('/friends')">skip</span>
+            <h3 class="tagline">leave secret notes<br>for your friends</h3>
             <span class="start">swipe to get started</span class="start">
             <span class="topcoat-icon dot-icon home-icon dom"></span>
             <span class="topcoat-icon dot-icon writemsg-icon"></span>
@@ -12,9 +13,9 @@
             <span class="topcoat-icon dot-icon msg-icon"></span>
         </li>
         <li class="pane1">
-            <h2>Write.</h2>
+            <h2>Create.</h2>
             <div class="newmsgview"></div>
-            <span class="skipTut" ng-click="slidePage('/friends')">skip</span>
+            <span class="uppperRight" ng-click="slidePage('/friends')">skip</span>
             <span class="topcoat-icon dot-icon home-icon"></span>
             <span class="topcoat-icon dot-icon writemsg-icon dom"></span>
             <span class="topcoat-icon dot-icon locate-icon"></span>
@@ -22,11 +23,16 @@
         </li>
         <li class="pane2">
             <h2>Pin.</h2>
-            <span class="skipTut" ng-click="slidePage('/friends')">skip</span>
+            <span class="uppperRight" ng-click="slidePage('/friends')">skip</span>
+            <span class="tutAboveMap">
+                Choose the spot where your <br>
+                friend must go to open the note.<br>
+            </span>
             <div class="tutMap"></div>
             <span class="tutChooseLocation">
-                Choose the location where the recipient <br>
-                must go to retrieve the message.<br>
+                They will get a notification but cannot<br>
+                open it until they go there. If the note is<br>
+                hidden, they will not be told where it is.
             </span>
             <span class="topcoat-icon dot-icon home-icon"></span>
             <span class="topcoat-icon dot-icon writemsg-icon"></span>
@@ -37,10 +43,10 @@
             <h2>Send.</h2>
             <div class="tutGroup"></div>
             <span class="friendTut">
-                All messages are private and temporary, <br>
-                recipients can only read each message once.<br>
+                All notes are private and temporary, <br>
+                your friends can only see each note once.<br>
             </span>
-            <span class="skipTut" ng-click="slidePage('/friends')">start!</span>
+            <span class="uppperRight" ng-click="slidePage('/friends')">start!</span>
             <span class="topcoat-icon dot-icon home-icon"></span>
             <span class="topcoat-icon dot-icon writemsg-icon"></span>
             <span class="topcoat-icon dot-icon locate-icon"></span>
