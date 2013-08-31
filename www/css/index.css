@@ -211,7 +211,8 @@ body {
 .hatch-button-success,
 .hatch-button-error,
 .hatch-button-warning,
-.hatch-button-secondary {
+.hatch-button-secondary,
+.hatch-button-pink {
     color: white;
     border-radius: 4px;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
@@ -227,6 +228,10 @@ body {
 
 .hatch-button-warning {
     background: rgb(223, 117, 20); /* this is an orange */
+}
+
+.hatch-button-pink {
+    background: rgb(255, 152, 167);
 }
 
 .hatch-button-secondary {
@@ -247,6 +252,16 @@ body {
 
 .center_button {
   margin: 0 0 0 2%;
+  width: 96%;
+}
+
+.center_button.pink {
+  margin-top: 2%;
+}
+
+.settings input:disabled {
+  opacity: 0.7;
+  margin: 2% 0 2% 2%;
   width: 96%;
 }
 
