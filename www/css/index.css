@@ -545,79 +545,6 @@ purple: 00937A
   opacity: 2;
 }
 
-.tutMap {
-  background: url("../img/tutMap.png") no-repeat;
-  position: absolute;
-  display: inline-block;
-  top: 30%;
-  left: 7%;
-  width: 636px;
-  height: 330px;
-  background-size: 280px, 155px, auto;
-}
-
-.tutChooseLocation{
-  position: absolute;
-  display: inline-block;
-  top: 70%;
-  left: 8%;
-
-  color: white;
-  font-size: 16px;
-}
-
-.newmsgview {
-  background: url("../img/msgview.png") no-repeat;
-  position: absolute;
-  display: inline-block;
-  top: 27%;
-  left: 0%;
-  width: 1000px;
-  height: 1000px;
-  background-size: 300px, 400px, auto;
-}
-
-.tutGroup {
-  background: url("../img/tutGroup.png") no-repeat;
-  position: absolute;
-  display: inline-block;
-  top: 30%;
-  left: 30%;
-  width: 150px;
-  height: 150px;
-}
-
-.friendTut {
-  position: absolute;
-  display: inline-block;
-  top: 70%;
-  left: 6%;
-
-  color: white;
-  font-size: 16px;
-}
-
-.skipTut {
-  display: inline-block;
-  position: absolute;
-  left: 88%;
-
-  color: white;
-  font-size: 12px;
-  padding: 2px;
-  margin: 5px;
-  border-radius: 3px;
-}
-
-.start {
-  top: 70%;
-  left: 32%;
-  display: inline-block;
-  position: absolute;
-  color: white;
-  font-size: 14px;
-}
-
 img {
   margin-top: 10px;
   padding: 25px;
@@ -760,7 +687,7 @@ h4 {
 }
 
 
-/*  CAROUSEL  */
+/*=======================CAROUSEL============================*/
 
 #carousel, #carousel ul, #carousel li {
     min-height: 100%;
@@ -791,6 +718,7 @@ h4 {
     -webkit-backface-visibility: hidden;
     -webkit-transform: translate3d(0,0,0) scale3d(1,1,1);
     -webkit-transform-style: preserve-3d;
+    text-shadow: -1px -1px 0 rgba(0,0,0,.2);
 }
 
 #carousel ul.animate {
@@ -834,7 +762,7 @@ h4 {
     font-size: 30px;
     text-align: center;
     position: absolute;
-    top: 10%;
+    top: 9%;
     left: 0;
     width: 100%;
     height: 200px;
@@ -874,6 +802,104 @@ h4 {
     -moz-animation: rotate 1s linear infinite;
     -webkit-animation: rotate 1s linear infinite;
 }
+
+
+/*============================TUTORIAL=============================*/
+
+.uppperRight {
+  display: inline-block;
+  position: absolute;
+  left: 88%;
+  top: 4%;
+
+  color: white;
+  font-size: 12px;
+  padding: 2px;
+  margin: 5px;
+  text-shadow: -0.5px -0.5px 0 rgba(0,0,0,.2);
+}
+
+.start {
+  top: 75%;
+  left: 32%;
+  display: inline-block;
+  position: absolute;
+  color: white;
+  font-size: 14px;
+  text-shadow: -1px -1px 0 rgba(0,0,0,.2);
+}
+
+.tagline{
+  top: 50%;
+  left: 23%;
+  display: inline-block;
+  position: absolute;
+  color: white;
+  text-shadow: -1px -1px 0 rgba(0,0,0,.2);
+}
+
+.newmsgview {
+  background: url("../img/msgview.png") no-repeat;
+  position: absolute;
+  display: inline-block;
+  top: 23%;
+  left: 0%;
+  width: 1000px;
+  height: 1000px;
+  background-size: 310px, 440px, auto;
+}
+
+.tutAboveMap {
+  position: absolute;
+  display: inline-block;
+  top: 25%;
+  left: 16%;
+
+  color: white;
+  font-size: 16px;
+}
+
+.tutMap {
+  background: url("../img/tutMap.png") no-repeat;
+  position: absolute;
+  display: inline-block;
+  top: 38%;
+  left: 6.5%;
+  width: 636px;
+  height: 330px;
+  background-size: 280px, 155px, auto;
+}
+
+.tutChooseLocation{
+  position: absolute;
+  display: inline-block;
+  top: 68%;
+  left: 9%;
+
+  color: white;
+  font-size: 16px;
+}
+
+.tutGroup {
+  background: url("../img/tutGroup.png") no-repeat;
+  position: absolute;
+  display: inline-block;
+  top: 30%;
+  left: 30%;
+  width: 150px;
+  height: 150px;
+}
+
+.friendTut {
+  position: absolute;
+  display: inline-block;
+  top: 70%;
+  left: 8%;
+
+  color: white;
+  font-size: 16px;
+}
+
 
 /*
 .fade-hide-setup, .fade-show-setup {
