@@ -36,7 +36,6 @@
 }
 
 body {
-  overflow:hidden;
   /*background: #2a2d30;*/
   font-color: #fff;
   background: #e3e3dd;
@@ -46,17 +45,19 @@ body {
   width:100%;
 }
 #sp-page {
-  overflow:hidden;
+/*  overflow:hidden;*/
   /*background: #2a2d30;*/
   background: #e3e3dd;
+}
+
+.flow {
+  overflow:hidden
 }
 
 .body-container {
   height: 96%;
   background: #e3e3dd;
 }
-
-
 
 .list {
   width: 100%;
@@ -104,17 +105,27 @@ body {
   left: 25%;
   color: grey;
 }
+
+#message-buttons {
+  margin: 2% 0 0 0;
+}
+
 #map-canvas {
   height: 93%
 }
 
 .grayback {
   background-color: #e3e3dd;
+  border-bottom: none;
+}
 
+.grayback button {
+  height: 3rem;
 }
 
 .hatchlist {
   background: #e3e3dd;
+  border-bottom: none;
 }
 
 .hatchlist .checkboxbackground {
@@ -122,23 +133,23 @@ body {
 }
 
 .hatchlist ul {
-  margin: 0 0 4rem 0;
+  margin: 0 0 3rem 0;
 }
 
 .hatchlist li {
   padding: 0.7rem 1rem 0.7rem 1rem;
 }
 
-.hatchlist h2 {
-  line-height: 0.2rem;
+.hatchlist .nametext {
+  line-height: 2rem;
 }
 
-.hatchlist span {
+.hatchlist div div span {
   /*float: right;*/
   float: right;
   position: relative;
-  margin: 0.4rem 0.1rem 0 15rem;
-  line-height: 0.4rem;
+  margin: -1.7rem 0.1rem 0 15rem;
+  line-height: 0.8rem;
 }
 
 .bottombutton {
@@ -156,6 +167,27 @@ body {
   height: 3rem;
   padding: 0.5rem 0 0 0;
   border-top: 1px solid #bcbfbf;
+}
+
+.headerhatch {
+  text-align: center;
+  color: white;
+  text-shadow: 3px 3px .06em #cdcdcd;
+}
+
+.header button {
+  height: 3rem;
+}
+
+.centerinput {
+  margin: 2% 0 2% 0;
+  width: 96%;
+  background-color: #fff;
+}
+
+.topcoat-list__container.header {
+  text-align: center;
+  border-bottom: none;
 }
 
 .bottombutton button {
@@ -213,7 +245,6 @@ body {
   width: 96%;
 }
 
-
 .egg_small{
   background: url("../img/egg_tiny.png") no-repeat;
   background-size: 32px 32px;
@@ -256,7 +287,6 @@ body {
 */
 }
 
-
 .purple {
   background-color: #7859b0;
   color: white;
@@ -269,6 +299,10 @@ body {
 
 .lightblue {
   background-color: #8db7c9;
+  color: white;
+}
+.lightpink {
+  background-color: #ff98a7;
   color: white;
 }
 .yellow{
@@ -296,7 +330,7 @@ body {
 }
 
 .color-nav span {
-  margin: -3px 0 0 0;
+  margin: -4px 0 0 0;
 }
 
 .purple-title {
@@ -323,11 +357,10 @@ body {
 }
 .icontop {
   color: white;
-
 }
-
-
-
+.icontop:active {
+  color: white;
+}
 
 /*
 purple: 522759
@@ -460,7 +493,14 @@ purple: 00937A
 }
 
 .settings-icon {
-  background: url("../img/settings_light.svg") no-repeat;
+  background: url("../img/settings.png") no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+}
+
+.add-friend-icon {
+  background: url("../img/add_friend.png") no-repeat;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
