@@ -255,7 +255,17 @@ body {
   width: 96%;
 }
 
-.center_button.pink {
+.confirmcode input {
+  margin: 2% 1% 2% 2%;
+  width: 25%;
+}
+
+.confirmcode button {
+  margin: 2%;
+  padding: .5em 1.2em;
+}
+
+.center_button.settings {
   margin-top: 2%;
 }
 

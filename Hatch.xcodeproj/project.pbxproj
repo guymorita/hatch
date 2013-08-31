@@ -44,6 +44,7 @@
 		BA9058C117D0577F00751574 /* Oxygen-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA9058BE17D0577F00751574 /* Oxygen-Bold.ttf */; };
 		BA9058C217D0577F00751574 /* Oxygen-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA9058BF17D0577F00751574 /* Oxygen-Light.ttf */; };
 		BA9058C317D0577F00751574 /* Oxygen-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA9058C017D0577F00751574 /* Oxygen-Regular.ttf */; };
+		BA9058CE17D1D32600751574 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA9058CD17D1D32600751574 /* MessageUI.framework */; };
 		D4A0D8761607E02300AEF8BB /* Default-568h@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = D4A0D8751607E02300AEF8BB /* Default-568h@2x~iphone.png */; };
 		F840E1F1165FE0F500CFE078 /* config.xml in Resources */ = {isa = PBXBuildFile; fileRef = F840E1F0165FE0F500CFE078 /* config.xml */; };
 /* End PBXBuildFile section */
@@ -116,6 +117,7 @@
 		BA9058BE17D0577F00751574 /* Oxygen-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Oxygen-Bold.ttf"; path = "www/font/Oxygen-Bold.ttf"; sourceTree = "<group>"; };
 		BA9058BF17D0577F00751574 /* Oxygen-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Oxygen-Light.ttf"; path = "www/font/Oxygen-Light.ttf"; sourceTree = "<group>"; };
 		BA9058C017D0577F00751574 /* Oxygen-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Oxygen-Regular.ttf"; path = "www/font/Oxygen-Regular.ttf"; sourceTree = "<group>"; };
+		BA9058CD17D1D32600751574 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		D4A0D8751607E02300AEF8BB /* Default-568h@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x~iphone.png"; sourceTree = "<group>"; };
 		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = MyApp/config.xml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -125,6 +127,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA9058CE17D1D32600751574 /* MessageUI.framework in Frameworks */,
 				5B1594DD16A7569C00FEF299 /* AssetsLibrary.framework in Frameworks */,
 				301BF552109A68D80062928A /* libCordova.a in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
@@ -187,6 +190,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				BA9058CD17D1D32600751574 /* MessageUI.framework */,
 				BA9058BE17D0577F00751574 /* Oxygen-Bold.ttf */,
 				BA9058BF17D0577F00751574 /* Oxygen-Light.ttf */,
 				BA9058C017D0577F00751574 /* Oxygen-Regular.ttf */,
