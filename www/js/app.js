@@ -37,5 +37,6 @@ var myApp = angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.d
 
         $routeProvider.when('/settings', {templateUrl: 'partials/settingsView.html', controller: 'HomeCtrl'});
 
-        $routeProvider.otherwise({redirectTo: '/login'});
+        // $routeProvider.otherwise({redirectTo: '/login'});
+        $routeProvider.otherwise({redirectTo: '/tutorial'});
   }]);
