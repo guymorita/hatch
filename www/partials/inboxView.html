@@ -52,7 +52,7 @@
         </div>
       </div>
       <div id="content">
-        <div class="topcoat-list__container">
+        <div class="topcoat-list__container grayback">
           <h3 class="topcoat-list__header" ng-click="showReceived = !showReceived">Received</h3>
           <ul class="topcoat-list">
            <li class="topcoat-list__item" ng-hide="showReceived" ng-repeat="message in receivedMessages" ng-show="message.distance < 150 || !{{ message.hidden }}" ng-click="tryOpen(message)">
