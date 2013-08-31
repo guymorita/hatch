@@ -123,6 +123,11 @@ body {
   height: 3rem;
 }
 
+.friendlist {
+  background: #e3e3dd;
+  border-bottom: none;
+}
+
 .hatchlist {
   background: #e3e3dd;
   border-bottom: none;
@@ -217,7 +222,7 @@ body {
 }
 
 .hatch-button-error {
-    background: rgb(202, 60, 60); /* this is a maroon */
+    background: rgb(243, 52, 75); /* this is a maroon */
 }
 
 .hatch-button-warning {
@@ -586,7 +591,7 @@ h4 {
     /* change message with css */
 #pullrefresh .message span:after { content: "Pull to refresh..."; }
 .pullrefresh-breakpoint #pullrefresh .message span:after { content: "Release to refresh..."; }
-.pullrefresh-loading #pullrefresh .message span:after { content: "Loading new image..."; }
+.pullrefresh-loading #pullrefresh .message span:after { content: "Loading messages..."; }
 
 
     /* icon */
@@ -638,6 +643,19 @@ h4 {
     background-size: 100%;
     bottom: 0;
 
+    animation: rotate 1s linear infinite;
+    -o-animation: rotate 1s linear infinite;
+    -ms-animation: rotate 1s linear infinite;
+    -moz-animation: rotate 1s linear infinite;
+    -webkit-animation: rotate 1s linear infinite;
+}
+
+.icon.loading.other {
+    background: url(../img/spinner_2.png) no-repeat;
+    width: 19px;
+    height: 19px;
+    background-size: 100%;
+    margin: 0 auto;
     animation: rotate 1s linear infinite;
     -o-animation: rotate 1s linear infinite;
     -ms-animation: rotate 1s linear infinite;
