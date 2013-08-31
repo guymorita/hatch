@@ -1,3 +1,4 @@
+'use strict';
 
 var newPinCtrl = function($scope, navSvc, $rootScope, locationService, hatchService, mapService) {
   var pinMap;

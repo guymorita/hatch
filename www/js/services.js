@@ -8,7 +8,6 @@ angular.module('myApp.services', []).
 
 // phonegap ready service - listens to deviceready
 
-
 myApp.factory('userService', function($http){
     return {
         oaktreeUrl: 'http://oaktree.nodejitsu.com/',

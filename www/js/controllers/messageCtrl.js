@@ -1,3 +1,4 @@
+'use strict';
 
 var NewMessage = function($scope, navSvc, userService, hatchService, imageService, locationService){
   $scope.title = hatchService.hatchObject.title;
@@ -74,21 +75,4 @@ var MessageReadCtrl = function($scope, navSvc, $http, userService){
     .success(function(u, getRes){
       console.log('Message read');
     });
-};
-
-var HomeCtrl = function($scope,navSvc,$rootScope, userService) {
-    $rootScope.showSettings = false;
-    $scope.user = userService.currentUser;
-    $scope.slidePage = function (path,type) {
-        navSvc.slidePage(path,type);
-    };
-    $scope.back = function () {
-        navSvc.back();
-    };
-    $scope.changeSettings = function () {
-        $rootScope.showSettings = true;
-    };
-    $scope.closeOverlay = function () {
-        $rootScope.showSettings = false;
-    };
 };

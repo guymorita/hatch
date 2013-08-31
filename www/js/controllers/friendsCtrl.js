@@ -8,30 +8,30 @@ var FriendsListCtrl = function($scope, $filter, navSvc, userService, hatchServic
   $scope.pendingFriends = [];
   $scope.currentFriends = [];
   $scope.updateFriendList = function(){
-    // $http.get(userService.oaktreeUrl+'friends/' + userService.currentUser._id)
-    //   .success(function(u, getRes){
-    //     userService.currentUser.friends = u;
-    //     _.each(userService.currentUser.friends, function(userObj, key){
-    //       userObj.checked = false;
-    //       if (userObj.status === 0){
-    //         userObj.pending = ' - pending';
-    //         $scope.pendingFriends.push(userObj);
-    //       } else if (userObj.status === 1){
-    //         userObj.waiting = 1;
-    //         $scope.pendingFriends.push(userObj);
-    //       } else if (userObj.status === 2){
-    //         $scope.currentFriends.push(userObj);
-    //       }
-    //     });
-    //   });
+    $http.get(userService.oaktreeUrl+'friends/' + userService.currentUser._id)
+      .success(function(u, getRes){
+        userService.currentUser.friends = u;
+        _.each(userService.currentUser.friends, function(userObj, key){
+          userObj.checked = false;
+          if (userObj.status === 0){
+            userObj.pending = ' - pending';
+            $scope.pendingFriends.push(userObj);
+          } else if (userObj.status === 1){
+            userObj.waiting = 1;
+            $scope.pendingFriends.push(userObj);
+          } else if (userObj.status === 2){
+            $scope.currentFriends.push(userObj);
+          }
+        });
+      });
   };
-  $scope.currentFriends = [{username: 'Guy', _id: 123}, {username: 'Dave', _id: 123}, {username: 'Sav', _id: 123}, {username: 'Piu', _id: 123}]
-  $scope.fakeSend = function(){
-    _.each($filter('filter')($scope.currentFriends, {checked:true}), function(value){
-      receiverIds.push(value._id);
-    });
-    console.log('receiverIds', receiverIds);
-  }
+  // $scope.currentFriends = [{username: 'Guy', _id: 123}, {username: 'Dave', _id: 123}, {username: 'Sav', _id: 123}, {username: 'Piu', _id: 123}]
+  // $scope.fakeSend = function(){
+  //   _.each($filter('filter')($scope.currentFriends, {checked:true}), function(value){
+  //     receiverIds.push(value._id);
+  //   });
+  //   console.log('receiverIds', receiverIds);
+  // }
 
   $scope.acceptFriend = function(userObj){
     $http.get(userService.oaktreeUrl+'friends/accept/'+userObj._id+'/'+userService.currentUser._id)
@@ -61,9 +61,9 @@ var FriendsListCtrl = function($scope, $filter, navSvc, userService, hatchServic
 
   $scope.checkboxClass = function(friend){
     if (friend.checked){
-      return 'icon-check icon-3x';
+      return 'icon-check icon-2x';
     } else {
-      return "icon-check-empty icon-3x";
+      return "icon-check-empty icon-2x";
     }
   };
 

@@ -1,3 +1,5 @@
+'use strict';
+
 var LoginCtrl = function($scope, navSvc, $http, userService, locationService){
   $scope.slidePage = function (path,type) {
     navSvc.slidePage(path,type);
