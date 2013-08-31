@@ -1,14 +1,16 @@
-<div class="topcoat-navigation-bar purple" ng-controller="HomeCtrl">
+<div class="topcoat-navigation-bar purple flow" ng-controller="HomeCtrl">
+    <div class="topcoat-navigation-bar__item left quarter">
+    </div>
     <div class="topcoat-navigation-bar__item center half">
-        <h1 class="topcoat-navigation-bar__title">Sign In</h1>
+        <h1 class="topcoat-navigation-bar__title purple-title">Sign In</h1>
     </div>
 </div>
-<div class="topcoat-list__container" ng-controller="LoginCtrl" ng-init="bootUp()">
-    <input type="text" class="topcoat-text-input" value="" placeholder="username" ng-model="username" autofocus>
-    <div class="line-separator"></div>
-    <input type="password" class="topcoat-text-input signInPswd" value="" placeholder="password" ng-model="password">
+<div class="topcoat-list__container header" ng-controller="LoginCtrl" ng-init="bootUp()">
+    <h1 class="headerhatch">Hatch</h1>
+    <input type="text" class="topcoat-text-input centerinput" value="" placeholder="username" ng-model="username" autofocus>
+    <input type="password" class="topcoat-text-input centerinput signInPswd" value="" placeholder="password" ng-model="password">
     <div id="message-buttons">
-        <button class="topcoat-button--cta" ng-click="login()"><i class="icon-compass"></i> Login</button>
-        <button class="topcoat-button--cta" ng-click="slidePage('/signup')"><i class="icon-sun"></i> Sign Up</button>
+        <button class="pure-button hatch-button-success" ng-click="login()"><i class="icon-compass"></i> Login</button>
+        <button class="pure-button hatch-button-success" ng-click="slidePage('/signup')"><i class="icon-sun"></i> Sign Up</button>
     </div>
 </div>

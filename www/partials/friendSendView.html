@@ -1,4 +1,4 @@
-<div class="topcoat-navigation-bar purple" ng-controller="HomeCtrl">
+<div class="topcoat-navigation-bar purple flow" ng-controller="HomeCtrl">
   <div class="topcoat-navigation-bar__item left quarter iconnav">
     <i class="topcoat-icon-button--quiet icon-chevron-left icon-2x icontop" ng-click="slidePage('/pinmap')"></i>
   </div>
@@ -14,14 +14,17 @@
       <h3 class="topcoat-list__header">Select some friends to send your message to</h3>
       <li class="topcoat-list__item" ng-repeat="friend in currentFriends" ng-class="checkboxback(friend)">
         <div>
-          <span name="friends[]" value="{{friend.username}}" ng-model="friend.checked" ng-class="checkboxClass(friend)" ng-click="check(friend)"></span>
-          <h2>{{friend.username}}</h2>
+          <div class="nametext">
+            <strong>{{friend.username}}</strong>
+          </div>
+          <div>
+            <span name="friends[]" value="{{friend.username}}" ng-model="friend.checked" ng-class="checkboxClass(friend)" ng-click="check(friend)"></span>
+          </div>
         </div>
       </li>
     </ul>
-    <!-- <br><button class="pure-button hatch-button-success center_button" ng-click="send(); slidePage('/inbox')">Send</button> -->
     <div class="bottombutton">
-      <button class="pure-button hatch-button-success center_button" ng-click="fakeSend()">Send</button>
+      <button class="pure-button hatch-button-success center_button" ng-click="send(); slidePage('/inbox')">Send</button>
     </div>
   </div>
 </div>

@@ -1,24 +1,34 @@
-<div id="sp-nav" class="purple" ng-controller="HomeCtrl">
-  <div class="topcoat-navigation-bar__item center half">
-      <a class="topcoat-icon-button--quiet" ng-click="$spMenu.toggle()">
-          <span class="topcoat-icon home-icon"></span>
-      </a>
-  </div>
-  <div class="topcoat-list__container">
-    <ul class="topcoat-list">
-      <li class="topcoat-list__item--first purple" ng-click="slidePage('/newmessage')">
-          New Message
-      </li>
-      <li class="topcoat-list__item orange" ng-click="slidePage('/map')">
-          My Map
-      </li>
-      <li class="topcoat-list__item yellow" ng-click="$spMenu.toggle()">
-          Inbox
-      </li>
-      <li class="topcoat-list__item pink" ng-click="slidePage('/friends')">
-          My Friends
-      </li>
-    </ul>
+<div id="sp-nav" ng-controller="HomeCtrl">
+  <div class="topcoat-navigation-bar color-nav" ng-controller="HomeCtrl">
+    <div class="topcoat-list__container">
+      <ul class="topcoat-list">
+        <h3 class="topcoat-list__header"><span class="topcoat-icon egg_small"></span>Hatch</h3>
+        <li class="topcoat-list__item--first babyblue" ng-click="slidePage('/newmessage')">
+            <span class="topcoat-icon writemsg-icon"></span>
+            New Message
+        </li>
+        <li class="topcoat-list__item orange" ng-click="slidePage('/map')">
+          <span class="topcoat-icon locate-icon"></span>
+            My Map
+        </li>
+        <li class="topcoat-list__item green" ng-click="$spMenu.toggle()">
+          <span class="topcoat-icon msg-icon"></span>
+            Inbox
+        </li>
+        <li class="topcoat-list__item pink" ng-click="slidePage('/friends')">
+          <span class="topcoat-icon group-icon"></span>
+            My Friends
+        </li>
+        <li class="topcoat-list__item lightblue" ng-click="slidePage('/inbox')">
+            <span class="topcoat-icon settings-icon"></span>
+            Settings
+        </li>
+        <li class="topcoat-list__item lightpink" ng-click="logOut('/login')">
+            <span class="topcoat-icon lock-icon"></span>
+            Log Out
+        </li>
+      </ul>
+    </div>
   </div>
 </div>
 <div id="sp-page" ng-controller="InboxCtrl" ng-init="getMessages()">
@@ -31,7 +41,7 @@
           </a>
         </div>
         <div class="topcoat-navigation-bar__item center half">
-          <h1 class="topcoat-navigation-bar__title">Inbox</h1>
+          <h1 class="topcoat-navigation-bar__title purple-title">Inbox</h1>
         </div>
       </div>
       <div id="pullrefresh">
