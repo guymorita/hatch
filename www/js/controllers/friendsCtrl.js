@@ -68,7 +68,11 @@ var FriendsListCtrl = function($scope, $filter, navSvc, userService, hatchServic
   $scope.allUsers = userService.allUsers;
   $scope.selectedFriends = $filter('filter')($scope.currentFriends, {checked:true});
   var receiverIds = [];
+  $scope.sentClick = function(){
+
+  };
   $scope.send = function(){
+    // $scope.
     console.log('hatch obj', hatchService.hatchObject);
     // build the object
     hatchService.set('sender_id', userService.currentUser._id);

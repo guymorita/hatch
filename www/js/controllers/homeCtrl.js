@@ -15,8 +15,5 @@ var HomeCtrl = function($scope,navSvc,$rootScope, userService) {
     $scope.closeOverlay = function () {
         $rootScope.showSettings = false;
     };
-    $scope.logOut = function(path, type){
-      window.localStorage.setItem("powuseee", "");
-      navSvc.slidePage(path, type);
-    };
+
 };
