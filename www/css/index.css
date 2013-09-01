@@ -255,6 +255,12 @@ body {
   width: 96%;
 }
 
+.center_button.tutorial {
+  position: absolute;
+  top: 85%;
+  left: 0;
+}
+
 .confirmcode input {
   margin: 2% 1% 2% 2%;
   width: 25%;

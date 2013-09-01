@@ -56,7 +56,7 @@ var LoginCtrl = function($scope, navSvc, $http, userService, locationService){
                   .success(function(u, getRes3){
                   });
               }
-              $scope.slidePage('/newmessage');
+              $scope.slidePage('/tutorial');
             })
             .error(function(data, status){
               $('.signInPswd').css("color", "red");
