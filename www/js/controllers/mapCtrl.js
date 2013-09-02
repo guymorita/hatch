@@ -72,7 +72,6 @@ var showPinsCtrl = function($scope, navSvc, userService, locationService, $http,
     $http.get(url).success(function(res, status, headers){
       userService.setReceivedMessages(res.inbox);
       userService.setSentMessages(res.outbox);
-      console.log(res.inbox)
       $scope.initialize();
     }).error(function(response, status){
       console.log('failed to get messages', response, status);
@@ -95,6 +94,15 @@ var showPinsCtrl = function($scope, navSvc, userService, locationService, $http,
         var newLatlng = new google.maps.LatLng(locationService.position.lat, locationService.position.lng);
         circle.setCenter(newLatlng);
         // map.setCenter(newLatlng)
+        bounds = circle.getBounds();
+        for (var i = 0; i < pinArray.length; i+=2) {
+          var pinLocation = new google.maps.LatLng(pinArray[i].latlng.lat, pinArray[i].latlng.lng);
+          if ( bounds.contains( pinLocation ) ) {
+            pinArray[i+1].setMap(null);
+            eventType = 1;
+            addPin(pinArray[i], images.greenegg, eventType);
+          }
+        };
       });
     }, 3000);
   };
@@ -180,7 +188,7 @@ var showPinsCtrl = function($scope, navSvc, userService, locationService, $http,
     }
   };
 
-
+  var pinArray = [];
   var addPin = function(instance, image, eventType) {
     var myLatlng = new google.maps.LatLng(instance.latlng.lat, instance.latlng.lng);
     var newPin = new google.maps.Marker({
@@ -217,7 +225,6 @@ var showPinsCtrl = function($scope, navSvc, userService, locationService, $http,
       }
       if (eventType === 1){
         google.maps.event.addListener(newPin, 'dblclick', function() {
-          //need to tell server this message has been read
           newPin.setMap(null);
           userService.setCurrentRead(instance);
           $scope.$apply();
@@ -227,7 +234,8 @@ var showPinsCtrl = function($scope, navSvc, userService, locationService, $http,
         });
       }
     } else {
-
+      pinArray.push(instance);
+      pinArray.push(newPin);
     }
   };
 
