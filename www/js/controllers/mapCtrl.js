@@ -73,8 +73,8 @@ var showPinsCtrl = function($scope, navSvc, userService, locationService, $http,
       userService.setReceivedMessages(res.inbox);
       userService.setSentMessages(res.outbox);
       $scope.initialize();
-    }).error(function(u, getRes){
-      console.log('failed to get messages', u, getRes);
+    }).error(function(response, status){
+      console.log('failed to get messages', response, status);
     });
 
   };

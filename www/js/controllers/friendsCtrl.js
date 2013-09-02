@@ -9,8 +9,8 @@ var FriendsListCtrl = function($scope, $filter, navSvc, userService, hatchServic
   $scope.currentFriends = [];
   $scope.updateFriendList = function(){
     $http.get(userService.oaktreeUrl+'friends/' + userService.currentUser._id)
-      .success(function(u, getRes){
-        userService.currentUser.friends = u;
+      .success(function(friends, status){
+        userService.currentUser.friends = friends;
         _.each(userService.currentUser.friends, function(userObj, key){
           userObj.checked = false;
           if (userObj.status === 0){
@@ -28,13 +28,13 @@ var FriendsListCtrl = function($scope, $filter, navSvc, userService, hatchServic
 
   $scope.acceptFriend = function(userObj){
     $http.get(userService.oaktreeUrl+'friends/accept/'+userObj._id+'/'+userService.currentUser._id)
-      .success(function(u, getRes){
+      .success(function(response, status){
         userObj.invited = 1;
       });
   };
   $scope.denyFriend = function(userObj){
     $http.get(userService.oaktreeUrl + 'friends/deny/'+userObj._id+'/'+userService.currentUser._id)
-      .success(function(u, getRes){
+      .success(function(response, status){
         userObj.invited = 1;
       });
   };
@@ -83,7 +83,7 @@ var FriendsListCtrl = function($scope, $filter, navSvc, userService, hatchServic
     hatchService.set('receiver_ids', receiverIds);
     console.log('hatch', hatchService.hatchObject.latlng);
     $http.post(userService.oaktreeUrl +'message/', JSON.stringify(hatchService.hatchObject))
-      .success(function(data, status, headers, config){
+      .success(function(data, status){
         console.log('send message success data', data);
         if (imageService.photo && typeof imageService.photo.photo !== 'undefined') {
           console.log('attaching image...');
@@ -95,9 +95,9 @@ var FriendsListCtrl = function($scope, $filter, navSvc, userService, hatchServic
           console.log('hatch obj', hatchService.hatchObject);
           console.log('image obj', imageService.photo);
           $http.post(userService.oaktreeUrl + 'image/' + messageIds, imageService.photo)
-            .success(function(u, getRes){
+            .success(function(u, status){
               console.log('photo u', u);
-              console.log('photo res', getRes);
+              console.log('photo res', status);
               hatchService.clear();
               imageService.clear();
             })

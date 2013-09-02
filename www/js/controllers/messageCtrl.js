@@ -72,7 +72,7 @@ var MessageReadCtrl = function($scope, navSvc, $http, userService){
   });
 
   $http.get(userService.oaktreeUrl+'message/read/'+userService.currentRead._id)
-    .success(function(u, getRes){
-      console.log('Message read');
+    .success(function(response, status){
+      console.log('Message read', response);
     });
 };

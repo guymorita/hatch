@@ -14,9 +14,9 @@ var SettingsCtrl = function($scope, userService, $http) {
   };
   $scope.clear = function(){
     $http.get(userService.oaktreeUrl+'message/clear/'+userService.currentUser._id)
-      .success(function(u, getRes){
+      .success(function(response, status){
         $scope.cleared = true;
-      }).error(function(u, getRes){
+      }).error(function(response, status){
       });
   };
   $scope.clearClass = function(){
@@ -26,14 +26,14 @@ var SettingsCtrl = function($scope, userService, $http) {
   };
   $scope.confirm = function(){
     $http.get(userService.oaktreeUrl+'user/confirm/'+userService.currentUser._id+'/'+$scope.codez)
-      .success(function(u, getRes){
-      }).error(function(u, getRes){
+      .success(function(response, status){
+      }).error(function(response, status){
       });
   };
   $scope.resend = function(){
     $http.get(userService.oaktreeUrl+'user/resend/'+userService.currentUser._id)
-      .success(function(u, getRes){
-      }).error(function(u, getRes){
+      .success(function(response, status){
+      }).error(function(response, status){
       });
   }
 };
