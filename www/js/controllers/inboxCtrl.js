@@ -17,7 +17,7 @@ var InboxCtrl = function($scope, $filter, navSvc, userService, $http, locationSe
     console.log('getting message');
     var url = userService.oaktreeUrl +'message/retrieve/' + userService.currentUser._id.toString();
     $http.get(url).success(function(res, status){
-      console.log("got message success!");
+      console.log("got message success!", res);
       userService.buildFriendLookup();
       userService.setReceivedMessages(res.inbox);
       _.each(userService.receivedMessages, function(message){

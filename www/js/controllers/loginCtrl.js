@@ -50,6 +50,9 @@ var LoginCtrl = function($scope, navSvc, $http, userService, locationService){
               $http.get(userService.oaktreeUrl +'user/')
                 .success(function(users, status2){
                   userService.setAllUsers(users);
+                  navigator.geolocation.getCurrentPosition(function(position) {
+                    locationService.position= { lat: position.coords.latitude, lng: position.coords.longitude };
+                  });
                 });
               if(app.userToken){
                 $http.get(userService.oaktreeUrl + 'user/token/'+userResponse._id+'/'+app.userToken)

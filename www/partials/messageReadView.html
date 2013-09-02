@@ -1,19 +1,16 @@
 <div class="topcoat-navigation-bar purple" ng-controller="HomeCtrl">
-    <div class="topcoat-navigation-bar__item left quarter">
-        <button class="topcoat-button--large--quiet" ng-click="back()">Back</button>
+    <div class="topcoat-navigation-bar__item left quarter iconnav">
+        <i class="topcoat-icon-button--quiet icon-chevron-left icon-2x icontop" ng-click="slidePage('/inbox')"></i>
     </div>
     <div class="topcoat-navigation-bar__item center half" ng-controller="MessageReadCtrl" ng-model="message">
-        <h1 class="topcoat-navigation-bar__title">Message</h1>
+        <h1 class="topcoat-navigation-bar__title purple-title">Message</h1>
     </div>
     <div class="topcoat-navigation-bar__item right quarter">
-        <a class="topcoat-icon-button--quiet" ng-click="changeSettings()">
-            <span class="topcoat-icon settings-icon"></span>
-        </a>
     </div>
 </div>
 
 <div class="body-container">
-    <div class="topcoat-list__container" ng-controller="MessageReadCtrl" ng-model="message">
+    <div class="topcoat-list__container grayback" ng-controller="MessageReadCtrl" ng-model="message">
         <h3 class="topcoat-list__header">Message from {{message.sender_name}}</h3>
         <h3>{{message.title}}</h3>
         <p><i class="icon-time"></i> {{message.date | momenttime}}</p>
