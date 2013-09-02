@@ -858,7 +858,7 @@ h4 {
 .tutAboveMap {
   position: absolute;
   display: inline-block;
-  top: 25%;
+  top: 26%;
   left: 16%;
 
   color: white;
@@ -869,7 +869,7 @@ h4 {
   background: url("../img/tutMap.png") no-repeat;
   position: absolute;
   display: inline-block;
-  top: 38%;
+  top: 37%;
   left: 6.5%;
   width: 636px;
   height: 330px;
@@ -879,7 +879,7 @@ h4 {
 .tutChooseLocation{
   position: absolute;
   display: inline-block;
-  top: 68%;
+  top: 71%;
   left: 9%;
 
   color: white;
