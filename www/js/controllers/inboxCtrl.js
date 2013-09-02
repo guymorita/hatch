@@ -16,8 +16,8 @@ var InboxCtrl = function($scope, $filter, navSvc, userService, $http, locationSe
   $scope.getMessages = function(){
     console.log('getting message');
     var url = userService.oaktreeUrl +'message/retrieve/' + userService.currentUser._id.toString();
-    $http.get(url).success(function(res, status, headers){
-      console.log("got message success!");
+    $http.get(url).success(function(res, status){
+      console.log("got message success!", res);
       userService.buildFriendLookup();
       userService.setReceivedMessages(res.inbox);
       _.each(userService.receivedMessages, function(message){
@@ -34,8 +34,8 @@ var InboxCtrl = function($scope, $filter, navSvc, userService, $http, locationSe
       });
       $scope.receivedMessages = userService.receivedMessages;
       $scope.sentMessages = userService.sentMessages;
-    }).error(function(u, getRes){
-      console.log('error getting messages', u, getRes);
+    }).error(function(res, status){
+      console.log('error getting messages', res, status);
     });
   };
   $scope.setCurrent = function(message){

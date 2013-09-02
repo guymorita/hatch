@@ -43,17 +43,20 @@ var LoginCtrl = function($scope, navSvc, $http, userService, locationService){
 
   $scope.fetch = function(fetchRoute, userObject){
     $http.post(userService.oaktreeUrl +'user/'+ fetchRoute, JSON.stringify(userObject))
-            .success(function(u, getRes){
-              userService.setUser(u);
+            .success(function(userResponse, status){
+              userService.setUser(userResponse);
               var usePass = userObject.username+":"+userObject.password;
               window.localStorage.setItem("powuseee", usePass);
               $http.get(userService.oaktreeUrl +'user/')
-                .success(function(users, getRes2){
+                .success(function(users, status2){
                   userService.setAllUsers(users);
+                  navigator.geolocation.getCurrentPosition(function(position) {
+                    locationService.position= { lat: position.coords.latitude, lng: position.coords.longitude };
+                  });
                 });
               if(app.userToken){
-                $http.get(userService.oaktreeUrl + 'user/token/'+u._id+'/'+app.userToken)
-                  .success(function(u, getRes3){
+                $http.get(userService.oaktreeUrl + 'user/token/'+userResponse._id+'/'+app.userToken)
+                  .success(function(userResponse, status3){
                   });
               }
               $scope.slidePage('/tutorial');

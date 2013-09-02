@@ -5,10 +5,10 @@ var ContactsCtrl = function($scope, userService, $http) {
     navigator.contacts.find(["phoneNumbers"],function(contacts) {
       var contactsObj = {contacts: contacts};
       $http.post(userService.oaktreeUrl+'user/phonefind/', JSON.stringify(contactsObj))
-        .success(function(u, getRes){
-          // $scope.contacts = u;
-          // console.log('friends', u);
-          $scope.users = u;
+        .success(function(contacts, status){
+          // $scope.contacts = contacts;
+          // console.log('friends', contacts);
+          $scope.users = contacts;
           var matchUserObj = {};
           for (var j = 0; j < $scope.users.length; j++){
             if (userService.currentUser._id === $scope.users[j]._id){
@@ -23,8 +23,8 @@ var ContactsCtrl = function($scope, userService, $http) {
             }
           }
         })
-        .error(function(u, getRes){
-          console.log('error on contacts', u);
+        .error(function(response, status){
+          console.log('error on contacts', response);
         });
     },function(e){console.log("Error finding contacts " + e.code);},{multiple: true});
   };
