@@ -72,6 +72,7 @@ var showPinsCtrl = function($scope, navSvc, userService, locationService, $http,
     $http.get(url).success(function(res, status, headers){
       userService.setReceivedMessages(res.inbox);
       userService.setSentMessages(res.outbox);
+      console.log(res.inbox)
       $scope.initialize();
     }).error(function(u, getRes){
       console.log('failed to get messages', u, getRes);
@@ -111,10 +112,10 @@ var showPinsCtrl = function($scope, navSvc, userService, locationService, $http,
 
     var circleLatlng = new google.maps.LatLng(locationService.position.lat, locationService.position.lng);
     var circleOptions = {
-      strokeColor: '#FF0000',
+      strokeColor: '#7859b0',
       strokeOpacity: 0.8,
       strokeWeight: 2,
-      fillColor: '#FF0000',
+      fillColor: '#7859b0',
       fillOpacity: 0.35,
       map: map,
       center: circleLatlng,
@@ -145,15 +146,15 @@ var showPinsCtrl = function($scope, navSvc, userService, locationService, $http,
   var images = {
     redegg: {
       url: './img/redegg.png',
-      size: new google.maps.Size(25, 25)
+      size: new google.maps.Size(25, 33)
     },
     greenegg: {
       url: './img/greenegg.png',
-      size: new google.maps.Size(25, 25)
+      size: new google.maps.Size(25, 33)
     },
     blueegg: {
       url: './img/blueegg.png',
-      size: new google.maps.Size(25, 25)
+      size: new google.maps.Size(25, 33)
     }
   };
 
