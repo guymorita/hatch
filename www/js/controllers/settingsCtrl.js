@@ -1,6 +1,6 @@
 'use strict';
 
-var SettingsCtrl = function($scope, userService, $http) {
+var SettingsCtrl = function($scope, userService, $http, navSvc) {
   $scope.username = userService.currentUser.username;
   $scope.phone = userService.currentUser.phone;
   console.log('userService', userService.currentUser);
