@@ -7,14 +7,14 @@ var NewMessage = function($scope, navSvc, userService, hatchService, imageServic
 
   $scope.hide = function(){
     $scope.hidden = !$scope.hidden;
-  }
+  };
 
   $scope.next = function(path){
     hatchService.set('title', $scope.title);
     hatchService.set('content', $scope.content);
     hatchService.set('hidden', $scope.hidden);
     navSvc.slidePage(path);
-    console.log($scope.hidden)
+    console.log($scope.hidden);
   };
   $scope.takePic = function() {
     var options =   {
@@ -62,7 +62,7 @@ var MessageReadCtrl = function($scope, navSvc, $http, userService){
 
       $scope.message.address = results[1].formatted_address;
 
-      $scope.apply();
+      $scope.$apply();
       } else {
         alert('No results found');
       }
