@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Hatch</title>
+		<meta name="description" content="App Showcase with Grid Overlay" />
+		<meta name="keywords" content="app, showcase, css transitions, perspective, 3d, grid, overlay, css3, jquery" />
+		<meta name="author" content="Codrops" />
+		<link rel="shortcut icon" href="../favicon.ico">
+		<link rel="stylesheet" type="text/css" href="css/default.css" />
+		<link rel="stylesheet" type="text/css" href="css/component3.css" />
+		<script src="js/modernizr.custom.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<!-- Codrops top bar -->
+			<div class="codrops-top clearfix">
+				<!-- <a href="http://tympanus.net/Tutorials/ThumbnailGridExpandingPreview/"><strong>&laquo; Previous Demo: </strong>Thumbnail Grid</a> -->
+				<span class="right">
+					<!-- <a href="http://dribbble.com/shots/990850-Minimal-iPhone-5-PSD-Free-Template-Updated">iPhone by Jakub Kejha</a> -->
+					<a href="https://github.com/guymorita/hatch"><strong>Github Repo</strong></a></span>
+			</div><!--/ Codrops top bar -->
+			<header class="clearfix">
+				<div class="inner">
+					<h1>Hatch
+						<!-- <span>with Grid Overlay</span> -->
+					</h1>
+					<nav class="codrops-demos">
+						<a class="current-demo" href="index3.html">Home</a>
+						<a href="index.html">Tech Stack</a>
+						<a href="index2.html">Team</a>
+					</nav>
+				</div>
+			</header>
+			<div class="main">
+				<div id="ac-wrapper" class="ac-wrapper">
+					<h2>A surprise <span>around every corner</span></h2>
+					<div class="ac-device">
+						<a href="#"><img src="images/splash.png"/></a>
+						<h3 class="ac-title">Leave secret notes for your friends</h3>
+						<nav>
+							<span>&lt;</span>
+							<span>&gt;</span>
+						</nav>
+					</div>
+					<div class="ac-grid">
+						<a href="#"><img src="images/splash.png"/><span>Native iOS App using Phonegap API's</span></a>
+						<a href="#"><img src="images/login.png"/><span></span></a>
+						<a href="#"><img src="images/nav.png"/><span>Angular Mobile</span></a>
+						<a href="#"><img src="images/inbox.png"/><span>Drag and Swipe gestures with Hammer.js</span></a>
+						<a href="#"><img src="images/message.png"/><span>Apple Push Notification Service</span></a>
+						<a href="#"><img src="images/map.png"/><span>Google Maps API</span></a>
+						<a href="#"><img src="images/friends.png"/><span>API Server with Node.js and Express</span></a>
+						<a href="#"><img src="images/settings.png"/><span>Independent authentication with Twilio</span></a>
+					</div>
+				</div>
+				<p>Click to toggle between single and grid view.</p>
+			</div>
+		</div><!-- /container -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		<script src="js/appshowcase_3.js"></script>
+		<script>
+			$(function() {
+				AppShowcase.init();
+			});
+		</script>
+	</body>
+</html>
