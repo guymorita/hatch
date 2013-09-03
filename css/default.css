@@ -148,3 +148,131 @@ a:hover {
 	color: #aaa;
 	border-color: #aaa;
 }
+
+.bio-main {
+	margin: 0 30%;
+}
+
+.bio-main img {
+	float: left;
+	margin-right: 40px;
+	-moz-border-radius: 16px;
+	-ms-border-radius: 16px;
+	-o-border-radius: 16px;
+	-webkit-border-radius: 16px;
+	-webkit-box-shadow: 0 0 4px #444444;
+	-moz-box-shadow: 0 0 4px #444444;
+	box-shadow: 0 0 4px #444444;
+}
+
+.bio-main .details {
+	float: left;
+	width: 152px;
+}
+
+h4 {
+display: block;
+color: #6c6c6c;
+font-size: 1em;
+font-size: 1em;
+font-weight: normal;
+margin: 0 0 10px;
+text-transform: uppercase;
+}
+
+h5 {
+color: #999;
+font-size: 0.875em;
+font-size: 0.875em;
+}
+
+.social.small {
+margin: 10px 0 0;
+}
+
+p {
+color: #777;
+font-size: 0.8125em;
+line-height: 1.7;
+margin: 0 0 15px;
+}
+
+.social.small li {
+margin: 0 10px 0 0;
+}
+
+.social.small a {
+background-image: url(https://apptopia-production.s3.amazonaws.com/assets/social-sm-d550e180ce7ca12d56ec62e41ae8bdeb.png);
+background-position: 3px -1px;
+height: 23px;
+width: 26px;
+}
+
+.social.small a.social-linkedin {
+background-position: -60px -1px;
+}
+
+.social.small ul {
+float: left;
+padding-left: 0;
+}
+
+.bio-main ul li {
+font-size: 12px;
+padding: 6px 0;
+color: #777;
+}
+
+ul {
+list-style: none;
+list-style-type: disc;
+}
+
+.social li {
+float: left;
+margin-left: 10px;
+list-style: none;
+margin-bottom: 0;
+}
+
+.social a {
+background: #fff url(https://apptopia-production.s3.amazonaws.com/assets/social-e57c9ab6a2f8394715f9e82ca9d92fb0.gif) no-repeat 5px 4px;
+border: 1px solid #e2e2d9;
+-moz-border-radius: 5px;
+-ms-border-radius: 5px;
+-o-border-radius: 5px;
+-webkit-border-radius: 5px;
+border-radius: 5px;
+-webkit-box-shadow: 0 0 5px #e2e2d9;
+-moz-box-shadow: 0 0 5px #e2e2d9;
+box-shadow: 0 0 5px #e2e2d9;
+display: block;
+height: 44px;
+color: transparent;
+font-size: 0.0625em;
+font-size: 0.0625em;
+line-height: 1px;
+overflow: hidden;
+text-indent: -9999em;
+width: 50px;
+}
+
+.bio-main .span5 {
+	border-right: 1px solid #ddd;
+	margin: 4% 0 4% 0;
+	width: 60%;
+}
+
+.row-fluid [class*="span"] {
+display: block;
+/*width: 100%;*/
+min-height: 30px;
+-webkit-box-sizing: border-box;
+-moz-box-sizing: border-box;
+box-sizing: border-box;
+float: left;
+}
+
+.social.small a.social-github {
+background-position: -98px 1px;
+}
