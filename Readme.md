@@ -1,9 +1,7 @@
 # Hatch #
 A geo-fencing based social app where users can 'leave' notes for their friends at specified locations. Those friends will receive a push notification informing them of the note's title and location, but must then go there in order to retrieve the rest of the content. Users can also leave surprise notes, in which case their friends will not receive a notification until they are at the specified location.
 
-The server for this app is located [here]("https://github.com/guymorita/oatreee").
-
-# reminder to add screenshots #
+![ScreenShot](https://raw.github.com/guymorita/hatch/screenshots/hatch-screenshots.png)
 
 ## Tech Stack ##
 * AngularJS
