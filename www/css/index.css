@@ -175,9 +175,14 @@ body {
 }
 
 .headerhatch {
+  background: url("../img/logo.png") no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  height: 84px;
+  width: 196px;
+  margin: 3% auto 3%;
   text-align: center;
-  color: white;
-  text-shadow: 3px 3px .06em #cdcdcd;
 }
 
 .header button {
